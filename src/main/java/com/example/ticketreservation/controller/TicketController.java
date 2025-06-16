@@ -2,6 +2,8 @@ package com.example.ticketreservation.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,33 +41,38 @@ public class TicketController {
         return "redirect:/events";
     }
     
-    // イベント一覧ページ
+    // イベント一覧ページ（非同期処理対応）
     @GetMapping("/events")
     public String listEvents(
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String date,
             Model model) {
         
-        List<Event> events;
-        
-        if (category != null && !category.isEmpty() && date != null && !date.isEmpty()) {
-            // カテゴリと日付の両方が指定されている場合
-            LocalDate fromDate = LocalDate.parse(date);
-            events = eventService.getEventsByCategoryFromDate(category, fromDate);
-        } else if (category != null && !category.isEmpty()) {
-            // カテゴリのみ指定されている場合
-            events = eventService.getEventsByCategory(category);
-        } else if (date != null && !date.isEmpty()) {
-            // 日付のみ指定されている場合
-            LocalDate fromDate = LocalDate.parse(date);
-            events = eventService.getEventsFromDate(fromDate);
-        } else {
-            // どちらも指定されていない場合
-            events = eventService.getAvailableEvents();
+        try {
+            List<Event> events;
+            
+            // 検索条件に応じて非同期処理または同期処理を選択
+            if (category != null && !category.isEmpty() || date != null && !date.isEmpty()) {
+                LocalDate fromDate = (date != null && !date.isEmpty()) ? LocalDate.parse(date) : null;
+                // 非同期で検索処理を実行
+                CompletableFuture<List<Event>> eventsFuture = eventService.searchEventsAsync(category, fromDate);
+                events = eventsFuture.get(); // 結果を待機
+            } else {
+                // 単純な全件取得は非同期で実行
+                CompletableFuture<List<Event>> eventsFuture = eventService.getAvailableEventsAsync();
+                events = eventsFuture.get(); // 結果を待機
+            }
+            
+            model.addAttribute("events", events);
+            return "ticket/eventList";
+            
+        } catch (InterruptedException | ExecutionException e) {
+            // 非同期処理でエラーが発生した場合はフォールバック
+            Thread.currentThread().interrupt();
+            List<Event> events = eventService.getAvailableEvents();
+            model.addAttribute("events", events);
+            return "ticket/eventList";
         }
-        
-        model.addAttribute("events", events);
-        return "ticket/eventList";
     }
     
     // イベント詳細ページ
@@ -94,7 +101,7 @@ public class TicketController {
         return "ticket/reservationForm";
     }
     
-    // 予約処理
+    // 予約処理（非同期対応）
     @PostMapping("/reserve")
     public String reserveTicket(
             @RequestParam("eventId") Long eventId,
@@ -103,11 +110,28 @@ public class TicketController {
             RedirectAttributes redirectAttributes) {
         
         try {
-            Reservation reservation = reservationService.reserveTicket(eventId, email, quantity);
-            redirectAttributes.addFlashAttribute("message", "予約が完了しました。確認コード: " + reservation.getConfirmationCode());
+            // 予約処理を非同期で実行（メール送信も含む）
+            CompletableFuture<Reservation> reservationFuture = 
+                reservationService.reserveTicketWithEmailAsync(eventId, email, quantity);
+            
+            // 予約完了を待機
+            Reservation reservation = reservationFuture.get();
+            
+            redirectAttributes.addFlashAttribute("message", 
+                "予約が完了しました。確認コード: " + reservation.getConfirmationCode());
             return "redirect:/confirmation/" + reservation.getConfirmationCode();
-        } catch (SoldOutException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            
+        } catch (InterruptedException | ExecutionException e) {
+            // 非同期処理でエラーが発生した場合
+            Thread.currentThread().interrupt();
+            
+            // 原因を確認してエラーメッセージを設定
+            Throwable cause = e.getCause();
+            if (cause instanceof RuntimeException && cause.getCause() instanceof SoldOutException) {
+                redirectAttributes.addFlashAttribute("error", cause.getCause().getMessage());
+            } else {
+                redirectAttributes.addFlashAttribute("error", "予約処理中にエラーが発生しました: " + e.getMessage());
+            }
             return "redirect:/events/" + eventId;
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "予約処理中にエラーが発生しました: " + e.getMessage());
