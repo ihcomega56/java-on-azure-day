@@ -29,7 +29,7 @@ public class DataInitializer implements InitializingBean {
                 "春のクラシックコンサート",
                 "美しい春の音楽をお楽しみください。著名なオーケストラによる演奏です。",
                 LocalDateTime.of(2025, 7, 15, 19, 0),
-                "東京芸術劇場",
+                "ハーモニーコンサートホール",
                 "コンサート",
                 300,
                 5000.0
@@ -40,7 +40,7 @@ public class DataInitializer implements InitializingBean {
                 "ジャズナイト",
                 "素晴らしいジャズミュージシャンによる夜のコンサート",
                 LocalDateTime.of(2025, 7, 20, 20, 0),
-                "ブルーノート東京",
+                "東京スターライトジャズクラブ",
                 "コンサート",
                 150,
                 8000.0
@@ -52,7 +52,7 @@ public class DataInitializer implements InitializingBean {
                 "野球観戦",
                 "プロ野球の試合観戦チケット",
                 LocalDateTime.of(2025, 7, 25, 18, 0),
-                "東京ドーム",
+                "レインボースタジアム",
                 "スポーツ",
                 1000,
                 3000.0
@@ -64,7 +64,7 @@ public class DataInitializer implements InitializingBean {
                 "ミュージカル「夢の扉」",
                 "感動のミュージカル作品をお楽しみください",
                 LocalDateTime.of(2025, 8, 1, 14, 0),
-                "帝国劇場",
+                "グランドミュージカルホール",
                 "演劇",
                 800,
                 12000.0
@@ -87,7 +87,7 @@ public class DataInitializer implements InitializingBean {
                 "現代アート展",
                 "最新の現代アート作品を展示",
                 LocalDateTime.of(2025, 8, 15, 10, 0),
-                "国立新美術館",
+                "都立新美術館",
                 "展示",
                 500,
                 1500.0
