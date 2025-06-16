@@ -129,7 +129,7 @@ public class EventServiceTest {
         // Then - 結果の検証
         assertThat("カテゴリ別イベントリストが正常に取得されること", result, notNullValue());
         assertThat("イベントリストのサイズが正しいこと", result.size(), equalTo(1));
-        assertThat("取得したイベントのカテゴリが正しいこと", result.get(0).getCategory(), equalTo(category));
+        assertThat("取得したイベントのカテゴリが正しいこと", result.getFirst().getCategory(), equalTo(category));
         verify(eventDAO).getEventsByCategory(category);
     }
 

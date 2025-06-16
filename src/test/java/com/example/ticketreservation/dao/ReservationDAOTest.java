@@ -155,8 +155,8 @@ public class ReservationDAOTest {
         // Then - 結果の検証
         assertThat("予約リストが正常に取得されること", result, notNullValue());
         assertThat("予約リストのサイズが正しいこと", result.size(), equalTo(1));
-        assertThat("取得した予約のメールアドレスが正しいこと", result.get(0).getEmail(), equalTo("test1@example.com"));
-        assertThat("イベント情報が正しく取得されること", result.get(0).getEvent(), notNullValue());
+        assertThat("取得した予約のメールアドレスが正しいこと", result.getFirst().getEmail(), equalTo("test1@example.com"));
+        assertThat("イベント情報が正しく取得されること", result.getFirst().getEvent(), notNullValue());
     }
 
     @Test
@@ -179,7 +179,7 @@ public class ReservationDAOTest {
         assertThat("予約リストのサイズが正しいこと", result.size(), equalTo(2));
         // 予約時間の降順でソートされていることを確認
         assertThat("最新の予約が最初に表示されること", 
-                  result.get(0).getReservationTime().isAfter(result.get(1).getReservationTime()), is(true));
+                  result.getFirst().getReservationTime().isAfter(result.get(1).getReservationTime()), is(true));
     }
 
     @Test

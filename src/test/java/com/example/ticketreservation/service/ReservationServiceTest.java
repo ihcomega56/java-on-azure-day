@@ -223,7 +223,7 @@ public class ReservationServiceTest {
         // Then - 結果の検証
         assertThat("予約リストが正常に取得されること", result, notNullValue());
         assertThat("予約リストのサイズが正しいこと", result.size(), equalTo(1));
-        assertThat("取得した予約のメールアドレスが正しいこと", result.get(0).getEmail(), equalTo(email));
+        assertThat("取得した予約のメールアドレスが正しいこと", result.getFirst().getEmail(), equalTo(email));
         verify(reservationDAO).getReservationsByEmail(email);
     }
 

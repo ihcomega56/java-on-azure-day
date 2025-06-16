@@ -147,8 +147,8 @@ public class EventDAOTest {
         
         // イベント日付でソートされていることを確認（最初の要素と最後の要素の比較）
         if (result.size() >= 2) {
-            LocalDateTime firstEventDate = result.get(0).getEventDate();
-            LocalDateTime lastEventDate = result.get(result.size() - 1).getEventDate();
+            LocalDateTime firstEventDate = result.getFirst().getEventDate();
+            LocalDateTime lastEventDate = result.getLast().getEventDate();
             assertThat("イベントが日付順でソートされていること", 
                       firstEventDate.isBefore(lastEventDate) || firstEventDate.isEqual(lastEventDate), is(true));
         }
