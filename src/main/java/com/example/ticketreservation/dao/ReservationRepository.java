@@ -1,12 +1,11 @@
 package com.example.ticketreservation.dao;
 
-import com.example.ticketreservation.model.Reservation;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
+import com.example.ticketreservation.model.Reservation;
 
 /**
  * 予約エンティティ用のSpring Data JPAリポジトリ
@@ -29,7 +28,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
      * @param email メールアドレス
      * @return 該当メールアドレスの予約リスト
      */
-    List<Reservation> findByEmailOrderByReservationDateDesc(String email);
+    List<Reservation> findByEmailOrderByReservationTimeDesc(String email);
 
     /**
      * イベントIDで予約を検索
@@ -37,7 +36,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
      * @param eventId イベントID
      * @return 該当イベントの予約リスト
      */
-    @Query("FROM Reservation WHERE event.id = :eventId ORDER BY reservationDate")
+    @Query("FROM Reservation WHERE event.id = :eventId ORDER BY reservationTime")
     List<Reservation> findByEventId(@Param("eventId") Long eventId);
 
     /**
@@ -54,6 +53,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
      * 
      * @return アクティブな予約リスト
      */
-    @Query("FROM Reservation WHERE status IN ('CONFIRMED', 'PENDING') ORDER BY reservationDate DESC")
+    @Query("FROM Reservation WHERE status IN ('CONFIRMED', 'PENDING') ORDER BY reservationTime DESC")
     List<Reservation> findActiveReservations();
 }

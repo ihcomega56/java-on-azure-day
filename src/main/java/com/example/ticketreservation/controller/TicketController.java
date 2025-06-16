@@ -2,7 +2,6 @@ package com.example.ticketreservation.controller;
 
 import java.time.LocalDate;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.example.ticketreservation.exception.SoldOutException;
 import com.example.ticketreservation.model.Event;
 import com.example.ticketreservation.model.Reservation;
@@ -168,7 +166,7 @@ public class TicketController {
             return "redirect:/cancel/" + reservationId;
         }
         
-        reservationService.cancelReservation(reservationId);
+        reservationService.cancelReservation(reservation.getConfirmationCode());
         redirectAttributes.addFlashAttribute("message", "予約をキャンセルしました");
         
         return "redirect:/events";

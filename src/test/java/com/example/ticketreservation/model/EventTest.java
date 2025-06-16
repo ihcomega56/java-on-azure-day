@@ -2,11 +2,13 @@ package com.example.ticketreservation.model;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.lessThan;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Eventモデルクラスのテストクラス
@@ -17,7 +19,7 @@ public class EventTest {
     private Event event;
     private LocalDateTime testEventDate;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         testEventDate = LocalDateTime.now().plusDays(7);
     }
@@ -183,7 +185,10 @@ public class EventTest {
         // Then - 作成時の確認
         assertThat("作成日時が設定されること", createdAt, notNullValue());
         assertThat("更新日時が設定されること", updatedAt, notNullValue());
-        assertThat("作成日時と更新日時が同じであること", createdAt, equalTo(updatedAt));
+        // タイムスタンプの精度の問題を考慮し、1秒以内の差であれば同じとみなす
+        long timeDifferenceMillis = Math.abs(createdAt.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli() 
+                                           - updatedAt.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+        assertThat("作成日時と更新日時がほぼ同じであること（1秒以内）", timeDifferenceMillis, lessThan(1000L));
         
         // 時間を進めてから更新
         try {

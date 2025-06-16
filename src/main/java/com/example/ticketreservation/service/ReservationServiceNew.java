@@ -1,16 +1,17 @@
 package com.example.ticketreservation.service;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import com.example.ticketreservation.dao.ReservationRepository;
 import com.example.ticketreservation.exception.SoldOutException;
 import com.example.ticketreservation.model.Event;
 import com.example.ticketreservation.model.Reservation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * 予約管理サービス
@@ -56,7 +57,7 @@ public class ReservationService {
      */
     @Transactional(readOnly = true)
     public List<Reservation> getReservationsByEmail(String email) {
-        return reservationRepository.findByEmailOrderByReservationTimeDesc(email);
+        return reservationRepository.findByEmailOrderByReservationDateDesc(email);
     }
     
     /**
@@ -84,7 +85,7 @@ public class ReservationService {
         reservation.setEvent(event);
         reservation.setEmail(email);
         reservation.setQuantity(quantity);
-        reservation.setReservationTime(LocalDateTime.now());
+        reservation.setReservationDate(LocalDateTime.now());
         reservation.setConfirmationCode(generateConfirmationCode());
         reservation.setStatus(Reservation.ReservationStatus.CONFIRMED);
         

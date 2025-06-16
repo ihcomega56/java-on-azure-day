@@ -2,7 +2,7 @@ package com.example.ticketreservation.exception;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * SoldOutExceptionのテストクラス
