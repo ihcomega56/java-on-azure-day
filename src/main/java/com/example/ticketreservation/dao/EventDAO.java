@@ -3,7 +3,7 @@ package com.example.ticketreservation.dao;
 import com.example.ticketreservation.model.Event;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Query;
+import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
