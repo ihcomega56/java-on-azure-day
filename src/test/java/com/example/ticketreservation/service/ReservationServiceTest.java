@@ -3,8 +3,7 @@ package com.example.ticketreservation.service;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -72,7 +71,7 @@ public class ReservationServiceTest {
         Long savedReservationId = 1L;
         
         when(eventService.getEventById(eventId)).thenReturn(testEvent);
-        when(reservationDAO.saveReservation(org.mockito.Mockito.any(Reservation.class))).thenReturn(savedReservationId);
+        when(reservationDAO.saveReservation(any(Reservation.class))).thenReturn(savedReservationId);
         when(reservationDAO.getReservationById(savedReservationId)).thenReturn(testReservation);
 
         // When - テスト対象メソッドの実行
@@ -88,7 +87,7 @@ public class ReservationServiceTest {
         // 依存関係の呼び出し確認
         verify(eventService).getEventById(eventId);
         verify(eventService).reduceAvailableSeats(eventId, quantity);
-        verify(reservationDAO).saveReservation(org.mockito.Mockito.any(Reservation.class));
+        verify(reservationDAO).saveReservation(any(Reservation.class));
     }
 
     @Test(expected = SoldOutException.class)
@@ -131,7 +130,7 @@ public class ReservationServiceTest {
         Long savedReservationId = 1L;
         
         when(eventService.getEventById(eventId)).thenReturn(testEvent);
-        when(reservationDAO.saveReservation(org.mockito.Mockito.any(Reservation.class))).thenReturn(savedReservationId);
+        when(reservationDAO.saveReservation(any(Reservation.class))).thenReturn(savedReservationId);
         when(reservationDAO.getReservationById(savedReservationId)).thenReturn(testReservation);
 
         // When - テスト対象メソッドの実行
@@ -175,7 +174,7 @@ public class ReservationServiceTest {
         // Then - 結果の検証（何も処理されないことを確認）
         verify(reservationDAO).getReservationById(reservationId);
         verify(eventService, never()).increaseAvailableSeats(anyLong(), anyInt());
-        verify(reservationDAO, never()).updateReservation(org.mockito.Mockito.any(Reservation.class));
+        verify(reservationDAO, never()).updateReservation(any(Reservation.class));
     }
 
     @Test
