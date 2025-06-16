@@ -28,7 +28,7 @@ public class DataInitializer implements InitializingBean {
         Event concert1 = new Event(
                 "春のクラシックコンサート",
                 "美しい春の音楽をお楽しみください。著名なオーケストラによる演奏です。",
-                LocalDateTime.of(2024, 4, 15, 19, 0),
+                LocalDateTime.of(2025, 7, 15, 19, 0),
                 "東京芸術劇場",
                 "コンサート",
                 300,
@@ -39,7 +39,7 @@ public class DataInitializer implements InitializingBean {
         Event concert2 = new Event(
                 "ジャズナイト",
                 "素晴らしいジャズミュージシャンによる夜のコンサート",
-                LocalDateTime.of(2024, 4, 20, 20, 0),
+                LocalDateTime.of(2025, 7, 20, 20, 0),
                 "ブルーノート東京",
                 "コンサート",
                 150,
@@ -51,7 +51,7 @@ public class DataInitializer implements InitializingBean {
         Event sports1 = new Event(
                 "野球観戦",
                 "プロ野球の試合観戦チケット",
-                LocalDateTime.of(2024, 4, 25, 18, 0),
+                LocalDateTime.of(2025, 7, 25, 18, 0),
                 "東京ドーム",
                 "スポーツ",
                 1000,
@@ -63,7 +63,7 @@ public class DataInitializer implements InitializingBean {
         Event theater1 = new Event(
                 "ミュージカル「夢の扉」",
                 "感動のミュージカル作品をお楽しみください",
-                LocalDateTime.of(2024, 5, 1, 14, 0),
+                LocalDateTime.of(2025, 8, 1, 14, 0),
                 "帝国劇場",
                 "演劇",
                 800,
@@ -74,7 +74,7 @@ public class DataInitializer implements InitializingBean {
         Event theater2 = new Event(
                 "コメディショー",
                 "笑いあふれるコメディパフォーマンス",
-                LocalDateTime.of(2024, 5, 10, 19, 30),
+                LocalDateTime.of(2025, 8, 10, 19, 30),
                 "新宿シアター",
                 "演劇",
                 200,
@@ -86,7 +86,7 @@ public class DataInitializer implements InitializingBean {
         Event exhibition1 = new Event(
                 "現代アート展",
                 "最新の現代アート作品を展示",
-                LocalDateTime.of(2024, 5, 15, 10, 0),
+                LocalDateTime.of(2025, 8, 15, 10, 0),
                 "国立新美術館",
                 "展示",
                 500,
