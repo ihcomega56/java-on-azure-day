@@ -1,13 +1,14 @@
 package com.example.ticketreservation.dao;
 
-import com.example.ticketreservation.model.Reservation;
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.example.ticketreservation.model.Reservation;
 
 @Repository
 public class ReservationDAO {
@@ -19,22 +20,24 @@ public class ReservationDAO {
     @SuppressWarnings("unchecked")
     public List<Reservation> getAllReservations() {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("FROM Reservation ORDER BY reservationTime DESC");
+        Query query = session.createQuery("FROM Reservation r JOIN FETCH r.event ORDER BY r.reservationTime DESC");
         return query.list();
     }
     
     // IDで予約を検索
     public Reservation getReservationById(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        return (Reservation) session.get(Reservation.class, id);
+        Query query = session.createQuery(
+                "FROM Reservation r JOIN FETCH r.event WHERE r.id = :id");
+        query.setParameter("id", id);
+        return (Reservation) query.uniqueResult();
     }
     
     // 確認コードで予約を検索
-    @SuppressWarnings("unchecked")
     public Reservation getReservationByConfirmationCode(String confirmationCode) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(
-                "FROM Reservation WHERE confirmationCode = :code");
+                "FROM Reservation r JOIN FETCH r.event WHERE r.confirmationCode = :code");
         query.setParameter("code", confirmationCode);
         return (Reservation) query.uniqueResult();
     }
@@ -44,7 +47,7 @@ public class ReservationDAO {
     public List<Reservation> getReservationsByEmail(String email) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(
-                "FROM Reservation WHERE email = :email ORDER BY reservationTime DESC");
+                "FROM Reservation r JOIN FETCH r.event WHERE r.email = :email ORDER BY r.reservationTime DESC");
         query.setParameter("email", email);
         return query.list();
     }

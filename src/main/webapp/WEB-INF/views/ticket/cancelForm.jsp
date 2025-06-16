@@ -165,7 +165,7 @@
         </div>
         
         <!-- キャンセルフォーム -->
-        <form method="post" action="${pageContext.request.contextPath}/tickets/cancel" onsubmit="return confirmCancel()">
+        <form method="post" action="${pageContext.request.contextPath}/cancel" onsubmit="return confirmCancel()">
             <input type="hidden" name="reservationId" value="${reservation.id}">
             
             <div class="form-group">
@@ -178,7 +178,7 @@
                 <button type="submit" class="btn btn-danger">
                     ❌ 予約をキャンセルする
                 </button>
-                <a href="${pageContext.request.contextPath}/tickets/myreservations?email=" class="btn btn-secondary">
+                <a href="${pageContext.request.contextPath}/myreservations?email=" class="btn btn-secondary">
                     戻る
                 </a>
             </div>

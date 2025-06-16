@@ -125,7 +125,7 @@
         </div>
         
         <!-- 予約フォーム -->
-        <form method="post" action="${pageContext.request.contextPath}/tickets/reserve" onsubmit="return validateForm()">
+        <form method="post" action="${pageContext.request.contextPath}/reserve" onsubmit="return validateForm()">
             <input type="hidden" name="eventId" value="${event.id}">
             
             <div class="form-group">

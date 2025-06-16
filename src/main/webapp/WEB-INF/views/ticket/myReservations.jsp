@@ -139,7 +139,7 @@
         
         <!-- 検索フォーム -->
         <div class="search-form">
-            <form method="get" action="${pageContext.request.contextPath}/tickets/myreservations">
+            <form method="get" action="${pageContext.request.contextPath}/myreservations">
                 <div class="form-group">
                     <label for="email">メールアドレス:</label>
                     <input type="email" name="email" id="email" value="${param.email}" placeholder="予約時のメールアドレス" required>
@@ -208,7 +208,7 @@
                         <!-- アクションボタン -->
                         <c:if test="${reservation.status == 'CONFIRMED'}">
                             <div style="text-align: right;">
-                                <a href="${pageContext.request.contextPath}/tickets/cancel/${reservation.id}" class="btn btn-danger">
+                                <a href="${pageContext.request.contextPath}/cancel/${reservation.id}" class="btn btn-danger">
                                     ❌ 予約をキャンセル
                                 </a>
                             </div>

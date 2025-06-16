@@ -174,7 +174,7 @@
             <a href="${pageContext.request.contextPath}/events" class="btn">
                 📋 他のイベントを見る
             </a>
-            <a href="${pageContext.request.contextPath}/tickets/myreservations?email=${reservation.email}" class="btn btn-secondary">
+            <a href="${pageContext.request.contextPath}/myreservations?email=${reservation.email}" class="btn btn-secondary">
                 📄 予約一覧を確認
             </a>
         </div>
