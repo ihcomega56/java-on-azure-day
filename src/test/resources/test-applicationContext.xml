@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- テスト用コンポーネントスキャン -->
+    <context:component-scan base-package="com.example.ticketreservation" 
+                           use-default-filters="false">
+        <context:include-filter type="annotation" 
+                               expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" 
+                               expression="org.springframework.stereotype.Repository"/>
+    </context:component-scan>
+
+    <!-- テスト用データソース（H2 In-Memory Database） -->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.h2.Driver"/>
+        <property name="url" value="jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
+        <property name="initialSize" value="1"/>
+        <property name="maxTotal" value="5"/>
+    </bean>
+
+    <!-- Hibernate Session Factory -->
+    <bean id="sessionFactory" 
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="com.example.ticketreservation.model"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+                <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- トランザクションマネージャー -->
+    <bean id="transactionManager" 
+          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- トランザクション管理を有効化 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>
