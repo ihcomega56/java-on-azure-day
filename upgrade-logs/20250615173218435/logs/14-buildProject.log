@@ -1,0 +1,9 @@
+2025-06-16T00:41:02.264Z [INFO] [MavenBuildTool] Getting build errors of /Users/ihcomega/workspace/java-on-azure-day using Maven
+2025-06-16T00:41:02.264Z [INFO] [Environment] Running command (Java 21): mvn --version
+Apache Maven 3.9.10 (5f519b97e944483d878815739f519b2eade0a91d)
+Maven home: /opt/homebrew/Cellar/maven/3.9.10/libexec
+Java version: 21.0.2, vendor: BellSoft, runtime: /Users/ihcomega/.sdkman/candidates/java/21.0.2-librca
+Default locale: ja_US, platform encoding: UTF-8
+OS name: "mac os x", version: "15.5", arch: "aarch64", family: "mac"
+2025-06-16T00:41:02.823Z [INFO] [Environment] Running command (Java 21): mvn -Dencoding=UTF-8 clean test-compile -q -B -fn
+2025-06-16T00:41:04.948Z [INFO] [MavenBuildTool] parsing compilation errors.

@@ -1,0 +1,12 @@
+2025-06-16T00:36:48.352Z [INFO] [java-upgrade-20250615173218435 a57653f] Completed migration from Spring MVC 4.3 to Spring Boot 3.2 with Java 21
+ 12 files changed, 159 insertions(+), 318 deletions(-)
+ create mode 100644 src/main/java/com/example/ticketreservation/TicketReservationApplication.java
+ create mode 100644 src/main/java/com/example/ticketreservation/config/WebConfig.java
+ delete mode 100644 src/main/java/com/example/ticketreservation/dao/EventDAO.java
+ delete mode 100644 src/main/java/com/example/ticketreservation/dao/ReservationDAO.java
+ create mode 100644 src/main/java/com/example/ticketreservation/repository/EventRepository.java
+ create mode 100644 src/main/java/com/example/ticketreservation/repository/ReservationRepository.java
+
+2025-06-16T00:36:48.367Z [INFO] a57653faa8553c61de3a8c33908d0497432beb49
+
+2025-06-16T00:36:48.367Z [INFO] [Project java-on-azure-day]: getting dependencies promise.

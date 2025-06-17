@@ -1,0 +1,15 @@
+2025-06-16T00:43:39.929Z [INFO] Getting CVEs for dependencies: org.springframework.boot:spring-boot-starter-parent:3.2.12,org.springframework.boot:spring-boot-starter-web:3.2.12,org.springframework.boot:spring-boot-starter-data-jpa:3.2.12,org.springframework.boot:spring-boot-starter-test:3.2.12,com.h2database:h2:2.2.224,jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0,org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1
+2025-06-16T00:43:39.929Z [INFO] getting CVEs for dependencies:
+ - org.springframework.boot:spring-boot-starter-parent:3.2.12
+  - org.springframework.boot:spring-boot-starter-web:3.2.12
+  - org.springframework.boot:spring-boot-starter-data-jpa:3.2.12
+  - org.springframework.boot:spring-boot-starter-test:3.2.12
+  - com.h2database:h2:2.2.224
+  - jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0
+  - org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1...
+2025-06-16T00:43:39.930Z [INFO] getting gitHub access token...
+2025-06-16T00:43:39.987Z [INFO] listing CVEs for dependencies from GithHub...
+2025-06-16T00:43:40.293Z [INFO] found 0 CVEs for dependencies
+2025-06-16T00:43:40.294Z [INFO] grouping CVEs and finding min patched version by dep...
+2025-06-16T00:43:40.294Z [INFO] done getting CVEs for dependencies
+2025-06-16T00:43:40.294Z [INFO] Found 0 dependencies with known CVEs

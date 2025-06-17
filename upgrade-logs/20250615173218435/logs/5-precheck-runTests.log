@@ -1,0 +1,10 @@
+2025-06-15T17:33:11.145Z [INFO] [MavenBuildTool] Running test cases of /Users/ihcomega/workspace/java-on-azure-day using Maven
+2025-06-15T17:33:11.145Z [INFO] [Environment] Running command (Java 8): mvn --version
+Apache Maven 3.9.10 (5f519b97e944483d878815739f519b2eade0a91d)
+Maven home: /opt/homebrew/Cellar/maven/3.9.10/libexec
+Java version: 1.8.0_452, vendor: BellSoft, runtime: /Users/ihcomega/.sdkman/candidates/java/8.0.452-librca/jre
+Default locale: ja_US, platform encoding: UTF-8
+OS name: "mac os x", version: "15.5", arch: "aarch64", family: "mac"
+2025-06-15T17:33:11.562Z [INFO] [Environment] Running command (Java 8): mvn -Dencoding=UTF-8 clean test -q -B -fn
+2025-06-15T17:33:13.998Z [INFO] [MavenBuildTool] loading surefire reports.
+2025-06-15T17:33:14.004Z [INFO] [MavenBuildTool] summarizing surefire reports.

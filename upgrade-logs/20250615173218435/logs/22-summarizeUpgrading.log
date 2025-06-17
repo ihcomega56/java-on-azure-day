@@ -1,0 +1,963 @@
+2025-06-16T00:44:50.305Z [INFO] [Project java-on-azure-day]: getting project state.
+2025-06-16T00:44:50.305Z [INFO] [BaseBuildTool] Firing config modified event for mvn, sleeping for 5 seconds
+2025-06-16T00:44:50.305Z [INFO] [Environment] Running command (Java 21): mvn --version
+Apache Maven 3.9.10 (5f519b97e944483d878815739f519b2eade0a91d)
+Maven home: /opt/homebrew/Cellar/maven/3.9.10/libexec
+Java version: 21.0.2, vendor: BellSoft, runtime: /Users/ihcomega/.sdkman/candidates/java/21.0.2-librca
+Default locale: ja_US, platform encoding: UTF-8
+OS name: "mac os x", version: "15.5", arch: "aarch64", family: "mac"
+2025-06-16T00:44:50.637Z [INFO] [BaseBuildTool] New version of mvn: 3.9.10 -> 3.9.10
+2025-06-16T00:44:50.637Z [INFO] [MavenBuildTool] Getting Java version of /Users/ihcomega/workspace/java-on-azure-day from pom.xml
+2025-06-16T00:44:50.637Z [INFO] [MavenBuildTool] Searching for pom.xml files in /Users/ihcomega/workspace/java-on-azure-day
+2025-06-16T00:44:50.637Z [INFO] [MavenBuildTool] Getting modules of /Users/ihcomega/workspace/java-on-azure-day
+2025-06-16T00:44:50.637Z [INFO] [Environment] Running command (Java 21): mvn help:evaluate -Dexpression=project.modules -q -DforceStdout
+<modules/>2025-06-16T00:44:54.655Z [INFO] [MavenBuildTool] Found modules: 
+2025-06-16T00:44:54.656Z [INFO] [MavenBuildTool] Found pom.xml files: /Users/ihcomega/workspace/java-on-azure-day/pom.xml
+2025-06-16T00:44:54.656Z [INFO] [MavenBuildTool] Java version found in /Users/ihcomega/workspace/java-on-azure-day/pom.xml: 21
+2025-06-16T00:44:54.656Z [INFO] [BaseBuildTool] Notifying Java version/Config change: '21' || '21'
+2025-06-16T00:44:54.657Z [INFO] [Project java-on-azure-day]: getting Java version.
+2025-06-16T00:44:54.657Z [INFO] [Project java-on-azure-day]: got Java version: 21
+2025-06-16T00:44:54.657Z [INFO] [Project java-on-azure-day]: getting dependencies promise.
+2025-06-16T00:44:54.657Z [INFO] [Project java-on-azure-day]: reset dependencies promise.
+2025-06-16T00:44:54.657Z [INFO] [Environment] Running command (Java 21): mvn dependency:tree -B
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.example:ticket-reservation >-------------------
+[INFO] Building Ticket Reservation System 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.6.1:tree (default-cli) @ ticket-reservation ---
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.plexus/0.3.0.M1/org.eclipse.sisu.plexus-0.3.0.M1.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.plexus/0.3.0.M1/org.eclipse.sisu.plexus-0.3.0.M1.pom (4.7 kB at 26 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/eclipse/sisu/sisu-plexus/0.3.0.M1/sisu-plexus-0.3.0.M1.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/eclipse/sisu/sisu-plexus/0.3.0.M1/sisu-plexus-0.3.0.M1.pom (13 kB at 491 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.inject/0.3.0.M1/org.eclipse.sisu.inject-0.3.0.M1.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.inject/0.3.0.M1/org.eclipse.sisu.inject-0.3.0.M1.pom (2.5 kB at 134 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/eclipse/sisu/sisu-inject/0.3.0.M1/sisu-inject-0.3.0.M1.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/eclipse/sisu/sisu-inject/0.3.0.M1/sisu-inject-0.3.0.M1.pom (14 kB at 681 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-text/1.10.0/commons-text-1.10.0.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-text/1.10.0/commons-text-1.10.0.pom (21 kB at 868 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/54/commons-parent-54.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/54/commons-parent-54.pom (82 kB at 2.0 MB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.8.0/plexus-archiver-4.8.0.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.8.0/plexus-archiver-4.8.0.pom (6.1 kB at 277 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/14/plexus-14.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/14/plexus-14.pom (28 kB at 1.4 MB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/com/github/luben/zstd-jni/1.5.5-5/zstd-jni-1.5.5-5.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/com/github/luben/zstd-jni/1.5.5-5/zstd-jni-1.5.5-5.pom (1.9 kB at 106 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-dependency-analyzer/1.13.2/maven-dependency-analyzer-1.13.2.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-dependency-analyzer/1.13.2/maven-dependency-analyzer-1.13.2.pom (6.4 kB at 279 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-sink-api/1.11.1/doxia-sink-api-1.11.1.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-sink-api/1.11.1/doxia-sink-api-1.11.1.jar (12 kB at 528 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-logging-api/1.11.1/doxia-logging-api-1.11.1.jar
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.plexus/0.3.0.M1/org.eclipse.sisu.plexus-0.3.0.M1.jar
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.inject/0.3.0.M1/org.eclipse.sisu.inject-0.3.0.M1.jar
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.16/plexus-interpolation-1.16.jar
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-text/1.10.0/commons-text-1.10.0.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-logging-api/1.11.1/doxia-logging-api-1.11.1.jar (12 kB at 434 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.11/commons-codec-1.11.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.11/commons-codec-1.11.jar (335 kB at 3.8 MB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.8.0/plexus-archiver-4.8.0.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.16/plexus-interpolation-1.16.jar (61 kB at 468 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.23.0/commons-compress-1.23.0.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.8.0/plexus-archiver-4.8.0.jar (224 kB at 1.4 MB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/com/github/luben/zstd-jni/1.5.5-5/zstd-jni-1.5.5-5.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.plexus/0.3.0.M1/org.eclipse.sisu.plexus-0.3.0.M1.jar (201 kB at 1.2 MB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/3.4.1/plexus-io-3.4.1.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-text/1.10.0/commons-text-1.10.0.jar (238 kB at 1.0 MB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-dependency-analyzer/1.13.2/maven-dependency-analyzer-1.13.2.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/3.4.1/plexus-io-3.4.1.jar (79 kB at 302 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/3.2.5/maven-model-3.2.5.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.inject/0.3.0.M1/org.eclipse.sisu.inject-0.3.0.M1.jar (340 kB at 1.1 MB/s)
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-dependency-analyzer/1.13.2/maven-dependency-analyzer-1.13.2.jar (39 kB at 121 kB/s)
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/3.2.5/maven-model-3.2.5.jar (161 kB at 397 kB/s)
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.23.0/commons-compress-1.23.0.jar (1.1 MB at 2.1 MB/s)
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/com/github/luben/zstd-jni/1.5.5-5/zstd-jni-1.5.5-5.jar (5.9 MB at 5.0 MB/s)
+[INFO] com.example:ticket-reservation:jar:1.0.0
+[INFO] +- org.springframework.boot:spring-boot-starter-web:jar:3.2.12:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter:jar:3.2.12:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot:jar:3.2.12:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot-autoconfigure:jar:3.2.12:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot-starter-logging:jar:3.2.12:compile
+[INFO] |  |  |  +- ch.qos.logback:logback-classic:jar:1.4.14:compile
+[INFO] |  |  |  |  \- ch.qos.logback:logback-core:jar:1.4.14:compile
+[INFO] |  |  |  +- org.apache.logging.log4j:log4j-to-slf4j:jar:2.21.1:compile
+[INFO] |  |  |  |  \- org.apache.logging.log4j:log4j-api:jar:2.21.1:compile
+[INFO] |  |  |  \- org.slf4j:jul-to-slf4j:jar:2.0.16:compile
+[INFO] |  |  +- jakarta.annotation:jakarta.annotation-api:jar:2.1.1:compile
+[INFO] |  |  \- org.yaml:snakeyaml:jar:2.2:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-json:jar:3.2.12:compile
+[INFO] |  |  +- com.fasterxml.jackson.core:jackson-databind:jar:2.15.4:compile
+[INFO] |  |  |  +- com.fasterxml.jackson.core:jackson-annotations:jar:2.15.4:compile
+[INFO] |  |  |  \- com.fasterxml.jackson.core:jackson-core:jar:2.15.4:compile
+[INFO] |  |  +- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:jar:2.15.4:compile
+[INFO] |  |  +- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.15.4:compile
+[INFO] |  |  \- com.fasterxml.jackson.module:jackson-module-parameter-names:jar:2.15.4:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-tomcat:jar:3.2.12:compile
+[INFO] |  |  \- org.apache.tomcat.embed:tomcat-embed-websocket:jar:10.1.33:compile
+[INFO] |  +- org.springframework:spring-web:jar:6.1.15:compile
+[INFO] |  |  +- org.springframework:spring-beans:jar:6.1.15:compile
+[INFO] |  |  \- io.micrometer:micrometer-observation:jar:1.12.13:compile
+[INFO] |  |     \- io.micrometer:micrometer-commons:jar:1.12.13:compile
+[INFO] |  \- org.springframework:spring-webmvc:jar:6.1.15:compile
+[INFO] |     +- org.springframework:spring-aop:jar:6.1.15:compile
+[INFO] |     +- org.springframework:spring-context:jar:6.1.15:compile
+[INFO] |     \- org.springframework:spring-expression:jar:6.1.15:compile
+[INFO] +- org.springframework.boot:spring-boot-starter-data-jpa:jar:3.2.12:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-aop:jar:3.2.12:compile
+[INFO] |  |  \- org.aspectj:aspectjweaver:jar:1.9.22.1:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-jdbc:jar:3.2.12:compile
+[INFO] |  |  +- com.zaxxer:HikariCP:jar:5.0.1:compile
+[INFO] |  |  \- org.springframework:spring-jdbc:jar:6.1.15:compile
+[INFO] |  +- org.hibernate.orm:hibernate-core:jar:6.4.10.Final:compile
+[INFO] |  |  +- jakarta.persistence:jakarta.persistence-api:jar:3.1.0:compile
+[INFO] |  |  +- jakarta.transaction:jakarta.transaction-api:jar:2.0.1:compile
+[INFO] |  |  +- org.jboss.logging:jboss-logging:jar:3.5.3.Final:compile
+[INFO] |  |  +- org.hibernate.common:hibernate-commons-annotations:jar:6.0.6.Final:runtime
+[INFO] |  |  +- io.smallrye:jandex:jar:3.1.2:runtime
+[INFO] |  |  +- com.fasterxml:classmate:jar:1.6.0:compile
+[INFO] |  |  +- net.bytebuddy:byte-buddy:jar:1.14.19:runtime
+[INFO] |  |  +- org.glassfish.jaxb:jaxb-runtime:jar:4.0.5:runtime
+[INFO] |  |  |  \- org.glassfish.jaxb:jaxb-core:jar:4.0.5:runtime
+[INFO] |  |  |     +- org.eclipse.angus:angus-activation:jar:2.0.2:runtime
+[INFO] |  |  |     +- org.glassfish.jaxb:txw2:jar:4.0.5:runtime
+[INFO] |  |  |     \- com.sun.istack:istack-commons-runtime:jar:4.1.2:runtime
+[INFO] |  |  +- jakarta.inject:jakarta.inject-api:jar:2.0.1:runtime
+[INFO] |  |  \- org.antlr:antlr4-runtime:jar:4.13.0:compile
+[INFO] |  +- org.springframework.data:spring-data-jpa:jar:3.2.12:compile
+[INFO] |  |  +- org.springframework.data:spring-data-commons:jar:3.2.12:compile
+[INFO] |  |  +- org.springframework:spring-orm:jar:6.1.15:compile
+[INFO] |  |  +- org.springframework:spring-tx:jar:6.1.15:compile
+[INFO] |  |  \- org.slf4j:slf4j-api:jar:2.0.16:compile
+[INFO] |  \- org.springframework:spring-aspects:jar:6.1.15:compile
+[INFO] +- org.springframework.boot:spring-boot-starter-validation:jar:3.2.12:compile
+[INFO] |  +- org.apache.tomcat.embed:tomcat-embed-el:jar:10.1.33:compile
+[INFO] |  \- org.hibernate.validator:hibernate-validator:jar:8.0.1.Final:compile
+[INFO] |     \- jakarta.validation:jakarta.validation-api:jar:3.0.2:compile
+[INFO] +- org.apache.tomcat.embed:tomcat-embed-jasper:jar:10.1.33:provided
+[INFO] |  +- org.apache.tomcat.embed:tomcat-embed-core:jar:10.1.33:compile
+[INFO] |  |  \- org.apache.tomcat:tomcat-annotations-api:jar:10.1.33:compile
+[INFO] |  \- org.eclipse.jdt:ecj:jar:3.33.0:provided
+[INFO] +- jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:jar:3.0.2:compile
+[INFO] |  +- jakarta.servlet:jakarta.servlet-api:jar:6.0.0:compile
+[INFO] |  \- jakarta.el:jakarta.el-api:jar:5.0.0:compile
+[INFO] +- org.glassfish.web:jakarta.servlet.jsp.jstl:jar:3.0.1:compile
+[INFO] +- com.h2database:h2:jar:2.2.224:runtime
+[INFO] \- org.springframework.boot:spring-boot-starter-test:jar:3.2.12:test
+[INFO]    +- org.springframework.boot:spring-boot-test:jar:3.2.12:test
+[INFO]    +- org.springframework.boot:spring-boot-test-autoconfigure:jar:3.2.12:test
+[INFO]    +- com.jayway.jsonpath:json-path:jar:2.9.0:test
+[INFO]    +- jakarta.xml.bind:jakarta.xml.bind-api:jar:4.0.2:runtime
+[INFO]    |  \- jakarta.activation:jakarta.activation-api:jar:2.1.3:runtime
+[INFO]    +- net.minidev:json-smart:jar:2.5.1:test
+[INFO]    |  \- net.minidev:accessors-smart:jar:2.5.1:test
+[INFO]    |     \- org.ow2.asm:asm:jar:9.6:test
+[INFO]    +- org.assertj:assertj-core:jar:3.24.2:test
+[INFO]    +- org.awaitility:awaitility:jar:4.2.2:test
+[INFO]    +- org.hamcrest:hamcrest:jar:2.2:test
+[INFO]    +- org.junit.jupiter:junit-jupiter:jar:5.10.5:test
+[INFO]    |  +- org.junit.jupiter:junit-jupiter-api:jar:5.10.5:test
+[INFO]    |  |  +- org.opentest4j:opentest4j:jar:1.3.0:test
+[INFO]    |  |  +- org.junit.platform:junit-platform-commons:jar:1.10.5:test
+[INFO]    |  |  \- org.apiguardian:apiguardian-api:jar:1.1.2:test
+[INFO]    |  +- org.junit.jupiter:junit-jupiter-params:jar:5.10.5:test
+[INFO]    |  \- org.junit.jupiter:junit-jupiter-engine:jar:5.10.5:test
+[INFO]    |     \- org.junit.platform:junit-platform-engine:jar:1.10.5:test
+[INFO]    +- org.mockito:mockito-core:jar:5.7.0:test
+[INFO]    |  +- net.bytebuddy:byte-buddy-agent:jar:1.14.19:test
+[INFO]    |  \- org.objenesis:objenesis:jar:3.3:test
+[INFO]    +- org.mockito:mockito-junit-jupiter:jar:5.7.0:test
+[INFO]    +- org.skyscreamer:jsonassert:jar:1.5.3:test
+[INFO]    |  \- com.vaadin.external.google:android-json:jar:0.0.20131108.vaadin1:test
+[INFO]    +- org.springframework:spring-core:jar:6.1.15:compile
+[INFO]    |  \- org.springframework:spring-jcl:jar:6.1.15:compile
+[INFO]    +- org.springframework:spring-test:jar:6.1.15:test
+[INFO]    \- org.xmlunit:xmlunit-core:jar:2.9.1:test
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.529 s
+[INFO] Finished at: 2025-06-16T09:44:58+09:00
+[INFO] ------------------------------------------------------------------------
+2025-06-16T00:44:58.979Z [INFO] [MavenBuildTool] Successfully got dependency tree of /Users/ihcomega/workspace/java-on-azure-day
+2025-06-16T00:44:58.980Z [INFO] [MavenBuildTool] Getting build errors of /Users/ihcomega/workspace/java-on-azure-day using Maven
+2025-06-16T00:44:58.980Z [INFO] [Environment] Running command (Java 21): mvn --version
+Apache Maven 3.9.10 (5f519b97e944483d878815739f519b2eade0a91d)
+Maven home: /opt/homebrew/Cellar/maven/3.9.10/libexec
+Java version: 21.0.2, vendor: BellSoft, runtime: /Users/ihcomega/.sdkman/candidates/java/21.0.2-librca
+Default locale: ja_US, platform encoding: UTF-8
+OS name: "mac os x", version: "15.5", arch: "aarch64", family: "mac"
+2025-06-16T00:44:59.314Z [INFO] [Environment] Running command (Java 21): mvn -Dencoding=UTF-8 clean test-compile -q -B -fn
+2025-06-16T00:45:01.295Z [INFO] [MavenBuildTool] parsing compilation errors.
+2025-06-16T00:45:01.296Z [INFO] [MavenBuildTool] Running test cases of /Users/ihcomega/workspace/java-on-azure-day using Maven
+2025-06-16T00:45:01.296Z [INFO] [Environment] Running command (Java 21): mvn --version
+Apache Maven 3.9.10 (5f519b97e944483d878815739f519b2eade0a91d)
+Maven home: /opt/homebrew/Cellar/maven/3.9.10/libexec
+Java version: 21.0.2, vendor: BellSoft, runtime: /Users/ihcomega/.sdkman/candidates/java/21.0.2-librca
+Default locale: ja_US, platform encoding: UTF-8
+OS name: "mac os x", version: "15.5", arch: "aarch64", family: "mac"
+2025-06-16T00:45:01.628Z [INFO] [Environment] Running command (Java 21): mvn -Dencoding=UTF-8 clean test -q -B -fn
+2025-06-16T00:45:03.732Z [INFO] [MavenBuildTool] loading surefire reports.
+2025-06-16T00:45:03.734Z [INFO] [MavenBuildTool] summarizing surefire reports.
+2025-06-16T00:45:03.735Z [INFO] Add test changes to summary...
+2025-06-16T00:45:03.764Z [INFO]  pom.xml                                            | 143 +++++----------------
+ .../TicketReservationApplication.java              |  12 ++
+ .../ticketreservation/config/WebConfig.java        |  14 ++
+ .../example/ticketreservation/dao/EventDAO.java    |  91 -------------
+ .../ticketreservation/dao/ReservationDAO.java      |  79 ------------
+ .../com/example/ticketreservation/model/Event.java |   2 +-
+ .../ticketreservation/model/Reservation.java       |   2 +-
+ .../repository/EventRepository.java                |  30 +++++
+ .../repository/ReservationRepository.java          |  26 ++++
+ .../ticketreservation/service/EventService.java    |  31 ++---
+ .../service/ReservationService.java                |  22 ++--
+ src/main/resources/application.properties          |  27 ++--
+ 12 files changed, 160 insertions(+), 319 deletions(-)
+
+2025-06-16T00:45:03.764Z [INFO] Add test errors to summary...
+2025-06-16T00:45:03.764Z [INFO] getting CVEs for dependencies:
+ - org.springframework.boot:spring-boot-starter-web:3.2.12
+  - org.springframework.boot:spring-boot-starter-data-jpa:3.2.12
+  - org.springframework.boot:spring-boot-starter-validation:3.2.12
+  - org.apache.tomcat.embed:tomcat-embed-jasper:10.1.33
+  - jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.2
+  - org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1
+  - com.h2database:h2:2.2.224
+  - org.springframework.boot:spring-boot-starter-test:3.2.12...
+2025-06-16T00:45:03.764Z [INFO] getting gitHub access token...
+2025-06-16T00:45:03.766Z [INFO] listing CVEs for dependencies from GithHub...
+2025-06-16T00:45:04.084Z [INFO] found 0 CVEs for dependencies
+2025-06-16T00:45:04.085Z [INFO] grouping CVEs and finding min patched version by dep...
+2025-06-16T00:45:04.085Z [INFO] done getting CVEs for dependencies
+2025-06-16T00:45:04.112Z [INFO] diff --git a/pom.xml b/pom.xml
+index 7a64d34..c578f0a 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -5,118 +5,65 @@
+                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
+     <modelVersion>4.0.0</modelVersion>
+     
++    <parent>
++        <groupId>org.springframework.boot</groupId>
++        <artifactId>spring-boot-starter-parent</artifactId>
++        <version>3.2.12</version>
++        <relativePath/>
++    </parent>
++    
+     <groupId>com.example</groupId>
+     <artifactId>ticket-reservation</artifactId>
+     <version>1.0.0</version>
+-    <packaging>war</packaging>
++    <packaging>jar</packaging>
+     
+     <name>Ticket Reservation System</name>
+-    <description>Java 8 era ticket reservation web application</description>
++    <description>Java 21 and Spring Boot 3.2 ticket reservation web application</description>
+     
+     <properties>
+-        <maven.compiler.source>1.8</maven.compiler.source>
+-        <maven.compiler.target>1.8</maven.compiler.target>
+-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+-        <spring.version>4.3.30.RELEASE</spring.version>
+-        <hibernate.version>5.1.17.Final</hibernate.version>
++        <java.version>21</java.version>
+     </properties>
+-    
+     <dependencies>
+-        <!-- Spring Framework -->
++        <!-- Spring Boot Starters -->
+         <dependency>
+-            <groupId>org.springframework</groupId>
+-            <artifactId>spring-webmvc</artifactId>
+-            <version>${spring.version}</version>
++            <groupId>org.springframework.boot</groupId>
++            <artifactId>spring-boot-starter-web</artifactId>
+         </dependency>
+         <dependency>
+-            <groupId>org.springframework</groupId>
+-            <artifactId>spring-orm</artifactId>
+-            <version>${spring.version}</version>
++            <groupId>org.springframework.boot</groupId>
++            <artifactId>spring-boot-starter-data-jpa</artifactId>
+         </dependency>
+         <dependency>
+-            <groupId>org.springframework</groupId>
+-            <artifactId>spring-tx</artifactId>
+-            <version>${spring.version}</version>
++            <groupId>org.springframework.boot</groupId>
++            <artifactId>spring-boot-starter-validation</artifactId>
+         </dependency>
+         
+-        <!-- Hibernate -->
++        <!-- JSP and JSTL Support -->
+         <dependency>
+-            <groupId>org.hibernate</groupId>
+-            <artifactId>hibernate-core</artifactId>
+-            <version>${hibernate.version}</version>
+-        </dependency>
+-        <dependency>
+-            <groupId>org.hibernate</groupId>
+-            <artifactId>hibernate-entitymanager</artifactId>
+-            <version>${hibernate.version}</version>
+-        </dependency>
+-        
+-        <!-- Database -->
+-        <dependency>
+-            <groupId>com.h2database</groupId>
+-            <artifactId>h2</artifactId>
+-            <version>1.4.200</version>
+-        </dependency>
+-        
+-        <!-- Connection Pool -->
+-        <dependency>
+-            <groupId>org.apache.commons</groupId>
+-            <artifactId>commons-dbcp2</artifactId>
+-            <version>2.8.0</version>
+-        </dependency>
+-        
+-        <!-- Servlet API -->
+-        <dependency>
+-            <groupId>javax.servlet</groupId>
+-            <artifactId>javax.servlet-api</artifactId>
+-            <version>3.1.0</version>
++            <groupId>org.apache.tomcat.embed</groupId>
++            <artifactId>tomcat-embed-jasper</artifactId>
+             <scope>provided</scope>
+         </dependency>
+         <dependency>
+-            <groupId>javax.servlet.jsp</groupId>
+-            <artifactId>javax.servlet.jsp-api</artifactId>
+-            <version>2.3.3</version>
+-            <scope>provided</scope>
++            <groupId>jakarta.servlet.jsp.jstl</groupId>
++            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+         </dependency>
+-        
+-        <!-- JSTL -->
+-        <dependency>
+-            <groupId>javax.servlet</groupId>
+-            <artifactId>jstl</artifactId>
+-            <version>1.2</version>
+-        </dependency>
+-        
+-        <!-- Apache Commons FileUpload for multipart support -->
+         <dependency>
+-            <groupId>commons-fileupload</groupId>
+-            <artifactId>commons-fileupload</artifactId>
+-            <version>1.4</version>
++            <groupId>org.glassfish.web</groupId>
++            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+         </dependency>
+         
+-        <!-- Java 8 Time API support for Hibernate -->
+-        <dependency>
+-            <groupId>org.hibernate</groupId>
+-            <artifactId>hibernate-java8</artifactId>
+-            <version>${hibernate.version}</version>
+-        </dependency>
+-        
+-        <!-- Logging -->
+-        <dependency>
+-            <groupId>org.slf4j</groupId>
+-            <artifactId>slf4j-api</artifactId>
+-            <version>1.7.30</version>
+-        </dependency>
++        <!-- Database -->
+         <dependency>
+-            <groupId>ch.qos.logback</groupId>
+-            <artifactId>logback-classic</artifactId>
+-            <version>1.2.3</version>
++            <groupId>com.h2database</groupId>
++            <artifactId>h2</artifactId>
++            <scope>runtime</scope>
+         </dependency>
+         
+         <!-- Test -->
+         <dependency>
+-            <groupId>junit</groupId>
+-            <artifactId>junit</artifactId>
+-            <version>4.13.2</version>
++            <groupId>org.springframework.boot</groupId>
++            <artifactId>spring-boot-starter-test</artifactId>
+             <scope>test</scope>
+         </dependency>
+     </dependencies>
+@@ -125,34 +72,8 @@
+         <finalName>ticket-reservation</finalName>
+         <plugins>
+             <plugin>
+-                <groupId>org.apache.maven.plugins</groupId>
+-                <artifactId>maven-compiler-plugin</artifactId>
+-                <version>3.8.1</version>
+-                <configuration>
+-                    <source>1.8</source>
+-                    <target>1.8</target>
+-                    <encoding>UTF-8</encoding>
+-                </configuration>
+-            </plugin>
+-            
+-            <plugin>
+-                <groupId>org.apache.maven.plugins</groupId>
+-                <artifactId>maven-war-plugin</artifactId>
+-                <version>3.2.3</version>
+-                <configuration>
+-                    <failOnMissingWebXml>false</failOnMissingWebXml>
+-                </configuration>
+-            </plugin>
+-            
+-            <!-- Tomcat Plugin for Development -->
+-            <plugin>
+-                <groupId>org.apache.tomcat.maven</groupId>
+-                <artifactId>tomcat7-maven-plugin</artifactId>
+-                <version>2.2</version>
+-                <configuration>
+-                    <path>/ticket</path>
+-                    <port>8080</port>
+-                </configuration>
++                <groupId>org.springframework.boot</groupId>
++                <artifactId>spring-boot-maven-plugin</artifactId>
+             </plugin>
+         </plugins>
+     </build>
+diff --git a/src/main/java/com/example/ticketreservation/TicketReservationApplication.java b/src/main/java/com/example/ticketreservation/TicketReservationApplication.java
+new file mode 100644
+index 0000000..6b4d78e
+--- /dev/null
++++ b/src/main/java/com/example/ticketreservation/TicketReservationApplication.java
+@@ -0,0 +1,12 @@
++package com.example.ticketreservation;
++
++import org.springframework.boot.SpringApplication;
++import org.springframework.boot.autoconfigure.SpringBootApplication;
++
++@SpringBootApplication
++public class TicketReservationApplication {
++
++    public static void main(String[] args) {
++        SpringApplication.run(TicketReservationApplication.class, args);
++    }
++}
+diff --git a/src/main/java/com/example/ticketreservation/config/WebConfig.java b/src/main/java/com/example/ticketreservation/config/WebConfig.java
+new file mode 100644
+index 0000000..bf93b27
+--- /dev/null
++++ b/src/main/java/com/example/ticketreservation/config/WebConfig.java
+@@ -0,0 +1,14 @@
++package com.example.ticketreservation.config;
+
+2025-06-16T00:45:04.113Z [INFO] +
++import org.springframework.context.annotation.Configuration;
++import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
++import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
++
++@Configuration
++public class WebConfig implements WebMvcConfigurer {
++
++    @Override
++    public void configureViewResolvers(ViewResolverRegistry registry) {
++        registry.jsp("/WEB-INF/views/", ".jsp");
++    }
++}
+diff --git a/src/main/java/com/example/ticketreservation/dao/EventDAO.java b/src/main/java/com/example/ticketreservation/dao/EventDAO.java
+deleted file mode 100644
+index 16f3a2c..0000000
+--- a/src/main/java/com/example/ticketreservation/dao/EventDAO.java
++++ /dev/null
+@@ -1,91 +0,0 @@
+-package com.example.ticketreservation.dao;
+-
+-import com.example.ticketreservation.model.Event;
+-import org.hibernate.Session;
+-import org.hibernate.SessionFactory;
+-import org.hibernate.Query;
+-import org.springframework.beans.factory.annotation.Autowired;
+-import org.springframework.stereotype.Repository;
+-
+-import java.time.LocalDateTime;
+-import java.util.List;
+-
+-@Repository
+-public class EventDAO {
+-
+-    @Autowired
+-    private SessionFactory sessionFactory;
+-    
+-    // すべてのイベントを取得
+-    @SuppressWarnings("unchecked")
+-    public List<Event> getAllEvents() {
+-        Session session = sessionFactory.getCurrentSession();
+-        return session.createQuery("FROM Event ORDER BY eventDate").list();
+-    }
+-    
+-    // 利用可能なイベントを取得（日付が未来のもの）
+-    @SuppressWarnings("unchecked")
+-    public List<Event> getAvailableEvents() {
+-        Session session = sessionFactory.getCurrentSession();
+-        return session.createQuery(
+-                "FROM Event WHERE eventDate > :now AND availableSeats > 0 ORDER BY eventDate")
+-                .setParameter("now", LocalDateTime.now())
+-                .list();
+-    }
+-    
+-    // カテゴリでイベントを検索
+-    @SuppressWarnings("unchecked")
+-    public List<Event> getEventsByCategory(String category) {
+-        Session session = sessionFactory.getCurrentSession();
+-        Query query = session.createQuery(
+-                "FROM Event WHERE category = :category AND eventDate > :now AND availableSeats > 0 ORDER BY eventDate");
+-        query.setParameter("category", category);
+-        query.setParameter("now", LocalDateTime.now());
+-        return query.list();
+-    }
+-    
+-    // 日付からイベントを検索
+-    @SuppressWarnings("unchecked")
+-    public List<Event> getEventsFromDate(LocalDateTime fromDate) {
+-        Session session = sessionFactory.getCurrentSession();
+-        Query query = session.createQuery(
+-                "FROM Event WHERE eventDate >= :fromDate AND availableSeats > 0 ORDER BY eventDate");
+-        query.setParameter("fromDate", fromDate);
+-        return query.list();
+-    }
+-    
+-    // カテゴリと日付からイベントを検索
+-    @SuppressWarnings("unchecked")
+-    public List<Event> getEventsByCategoryFromDate(String category, LocalDateTime fromDate) {
+-        Session session = sessionFactory.getCurrentSession();
+-        Query query = session.createQuery(
+-                "FROM Event WHERE category = :category AND eventDate >= :fromDate AND availableSeats > 0 ORDER BY eventDate");
+-        query.setParameter("category", category);
+-        query.setParameter("fromDate", fromDate);
+-        return query.list();
+-    }
+-    
+-    // IDでイベントを検索
+-    public Event getEventById(Long id) {
+-        Session session = sessionFactory.getCurrentSession();
+-        return (Event) session.get(Event.class, id);
+-    }
+-    
+-    // イベントを保存
+-    public Long saveEvent(Event event) {
+-        Session session = sessionFactory.getCurrentSession();
+-        return (Long) session.save(event);
+-    }
+-    
+-    // イベントを更新
+-    public void updateEvent(Event event) {
+-        Session session = sessionFactory.getCurrentSession();
+-        session.update(event);
+-    }
+-    
+-    // イベントを削除
+-    public void deleteEvent(Event event) {
+-        Session session = sessionFactory.getCurrentSession();
+-        session.delete(event);
+-    }
+-}
+diff --git a/src/main/java/com/example/ticketreservation/dao/ReservationDAO.java b/src/main/java/com/example/ticketreservation/dao/ReservationDAO.java
+deleted file mode 100644
+index 4b4512f..0000000
+--- a/src/main/java/com/example/ticketreservation/dao/ReservationDAO.java
++++ /dev/null
+@@ -1,79 +0,0 @@
+-package com.example.ticketreservation.dao;
+-
+-import com.example.ticketreservation.model.Reservation;
+-import org.hibernate.Session;
+-import org.hibernate.SessionFactory;
+-import org.hibernate.Query;
+-import org.springframework.beans.factory.annotation.Autowired;
+-import org.springframework.stereotype.Repository;
+-
+-import java.util.List;
+-
+-@Repository
+-public class ReservationDAO {
+-
+-    @Autowired
+-    private SessionFactory sessionFactory;
+-    
+-    // 全ての予約を取得
+-    @SuppressWarnings("unchecked")
+-    public List<Reservation> getAllReservations() {
+-        Session session = sessionFactory.getCurrentSession();
+-        Query query = session.createQuery("FROM Reservation ORDER BY reservationTime DESC");
+-        return query.list();
+-    }
+-    
+-    // IDで予約を検索
+-    public Reservation getReservationById(Long id) {
+-        Session session = sessionFactory.getCurrentSession();
+-        return (Reservation) session.get(Reservation.class, id);
+-    }
+-    
+-    // 確認コードで予約を検索
+-    @SuppressWarnings("unchecked")
+-    public Reservation getReservationByConfirmationCode(String confirmationCode) {
+-        Session session = sessionFactory.getCurrentSession();
+-        Query query = session.createQuery(
+-                "FROM Reservation WHERE confirmationCode = :code");
+-        query.setParameter("code", confirmationCode);
+-        return (Reservation) query.uniqueResult();
+-    }
+-    
+-    // メールアドレスで予約を検索
+-    @SuppressWarnings("unchecked")
+-    public List<Reservation> getReservationsByEmail(String email) {
+-        Session session = sessionFactory.getCurrentSession();
+-        Query query = session.createQuery(
+-                "FROM Reservation WHERE email = :email ORDER BY reservationTime DESC");
+-        query.setParameter("email", email);
+-        return query.list();
+-    }
+-    
+-    // イベントIDで予約を検索
+-    @SuppressWarnings("unchecked")
+-    public List<Reservation> getReservationsByEventId(Long eventId) {
+-        Session session = sessionFactory.getCurrentSession();
+-        Query query = session.createQuery(
+-                "FROM Reservation r WHERE r.event.id = :eventId ORDER BY reservationTime DESC");
+-        query.setParameter("eventId", eventId);
+-        return query.list();
+-    }
+-    
+-    // 予約を保存
+-    public Long saveReservation(Reservation reservation) {
+-        Session session = sessionFactory.getCurrentSession();
+-        return (Long) session.save(reservation);
+-    }
+-    
+-    // 予約を更新
+-    public void updateReservation(Reservation reservation) {
+-        Session session = sessionFactory.getCurrentSession();
+-        session.update(reservation);
+-    }
+-    
+-    // 予約を削除
+-    public void deleteReservation(Reservation reservation) {
+-        Session session = sessionFactory.getCurrentSession();
+-        session.delete(reservation);
+-    }
+-}
+diff --git a/src/main/java/com/example/ticketreservation/model/Event.java b/src/main/java/com/example/ticketreservation/model/Event.java
+index 10adaba..9b2cc04 100644
+--- a/src/main/java/com/example/ticketreservation/model/Event.java
++++ b/src/main/java/com/example/ticketreservation/model/Event.java
+@@ -1,6 +1,6 @@
+ package com.example.ticketreservation.model;
+ 
+-import javax.persistence.*;
++import jakarta.persistence.*;
+ import java.time.LocalDateTime;
+ import java.util.List;
+ 
+diff --git a/src/main/java/com/example/ticketreservation/model/Reservation.java b/src/main/java/com/example/ticketreservation/model/Reservation.java
+index ceea68d..e62cdd0 100644
+--- a/src/main/java/com/example/ticketreserv
+2025-06-16T00:45:04.113Z [INFO] ation/model/Reservation.java
++++ b/src/main/java/com/example/ticketreservation/model/Reservation.java
+@@ -1,6 +1,6 @@
+ package com.example.ticketreservation.model;
+ 
+-import javax.persistence.*;
++import jakarta.persistence.*;
+ import java.time.LocalDateTime;
+ 
+ @Entity
+diff --git a/src/main/java/com/example/ticketreservation/repository/EventRepository.java b/src/main/java/com/example/ticketreservation/repository/EventRepository.java
+new file mode 100644
+index 0000000..4abcfa4
+--- /dev/null
++++ b/src/main/java/com/example/ticketreservation/repository/EventRepository.java
+@@ -0,0 +1,30 @@
++package com.example.ticketreservation.repository;
++
++import com.example.ticketreservation.model.Event;
++import org.springframework.data.jpa.repository.JpaRepository;
++import org.springframework.data.jpa.repository.Query;
++import org.springframework.data.repository.query.Param;
++import org.springframework.stereotype.Repository;
++
++import java.time.LocalDateTime;
++import java.util.List;
++
++@Repository
++public interface EventRepository extends JpaRepository<Event, Long> {
++    
++    // 利用可能な席があるイベントを取得
++    @Query("SELECT e FROM Event e WHERE e.availableSeats > 0 AND e.eventDate > CURRENT_TIMESTAMP ORDER BY e.eventDate")
++    List<Event> findAvailableEvents();
++    
++    // カテゴリで検索
++    @Query("SELECT e FROM Event e WHERE e.category = :category ORDER BY e.eventDate")
++    List<Event> findByCategory(@Param("category") String category);
++    
++    // 指定日以降のイベントを取得
++    @Query("SELECT e FROM Event e WHERE e.eventDate >= :fromDate ORDER BY e.eventDate")
++    List<Event> findEventsFromDate(@Param("fromDate") LocalDateTime fromDate);
++    
++    // カテゴリと日付で検索
++    @Query("SELECT e FROM Event e WHERE e.category = :category AND e.eventDate >= :fromDate ORDER BY e.eventDate")
++    List<Event> findByCategoryAndDateFrom(@Param("category") String category, @Param("fromDate") LocalDateTime fromDate);
++}
+diff --git a/src/main/java/com/example/ticketreservation/repository/ReservationRepository.java b/src/main/java/com/example/ticketreservation/repository/ReservationRepository.java
+new file mode 100644
+index 0000000..4fc0163
+--- /dev/null
++++ b/src/main/java/com/example/ticketreservation/repository/ReservationRepository.java
+@@ -0,0 +1,26 @@
++package com.example.ticketreservation.repository;
++
++import com.example.ticketreservation.model.Reservation;
++import org.springframework.data.jpa.repository.JpaRepository;
++import org.springframework.data.jpa.repository.Query;
++import org.springframework.data.repository.query.Param;
++import org.springframework.stereotype.Repository;
++
++import java.util.List;
++import java.util.Optional;
++
++@Repository
++public interface ReservationRepository extends JpaRepository<Reservation, Long> {
++    
++    // メールアドレスで予約を検索
++    @Query("SELECT r FROM Reservation r WHERE r.email = :email ORDER BY r.reservationTime DESC")
++    List<Reservation> findByEmail(@Param("email") String email);
++    
++    // 確認コードで予約を検索
++    @Query("SELECT r FROM Reservation r WHERE r.confirmationCode = :confirmationCode")
++    Optional<Reservation> findByConfirmationCode(@Param("confirmationCode") String confirmationCode);
++    
++    // イベントIDで予約を検索
++    @Query("SELECT r FROM Reservation r WHERE r.event.id = :eventId ORDER BY r.reservationTime DESC")
++    List<Reservation> findByEventId(@Param("eventId") Long eventId);
++}
+diff --git a/src/main/java/com/example/ticketreservation/service/EventService.java b/src/main/java/com/example/ticketreservation/service/EventService.java
+index 9f4f09a..259b1ad 100644
+--- a/src/main/java/com/example/ticketreservation/service/EventService.java
++++ b/src/main/java/com/example/ticketreservation/service/EventService.java
+@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.stereotype.Service;
+ import org.springframework.transaction.annotation.Transactional;
+ 
+-import com.example.ticketreservation.dao.EventDAO;
++import com.example.ticketreservation.repository.EventRepository;
+ import com.example.ticketreservation.model.Event;
+ 
+ @Service
+@@ -16,65 +16,66 @@ import com.example.ticketreservation.model.Event;
+ public class EventService {
+ 
+     @Autowired
+-    private EventDAO eventDAO;
++    private EventRepository eventRepository;
+     
+     @Transactional(readOnly = true)
+     public List<Event> getAllEvents() {
+-        return eventDAO.getAllEvents();
++        return eventRepository.findAll();
+     }
+     
+     @Transactional(readOnly = true)
+     public List<Event> getAvailableEvents() {
+-        return eventDAO.getAvailableEvents();
++        return eventRepository.findAvailableEvents();
+     }
+     
+     @Transactional(readOnly = true)
+     public List<Event> getEventsByCategory(String category) {
+-        return eventDAO.getEventsByCategory(category);
++        return eventRepository.findByCategory(category);
+     }
+     
+     @Transactional(readOnly = true)
+     public List<Event> getEventsFromDate(LocalDate fromDate) {
+         LocalDateTime fromDateTime = fromDate.atStartOfDay();
+-        return eventDAO.getEventsFromDate(fromDateTime);
++        return eventRepository.findEventsFromDate(fromDateTime);
+     }
+     
+     @Transactional(readOnly = true)
+     public List<Event> getEventsByCategoryFromDate(String category, LocalDate fromDate) {
+         LocalDateTime fromDateTime = fromDate.atStartOfDay();
+-        return eventDAO.getEventsByCategoryFromDate(category, fromDateTime);
++        return eventRepository.findByCategoryAndDateFrom(category, fromDateTime);
+     }
+     
+     @Transactional(readOnly = true)
+     public Event getEventById(Long id) {
+-        return eventDAO.getEventById(id);
++        return eventRepository.findById(id).orElse(null);
+     }
+     
+     public Long saveEvent(Event event) {
+-        return eventDAO.saveEvent(event);
++        Event savedEvent = eventRepository.save(event);
++        return savedEvent.getId();
+     }
+     
+     public void updateEvent(Event event) {
+-        eventDAO.updateEvent(event);
++        eventRepository.save(event);
+     }
+     
+     public void deleteEvent(Event event) {
+-        eventDAO.deleteEvent(event);
++        eventRepository.delete(event);
+     }
+     
+     public void reduceAvailableSeats(Long eventId, int quantity) {
+-        Event event = eventDAO.getEventById(eventId);
++        Event event = eventRepository.findById(eventId).orElse(null);
+         if (event != null) {
+             event.setAvailableSeats(event.getAvailableSeats() - quantity);
+-            eventDAO.updateEvent(event);
++            eventRepository.save(event);
+         }
+     }
+     
+     public void increaseAvailableSeats(Long eventId, int quantity) {
+-        Event event = eventDAO.getEventById(eventId);
++        Event event = eventRepository.findById(eventId).orElse(null);
+         if (event != null) {
+             event.setAvailableSeats(event.getAvailableSeats() + quantity);
+-            eventDAO.updateEvent(event);
++            eventRepository.save(event);
+         }
+     }
+ }
+diff --git a/src/main/java/com/example/ticketreservation/service/ReservationService.java b/src/main/java/com/example/ticketreservation/service/ReservationService.java
+index a8116a1..36a20c5 100644
+--- a/src/main/java/com/example/ticketreservation/service/ReservationService.java
++++ b/src/main/java/com/example/ticketreservation/service/ReservationService.java
+@@ -1,6 +1,6 @@
+ package com.example.ticketreservation.service;
+ 
+-import com.example.ticketreservation.dao.ReservationDAO;
++import com.example.ticketreservation.repository.ReservationRepository;
+ import com.example.ticketreservation.exception.SoldOutException;
+ import com.example.ticketreservation.model.Event;
+ import com.example.ticketreservation.model.Reservation;
+@@ -16,34 +16,34 @@ import java.util.UUID;
+ public class ReservationService {
+ 
+     @Autowired
+-    private ReservationDAO reservationDAO;
++    private ReservationRepository reservationRepository;
+     
+     @Autowired
+     private EventService eventService;
+     
+     @Transactional(readOnly = true)
+    
+2025-06-16T00:45:04.114Z [INFO]  public List<Reservation> getAllReservations() {
+-        return reservationDAO.getAllReservations();
++        return reservationRepository.findAll();
+     }
+     
+     @Transactional(readOnly = true)
+     public Reservation getReservationById(Long id) {
+-        return reservationDAO.getReservationById(id);
++        return reservationRepository.findById(id).orElse(null);
+     }
+     
+     @Transactional(readOnly = true)
+     public Reservation getReservationByConfirmationCode(String confirmationCode) {
+-        return reservationDAO.getReservationByConfirmationCode(confirmationCode);
++        return reservationRepository.findByConfirmationCode(confirmationCode).orElse(null);
+     }
+     
+     @Transactional(readOnly = true)
+     public List<Reservation> getReservationsByEmail(String email) {
+-        return reservationDAO.getReservationsByEmail(email);
++        return reservationRepository.findByEmail(email);
+     }
+     
+     @Transactional(readOnly = true)
+     public List<Reservation> getReservationsByEventId(Long eventId) {
+-        return reservationDAO.getReservationsByEventId(eventId);
++        return reservationRepository.findByEventId(eventId);
+     }
+     
+     public Reservation reserveTicket(Long eventId, String email, Integer quantity) throws SoldOutException {
+@@ -64,16 +64,16 @@ public class ReservationService {
+         Reservation reservation = new Reservation(event, email, quantity, confirmationCode);
+         
+         // 予約保存
+-        Long reservationId = reservationDAO.saveReservation(reservation);
++        Reservation savedReservation = reservationRepository.save(reservation);
+         
+         // 利用可能席数を減少
+         eventService.reduceAvailableSeats(eventId, quantity);
+         
+-        return reservationDAO.getReservationById(reservationId);
++        return savedReservation;
+     }
+     
+     public void cancelReservation(Long reservationId) {
+-        Reservation reservation = reservationDAO.getReservationById(reservationId);
++        Reservation reservation = reservationRepository.findById(reservationId).orElse(null);
+         
+         if (reservation != null) {
+             // 利用可能席数を増加
+@@ -81,7 +81,7 @@ public class ReservationService {
+             
+             // 予約ステータスをキャンセルに変更
+             reservation.setStatus(Reservation.ReservationStatus.CANCELLED);
+-            reservationDAO.updateReservation(reservation);
++            reservationRepository.save(reservation);
+         }
+     }
+     
+diff --git a/src/main/resources/application.properties b/src/main/resources/application.properties
+index f7c1580..efc29b4 100644
+--- a/src/main/resources/application.properties
++++ b/src/main/resources/application.properties
+@@ -1,18 +1,25 @@
+ # Application Properties
+-app.name=Ticket Reservation System
++spring.application.name=Ticket Reservation System
+ app.version=1.0.0
+ 
++# JSP Configuration
++spring.mvc.view.prefix=/WEB-INF/views/
++spring.mvc.view.suffix=.jsp
++
+ # Database Configuration
+-db.driver=org.h2.Driver
+-db.url=jdbc:h2:mem:ticketdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+-db.username=sa
+-db.password=
++spring.datasource.url=jdbc:h2:mem:ticketdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
++spring.datasource.driverClassName=org.h2.Driver
++spring.datasource.username=sa
++spring.datasource.password=
++
++# JPA/Hibernate Configuration
++spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
++spring.jpa.hibernate.ddl-auto=create-drop
++spring.jpa.show-sql=true
++spring.jpa.properties.hibernate.format_sql=true
+ 
+-# Hibernate Configuration
+-hibernate.dialect=org.hibernate.dialect.H2Dialect
+-hibernate.hbm2ddl.auto=create-drop
+-hibernate.show_sql=true
+-hibernate.format_sql=true
++# H2 Console (for development)
++spring.h2.console.enabled=true
+ 
+ # Logging Configuration
+ logging.level.com.example.ticketreservation=DEBUG
+
+2025-06-16T00:45:04.114Z [INFO] [unknown]: getting broken files...
+2025-06-16T00:45:04.114Z [INFO] [unknown]: found 2 broken files.
+2025-06-16T00:45:04.115Z [INFO] [unknown]: there are 718 lines.
+2025-06-16T00:45:04.449Z [INFO] [unknown]: there are 6407 tokens.
+2025-06-16T00:45:04.449Z [INFO] [unknown]: no need to split the diff file.
+2025-06-16T00:45:04.449Z [INFO] summarizing behavior changes...
+2025-06-16T00:45:04.449Z [INFO] summarizing behavior changes of part 1...
+2025-06-16T00:45:18.300Z [INFO] summarized behavior changes of part 1.
+2025-06-16T00:45:18.301Z [INFO] summarized behavior changes of all parts.

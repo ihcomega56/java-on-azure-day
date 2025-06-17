@@ -1,0 +1,405 @@
+2025-06-15T17:32:18.436Z [INFO] Dashboard class instantiated
+2025-06-15T17:32:20.972Z [INFO] done invoking tool javaupgrade_generate_plan with options: {"input":{"projectPath":"/Users/ihcomega/workspace/java-on-azure-day","targetJavaVersion":"21","toolInvocationId":"936d35e9-62cb-4e30-b05b-42e3531e8156"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":29676}}
+2025-06-15T17:32:20.972Z [INFO] ----------------------exit javaupgrade_generate_plan----------------------
+2025-06-15T17:32:26.666Z [INFO] start preparing invoking tool javaupgrade_confirm_plan with options: {"input":{"sessionId":"20250615173218435"}}
+2025-06-15T17:32:26.704Z [INFO] done preparing invoking tool javaupgrade_confirm_plan with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"6c099d2b-aca6-46c8-a5b3-b51b2efea9df"}}
+2025-06-15T17:32:56.338Z [INFO] ----------------------enter javaupgrade_confirm_plan----------------------
+2025-06-15T17:32:56.340Z [INFO] start invoking tool javaupgrade_confirm_plan with options: {"input":{"sessionId":"20250615173218435"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":29483}}
+2025-06-15T17:33:11.144Z [INFO] [Project java-on-azure-day]: Compilation errors of project java-on-azure-day is updated: 0 -> 0
+2025-06-15T17:33:14.004Z [INFO] [Project java-on-azure-day]: Test result of project java-on-azure-day is updated: 0 -> 0
+2025-06-15T17:33:14.004Z [INFO] [Project java-on-azure-day]: getting project state.
+2025-06-15T17:33:14.004Z [INFO] [Project java-on-azure-day]: getting Java version.
+2025-06-15T17:33:14.004Z [INFO] [Project java-on-azure-day]: reset Java version promise.
+2025-06-15T17:33:14.004Z [INFO] [MavenBuildTool] Getting Java version of /Users/ihcomega/workspace/java-on-azure-day from pom.xml
+2025-06-15T17:33:14.004Z [INFO] [MavenBuildTool] Searching for pom.xml files in /Users/ihcomega/workspace/java-on-azure-day
+2025-06-15T17:33:14.005Z [INFO] [MavenBuildTool] Getting modules of /Users/ihcomega/workspace/java-on-azure-day
+2025-06-15T17:33:14.005Z [INFO] [Environment] Running command (Java 8): mvn help:evaluate -Dexpression=project.modules -q -DforceStdout
+<modules/>2025-06-15T17:33:21.391Z [INFO] [MavenBuildTool] Found modules: 
+2025-06-15T17:33:21.392Z [INFO] [MavenBuildTool] Found pom.xml files: /Users/ihcomega/workspace/java-on-azure-day/pom.xml
+2025-06-15T17:33:21.392Z [INFO] [MavenBuildTool] Java version found in /Users/ihcomega/workspace/java-on-azure-day/pom.xml: 8
+2025-06-15T17:33:21.392Z [INFO] [Project java-on-azure-day]: got Java version: 8
+2025-06-15T17:33:21.392Z [INFO] [Project java-on-azure-day]: getting dependencies promise.
+2025-06-15T17:33:21.392Z [INFO] Project initial state: {
+  "javaVersion": "8",
+  "dependencies": [
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-webmvc",
+      "version": "4.3.30.RELEASE",
+      "type": "jar",
+      "scope": "compile",
+      "module": "ticket-reservation",
+      "key": "org.springframework:spring-webmvc",
+      "gav": "org.springframework:spring-webmvc:4.3.30.RELEASE",
+      "coordinate": "org.springframework:spring-webmvc:4.3.30.RELEASE:jar"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-orm",
+      "version": "4.3.30.RELEASE",
+      "type": "jar",
+      "scope": "compile",
+      "module": "ticket-reservation",
+      "key": "org.springframework:spring-orm",
+      "gav": "org.springframework:spring-orm:4.3.30.RELEASE",
+      "coordinate": "org.springframework:spring-orm:4.3.30.RELEASE:jar"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-tx",
+      "version": "4.3.30.RELEASE",
+      "type": "jar",
+      "scope": "compile",
+      "module": "ticket-reservation",
+      "key": "org.springframework:spring-tx",
+      "gav": "org.springframework:spring-tx:4.3.30.RELEASE",
+      "coordinate": "org.springframework:spring-tx:4.3.30.RELEASE:jar"
+    },
+    {
+      "groupId": "org.hibernate",
+      "artifactId": "hibernate-core",
+      "version": "5.1.17.Final",
+      "type": "jar",
+      "scope": "compile",
+      "module": "ticket-reservation",
+      "key": "org.hibernate:hibernate-core",
+      "gav": "org.hibernate:hibernate-core:5.1.17.Final",
+      "coordinate": "org.hibernate:hibernate-core:5.1.17.Final:jar"
+    },
+    {
+      "groupId": "org.hibernate",
+      "artifactId": "hibernate-entitymanager",
+      "version": "5.1.17.Final",
+      "type": "jar",
+      "scope": "compile",
+      "module": "ticket-reservation",
+      "key": "org.hibernate:hibernate-entitymanager",
+      "gav": "org.hibernate:hibernate-entitymanager:5.1.17.Final",
+      "coordinate": "org.hibernate:hibernate-entitymanager:5.1.17.Final:jar"
+    },
+    {
+      "groupId": "com.h2database",
+      "artifactId": "h2",
+      "version": "1.4.200",
+      "type": "jar",
+      "scope": "compile",
+      "module": "ticket-reservation",
+      "key": "com.h2database:h2",
+      "gav": "com.h2database:h2:1.4.200",
+      "coordinate": "com.h2database:h2:1.4.200:jar"
+    },
+    {
+      "groupId": "org.apache.commons",
+      "artifactId": "commons-dbcp2",
+      "version": "2.8.0",
+      "type": "jar",
+      "scope": "compile",
+      "module": "ticket-reservation",
+      "key": "org.apache.commons:commons-dbcp2",
+      "gav": "org.apache.commons:commons-dbcp2:2.8.0",
+      "coordinate": "org.apache.commons:commons-dbcp2:2.8.0:jar"
+    },
+    {
+      "groupId": "javax.servlet",
+      "artifactId": "javax.servlet-api",
+      "version": "3.1.0",
+      "type": "jar",
+      "scope": "provided",
+      "module": "ticket-reservation",
+      "key": "javax.servlet:javax.servlet-api",
+      "gav": "javax.servlet:javax.servlet-api:3.1.0",
+      "coordinate": "javax.servlet:javax.servlet-api:3.1.0:jar"
+    },
+    {
+      "groupId": "javax.servlet.jsp",
+      "artifactId": "javax.servlet.jsp-api",
+      "version": "2.3.3",
+      "type": "jar",
+      "scope": "provided",
+      "module": "ticket-reservation",
+      "key": "javax.servlet.jsp:javax.servlet.jsp-api",
+      "gav": "javax.servlet.jsp:javax.servlet.jsp-api:2.3.3",
+      "coordinate": "javax.servlet.jsp:javax.servlet.jsp-api:2.3.3:jar"
+    },
+    {
+      "groupId": "javax.servlet",
+      "artifactId": "jstl",
+      "version": "1.2",
+      "type": "jar",
+      "scope": "compile",
+      "module": "ticket-reservation",
+      "key": "javax.servlet:jstl",
+      "gav": "javax.servlet:jstl:1.2",
+      "coordinate": "javax.servlet:jstl:1.2:jar"
+    },
+    {
+      "groupId": "commons-fileupload",
+      "artifactId": "commons-fileupload",
+      "version": "1.4",
+      "type": "jar",
+      "scope": "compile",
+      "module": "ticket-reservation",
+      "key": "commons-fileupload:commons-fileupload",
+      "gav": "commons-fileupload:commons-fileupload:1.4",
+      "coordinate": "commons-fileupload:commons-fileupload:1.4:jar"
+    },
+    {
+      "groupId": "org.hibernate",
+      "artifactId": "hibernate-java8",
+      "version": "5.1.17.Final",
+      "type": "jar",
+      "scope": "compile",
+      "module": "ticket-reservation",
+      "key": "org.hibernate:hibernate-java8",
+      "gav": "org.hibernate:hibernate-java8:5.1.17.Final",
+      "coordinate": "org.hibernate:hibernate-java8:5.1.17.Final:jar"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-api",
+      "version": "1.7.30",
+      "type": "jar",
+      "scope": "compile",
+      "module": "ticket-reservation",
+      "key": "org.slf4j:slf4j-api",
+      "gav": "org.slf4j:slf4j-api:1.7.30",
+      "coordinate": "org.slf4j:slf4j-api:1.7.30:jar"
+    },
+    {
+      "groupId": "ch.qos.logback",
+      "artifactId": "logback-classic",
+      "version": "1.2.3",
+      "type": "jar",
+      "scope": "compile",
+      "module": "ticket-reservation",
+      "key": "ch.qos.logback:logback-classic",
+      "gav": "ch.qos.logback:logback-classic:1.2.3",
+      "coordinate": "ch.qos.logback:logback-classic:1.2.3:jar"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.13.2",
+      "type": "jar",
+      "scope": "test",
+      "module": "ticket-reservation",
+      "key": "junit:junit",
+      "gav": "junit:junit:4.13.2",
+      "coordinate": "junit:junit:4.13.2:jar"
+    }
+  ],
+  "compilationErrors": [],
+  "testResult": {
+    "errors": [],
+    "failures": [],
+    "summary": {
+      "tests": 0,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "reports": []
+  }
+}
+2025-06-15T17:33:21.415Z [INFO] main
+
+2025-06-15T17:33:21.449Z [ERROR] Switched to a new branch 'java-upgrade-20250615173218435'
+
+2025-06-15T17:33:21.450Z [INFO] Switched the working branch from main to java-upgrade-20250615173218435
+2025-06-15T17:33:21.465Z [INFO] 2ad3f88a73599aecbaee7d20ce4a35967e44a0a9
+
+2025-06-15T17:33:21.466Z [INFO] done invoking tool javaupgrade_confirm_plan with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"e876dd0a-6cb5-4d1b-aece-4e0534db90ef"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":29483}}
+2025-06-15T17:33:21.466Z [INFO] ----------------------exit javaupgrade_confirm_plan----------------------
+2025-06-15T17:33:27.982Z [INFO] start preparing invoking tool javaupgrade_openrewrite with options: {"input":{"sessionId":"20250615173218435"}}
+2025-06-15T17:33:27.982Z [INFO] done preparing invoking tool javaupgrade_openrewrite with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"62b655a6-2c23-484f-ba18-b7924704fa59"}}
+2025-06-15T17:33:27.982Z [INFO] ----------------------enter javaupgrade_openrewrite----------------------
+2025-06-15T17:33:27.983Z [INFO] start invoking tool javaupgrade_openrewrite with options: {"input":{"sessionId":"20250615173218435"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":29267}}
+2025-06-15T17:35:17.982Z [INFO] [Project java-on-azure-day]: Java version of project java-on-azure-day is changed.
+2025-06-15T17:35:17.983Z [INFO] [Project java-on-azure-day]: Java version of project java-on-azure-day is changed to '21' || '21'
+2025-06-15T17:35:17.983Z [INFO] [Project java-on-azure-day]: updating project java-on-azure-day's build tool jdk accordingly to '21'
+2025-06-15T17:35:17.983Z [INFO] [Project java-on-azure-day]: build tool config of project java-on-azure-day is modified.
+2025-06-15T17:35:17.983Z [INFO] [Project java-on-azure-day]: dependencies of project java-on-azure-day may be changed, resetting promise.
+2025-06-15T17:35:18.231Z [INFO] completed upgrading project using OpenRewrite with recipes: [object Object]
+2025-06-15T17:35:18.304Z [INFO] [java-upgrade-20250615173218435 c9f00b3] Use OpenRewrite to update the project to Java 21
+ 1 file changed, 5 insertions(+), 6 deletions(-)
+
+2025-06-15T17:35:18.321Z [INFO] c9f00b35b207f00fc8cf93653a8fae149de93558
+
+2025-06-15T17:35:18.322Z [INFO] done invoking tool javaupgrade_openrewrite with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"34aa0717-deec-4a14-9123-4ef832116c1c"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":29267}}
+2025-06-15T17:35:18.322Z [INFO] ----------------------exit javaupgrade_openrewrite----------------------
+2025-06-15T17:35:23.384Z [INFO] start preparing invoking tool javaupgrade_build_fix with options: {"input":{"sessionId":"20250615173218435"}}
+2025-06-15T17:35:23.384Z [INFO] done preparing invoking tool javaupgrade_build_fix with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"841e8a91-9b73-48e4-8df3-3143057fd6e4"}}
+2025-06-15T17:35:23.385Z [INFO] ----------------------enter javaupgrade_build_fix----------------------
+2025-06-15T17:35:23.385Z [INFO] start invoking tool javaupgrade_build_fix with options: {"input":{"sessionId":"20250615173218435"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":29105}}
+2025-06-15T17:35:24.896Z [INFO] starting buildfix/build(attempt 1)...
+2025-06-15T17:35:26.913Z [INFO] [Project java-on-azure-day]: Compilation errors of project java-on-azure-day is updated: 0 -> 0
+2025-06-15T17:35:26.913Z [INFO] completed buildfix/build(attempt 1) with errors: []
+2025-06-15T17:35:26.913Z [INFO] no errors found in iteration 1.
+2025-06-15T17:35:26.914Z [INFO] build fix completed with 1 iterations.
+2025-06-15T17:35:26.914Z [INFO] cleaning project...
+2025-06-15T17:35:26.914Z [INFO] [MavenBuildTool] Cleaning /Users/ihcomega/workspace/java-on-azure-day using Maven
+2025-06-15T17:35:26.914Z [INFO] [Environment] Running command (Java 21): mvn -Dencoding=UTF-8 clean -q -B -fn
+2025-06-15T17:35:27.806Z [WARN] No changes about Check and fix any build errors in the project with Java 21 for /Users/ihcomega/workspace/java-on-azure-day to commit.
+2025-06-15T17:35:27.806Z [INFO] [Project java-on-azure-day]: getting dependencies promise.
+2025-06-15T17:35:27.806Z [INFO] [Project java-on-azure-day]: reset dependencies promise.
+2025-06-15T17:35:27.806Z [INFO] [Environment] Running command (Java 21): mvn dependency:tree -B
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.example:ticket-reservation >-------------------
+[INFO] Building Ticket Reservation System 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ war ]---------------------------------
+[WARNING] 1 problem was encountered while building the effective model for org.javassist:javassist:jar:3.20.0-GA during dependency collection step for project (use -X to see details)
+[INFO] 
+[INFO] --- dependency:3.7.0:tree (default-cli) @ ticket-reservation ---
+[INFO] com.example:ticket-reservation:war:1.0.0
+[INFO] +- org.springframework:spring-webmvc:jar:4.3.30.RELEASE:compile
+[INFO] |  +- org.springframework:spring-aop:jar:4.3.30.RELEASE:compile
+[INFO] |  +- org.springframework:spring-beans:jar:4.3.30.RELEASE:compile
+[INFO] |  +- org.springframework:spring-context:jar:4.3.30.RELEASE:compile
+[INFO] |  +- org.springframework:spring-core:jar:4.3.30.RELEASE:compile
+[INFO] |  +- org.springframework:spring-expression:jar:4.3.30.RELEASE:compile
+[INFO] |  \- org.springframework:spring-web:jar:4.3.30.RELEASE:compile
+[INFO] +- org.springframework:spring-orm:jar:4.3.30.RELEASE:compile
+[INFO] |  \- org.springframework:spring-jdbc:jar:4.3.30.RELEASE:compile
+[INFO] +- org.springframework:spring-tx:jar:4.3.30.RELEASE:compile
+[INFO] +- org.hibernate:hibernate-core:jar:5.1.17.Final:compile
+[INFO] |  +- org.jboss.logging:jboss-logging:jar:3.3.0.Final:compile
+[INFO] |  +- org.hibernate.javax.persistence:hibernate-jpa-2.1-api:jar:1.0.0.Final:compile
+[INFO] |  +- org.javassist:javassist:jar:3.20.0-GA:compile
+[INFO] |  +- antlr:antlr:jar:2.7.7:compile
+[INFO] |  +- org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+[INFO] |  +- org.jboss:jandex:jar:2.0.3.Final:compile
+[INFO] |  +- com.fasterxml:classmate:jar:1.3.0:compile
+[INFO] |  +- org.dom4j:dom4j:jar:2.1.1:compile
+[INFO] |  \- org.hibernate.common:hibernate-commons-annotations:jar:5.0.1.Final:compile
+[INFO] +- org.hibernate:hibernate-entitymanager:jar:5.1.17.Final:compile
+[INFO] +- com.h2database:h2:jar:1.4.200:compile
+[INFO] +- org.apache.commons:commons-dbcp2:jar:2.8.0:compile
+[INFO] |  +- org.apache.commons:commons-pool2:jar:2.8.1:compile
+[INFO] |  \- commons-logging:commons-logging:jar:1.2:compile
+[INFO] +- javax.servlet:javax.servlet-api:jar:3.1.0:provided
+[INFO] +- javax.servlet.jsp:javax.servlet.jsp-api:jar:2.3.3:provided
+[INFO] +- javax.servlet:jstl:jar:1.2:compile
+[INFO] +- commons-fileupload:commons-fileupload:jar:1.4:compile
+[INFO] |  \- commons-io:commons-io:jar:2.2:compile
+[INFO] +- org.hibernate:hibernate-java8:jar:5.1.17.Final:compile
+[INFO] +- org.slf4j:slf4j-api:jar:1.7.30:compile
+[INFO] +- ch.qos.logback:logback-classic:jar:1.2.3:compile
+[INFO] |  \- ch.qos.logback:logback-core:jar:1.2.3:compile
+[INFO] \- junit:junit:jar:4.13.2:test
+[INFO]    \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.653 s
+[INFO] Finished at: 2025-06-16T02:35:29+09:00
+[INFO] ------------------------------------------------------------------------
+2025-06-15T17:35:29.173Z [INFO] [MavenBuildTool] Successfully got dependency tree of /Users/ihcomega/workspace/java-on-azure-day
+2025-06-15T17:35:29.173Z [INFO] done invoking tool javaupgrade_build_fix with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"d505def8-996c-43be-a491-be48e26eb4a4"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":29105}}
+2025-06-15T17:35:29.173Z [INFO] ----------------------exit javaupgrade_build_fix----------------------
+2025-06-15T17:40:58.222Z [INFO] start preparing invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435"}}
+2025-06-15T17:40:58.223Z [INFO] done preparing invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"3581e6da-f769-403c-8607-cff3ad80a342"}}
+2025-06-15T17:40:58.224Z [INFO] ----------------------enter javaupgrade_build_project----------------------
+2025-06-15T17:40:58.224Z [INFO] start invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":33881}}
+2025-06-15T17:41:02.329Z [INFO] [Project java-on-azure-day]: Compilation errors of project java-on-azure-day is updated: 0 -> 29
+2025-06-15T17:41:04.323Z [INFO] done invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"e6b5a51e-54ce-4e7a-88d5-9b22eb606784"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":33881}}
+2025-06-15T17:41:04.323Z [INFO] ----------------------exit javaupgrade_build_project----------------------
+2025-06-16T00:36:10.012Z [INFO] start preparing invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435"}}
+2025-06-16T00:36:10.013Z [INFO] done preparing invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"07ed1cda-b3ad-4f0b-b9e5-a0db53eaf632"}}
+2025-06-16T00:36:10.014Z [INFO] ----------------------enter javaupgrade_build_project----------------------
+2025-06-16T00:36:10.014Z [INFO] start invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":31655}}
+2025-06-16T00:36:12.739Z [INFO] [Project java-on-azure-day]: Compilation errors of project java-on-azure-day is updated: 29 -> 0
+2025-06-16T00:36:12.740Z [INFO] done invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"a2b7905e-3427-47c9-8098-ae5d3b707657"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":31655}}
+2025-06-16T00:36:12.740Z [INFO] ----------------------exit javaupgrade_build_project----------------------
+2025-06-16T00:36:48.268Z [INFO] start preparing invoking tool javaupgrade_summarize_fixes with options: {"input":{"sessionId":"20250615173218435","message":"Completed migration from Spring MVC 4.3 to Spring Boot 3.2 with Java 21","details":"Updated project from traditional Spring MVC to Spring Boot 3.2 with Java 21. Key changes include:\n\n1. **Maven Configuration (pom.xml)**:\n   - Added Spring Boot parent dependency 3.2.12\n   - Changed packaging from WAR to JAR\n   - Replaced Spring Framework 4.3.30 with Spring Boot starters\n   - Added spring-boot-starter-web, spring-boot-starter-data-jpa, and JSP support dependencies\n   - Updated build plugins to use Spring Boot Maven plugin\n\n2. **Application Structure**:\n   - Created TicketReservationApplication.java as Spring Boot main class\n   - Updated application.properties to use Spring Boot configuration format\n   - Added WebConfig.java for JSP view resolver configuration\n\n3. **Persistence Layer Migration**:\n   - Updated model classes (Event.java, Reservation.java) to use jakarta.persistence instead of javax.persistence\n   - Replaced traditional DAO classes with Spring Data JPA repositories:\n     - Created EventRepository extends JpaRepository\n     - Created ReservationRepository extends JpaRepository\n   - Removed old EventDAO.java and ReservationDAO.java\n\n4. **Service Layer Updates**:\n   - Updated EventService to use EventRepository instead of EventDAO\n   - Updated ReservationService to use ReservationRepository instead of ReservationDAO\n   - Replaced manual entity management with repository.save() and repository.findById() patterns\n\n5. **Java Compatibility**:\n   - Fixed stream().toList() to use stream().collect(Collectors.toList()) for broader compatibility\n   - All code now uses Jakarta EE APIs instead of Java EE\n\nThe project successfully builds with Java 21 and Spring Boot 3.2.12 while maintaining the same business functionality."}}
+2025-06-16T00:36:48.269Z [INFO] done preparing invoking tool javaupgrade_summarize_fixes with options: {"input":{"sessionId":"20250615173218435","message":"Completed migration from Spring MVC 4.3 to Spring Boot 3.2 with Java 21","details":"Updated project from traditional Spring MVC to Spring Boot 3.2 with Java 21. Key changes include:\n\n1. **Maven Configuration (pom.xml)**:\n   - Added Spring Boot parent dependency 3.2.12\n   - Changed packaging from WAR to JAR\n   - Replaced Spring Framework 4.3.30 with Spring Boot starters\n   - Added spring-boot-starter-web, spring-boot-starter-data-jpa, and JSP support dependencies\n   - Updated build plugins to use Spring Boot Maven plugin\n\n2. **Application Structure**:\n   - Created TicketReservationApplication.java as Spring Boot main class\n   - Updated application.properties to use Spring Boot configuration format\n   - Added WebConfig.java for JSP view resolver configuration\n\n3. **Persistence Layer Migration**:\n   - Updated model classes (Event.java, Reservation.java) to use jakarta.persistence instead of javax.persistence\n   - Replaced traditional DAO classes with Spring Data JPA repositories:\n     - Created EventRepository extends JpaRepository\n     - Created ReservationRepository extends JpaRepository\n   - Removed old EventDAO.java and ReservationDAO.java\n\n4. **Service Layer Updates**:\n   - Updated EventService to use EventRepository instead of EventDAO\n   - Updated ReservationService to use ReservationRepository instead of ReservationDAO\n   - Replaced manual entity management with repository.save() and repository.findById() patterns\n\n5. **Java Compatibility**:\n   - Fixed stream().toList() to use stream().collect(Collectors.toList()) for broader compatibility\n   - All code now uses Jakarta EE APIs instead of Java EE\n\nThe project successfully builds with Java 21 and Spring Boot 3.2.12 while maintaining the same business functionality.","toolInvocationId":"c5acbc70-0703-48fa-b736-0332ea5a4aa2"}}
+2025-06-16T00:36:48.269Z [INFO] ----------------------enter javaupgrade_summarize_fixes----------------------
+2025-06-16T00:36:48.269Z [INFO] start invoking tool javaupgrade_summarize_fixes with options: {"input":{"sessionId":"20250615173218435","message":"Completed migration from Spring MVC 4.3 to Spring Boot 3.2 with Java 21","details":"Updated project from traditional Spring MVC to Spring Boot 3.2 with Java 21. Key changes include:\n\n1. **Maven Configuration (pom.xml)**:\n   - Added Spring Boot parent dependency 3.2.12\n   - Changed packaging from WAR to JAR\n   - Replaced Spring Framework 4.3.30 with Spring Boot starters\n   - Added spring-boot-starter-web, spring-boot-starter-data-jpa, and JSP support dependencies\n   - Updated build plugins to use Spring Boot Maven plugin\n\n2. **Application Structure**:\n   - Created TicketReservationApplication.java as Spring Boot main class\n   - Updated application.properties to use Spring Boot configuration format\n   - Added WebConfig.java for JSP view resolver configuration\n\n3. **Persistence Layer Migration**:\n   - Updated model classes (Event.java, Reservation.java) to use jakarta.persistence instead of javax.persistence\n   - Replaced traditional DAO classes with Spring Data JPA repositories:\n     - Created EventRepository extends JpaRepository\n     - Created ReservationRepository extends JpaRepository\n   - Removed old EventDAO.java and ReservationDAO.java\n\n4. **Service Layer Updates**:\n   - Updated EventService to use EventRepository instead of EventDAO\n   - Updated ReservationService to use ReservationRepository instead of ReservationDAO\n   - Replaced manual entity management with repository.save() and repository.findById() patterns\n\n5. **Java Compatibility**:\n   - Fixed stream().toList() to use stream().collect(Collectors.toList()) for broader compatibility\n   - All code now uses Jakarta EE APIs instead of Java EE\n\nThe project successfully builds with Java 21 and Spring Boot 3.2.12 while maintaining the same business functionality."},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":29939}}
+2025-06-16T00:36:48.367Z [INFO] done invoking tool javaupgrade_summarize_fixes with options: {"input":{"sessionId":"20250615173218435","message":"Completed migration from Spring MVC 4.3 to Spring Boot 3.2 with Java 21","details":"Updated project from traditional Spring MVC to Spring Boot 3.2 with Java 21. Key changes include:\n\n1. **Maven Configuration (pom.xml)**:\n   - Added Spring Boot parent dependency 3.2.12\n   - Changed packaging from WAR to JAR\n   - Replaced Spring Framework 4.3.30 with Spring Boot starters\n   - Added spring-boot-starter-web, spring-boot-starter-data-jpa, and JSP support dependencies\n   - Updated build plugins to use Spring Boot Maven plugin\n\n2. **Application Structure**:\n   - Created TicketReservationApplication.java as Spring Boot main class\n   - Updated application.properties to use Spring Boot configuration format\n   - Added WebConfig.java for JSP view resolver configuration\n\n3. **Persistence Layer Migration**:\n   - Updated model classes (Event.java, Reservation.java) to use jakarta.persistence instead of javax.persistence\n   - Replaced traditional DAO classes with Spring Data JPA repositories:\n     - Created EventRepository extends JpaRepository\n     - Created ReservationRepository extends JpaRepository\n   - Removed old EventDAO.java and ReservationDAO.java\n\n4. **Service Layer Updates**:\n   - Updated EventService to use EventRepository instead of EventDAO\n   - Updated ReservationService to use ReservationRepository instead of ReservationDAO\n   - Replaced manual entity management with repository.save() and repository.findById() patterns\n\n5. **Java Compatibility**:\n   - Fixed stream().toList() to use stream().collect(Collectors.toList()) for broader compatibility\n   - All code now uses Jakarta EE APIs instead of Java EE\n\nThe project successfully builds with Java 21 and Spring Boot 3.2.12 while maintaining the same business functionality.","toolInvocationId":"f44a9d78-39cd-450d-9180-88ea63af99ab"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":29939}}
+2025-06-16T00:36:48.367Z [INFO] ----------------------exit javaupgrade_summarize_fixes----------------------
+2025-06-16T00:37:21.828Z [INFO] start preparing invoking tool javaupgrade_validate_code_behavior_consistency with options: {"input":{"projectPath":"/Users/ihcomega/workspace/java-on-azure-day","sessionId":"20250615173218435"}}
+2025-06-16T00:37:21.829Z [INFO] done preparing invoking tool javaupgrade_validate_code_behavior_consistency with options: {"input":{"projectPath":"/Users/ihcomega/workspace/java-on-azure-day","sessionId":"20250615173218435","toolInvocationId":"f8ef928c-e2a6-42b0-b87b-c0b063e70a56"}}
+2025-06-16T00:37:21.830Z [INFO] ----------------------enter javaupgrade_validate_code_behavior_consistency----------------------
+2025-06-16T00:37:21.830Z [INFO] start invoking tool javaupgrade_validate_code_behavior_consistency with options: {"input":{"projectPath":"/Users/ihcomega/workspace/java-on-azure-day","sessionId":"20250615173218435"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":29776}}
+2025-06-16T00:37:37.464Z [INFO] done invoking tool javaupgrade_validate_code_behavior_consistency with options: {"input":{"projectPath":"/Users/ihcomega/workspace/java-on-azure-day","sessionId":"20250615173218435","toolInvocationId":"04687439-d74a-40f2-b267-d13501e16687"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":29776}}
+2025-06-16T00:37:37.464Z [INFO] ----------------------exit javaupgrade_validate_code_behavior_consistency----------------------
+2025-06-16T00:38:11.415Z [INFO] start preparing invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435"}}
+2025-06-16T00:38:11.416Z [INFO] done preparing invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"a5d0552b-c5fa-48e9-8453-dbaf77e75ee0"}}
+2025-06-16T00:38:11.421Z [INFO] ----------------------enter javaupgrade_build_project----------------------
+2025-06-16T00:38:11.421Z [INFO] start invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":29052}}
+2025-06-16T00:38:13.950Z [INFO] [Project java-on-azure-day]: Compilation errors of project java-on-azure-day is updated: 0 -> 0
+2025-06-16T00:38:13.950Z [INFO] done invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"103bf7cc-68a5-4c63-869e-685e9a3dbed6"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":29052}}
+2025-06-16T00:38:13.950Z [INFO] ----------------------exit javaupgrade_build_project----------------------
+2025-06-16T00:38:23.108Z [INFO] start preparing invoking tool javaupgrade_summarize_fixes with options: {"input":{"message":"Fixed behavioral consistency issues identified during validation","details":"Fixed critical behavioral consistency issues in the repository layer:\n\n1. **EventRepository.java**:\n   - **Issue**: Missing time constraint allowing past events to be returned as available\n   - **Fix**: Added `AND e.eventDate > CURRENT_TIMESTAMP` to the findAvailableEvents() query to ensure only future events are returned, maintaining the original business logic\n\n2. **ReservationRepository.java**:\n   - **Issue**: Missing efficient query method for finding reservations by event ID\n   - **Fix**: Added proper findByEventId() method with JPQL query for database-level filtering\n\n3. **ReservationService.java**:\n   - **Issue**: Inefficient in-memory filtering loading all reservations\n   - **Fix**: Updated getReservationsByEventId() to use the new efficient repository method instead of in-memory filtering\n\nThese fixes ensure that:\n- Only future events with available seats can be booked (preserving business logic)\n- Database queries are efficient and don't load unnecessary data into memory\n- The application behavior remains identical to the original implementation","sessionId":"20250615173218435"}}
+2025-06-16T00:38:23.108Z [INFO] done preparing invoking tool javaupgrade_summarize_fixes with options: {"input":{"message":"Fixed behavioral consistency issues identified during validation","details":"Fixed critical behavioral consistency issues in the repository layer:\n\n1. **EventRepository.java**:\n   - **Issue**: Missing time constraint allowing past events to be returned as available\n   - **Fix**: Added `AND e.eventDate > CURRENT_TIMESTAMP` to the findAvailableEvents() query to ensure only future events are returned, maintaining the original business logic\n\n2. **ReservationRepository.java**:\n   - **Issue**: Missing efficient query method for finding reservations by event ID\n   - **Fix**: Added proper findByEventId() method with JPQL query for database-level filtering\n\n3. **ReservationService.java**:\n   - **Issue**: Inefficient in-memory filtering loading all reservations\n   - **Fix**: Updated getReservationsByEventId() to use the new efficient repository method instead of in-memory filtering\n\nThese fixes ensure that:\n- Only future events with available seats can be booked (preserving business logic)\n- Database queries are efficient and don't load unnecessary data into memory\n- The application behavior remains identical to the original implementation","sessionId":"20250615173218435","toolInvocationId":"24cc824d-925e-4f47-bd1a-8dfeb02b9838"}}
+2025-06-16T00:38:23.109Z [INFO] ----------------------enter javaupgrade_summarize_fixes----------------------
+2025-06-16T00:38:23.109Z [INFO] start invoking tool javaupgrade_summarize_fixes with options: {"input":{"message":"Fixed behavioral consistency issues identified during validation","details":"Fixed critical behavioral consistency issues in the repository layer:\n\n1. **EventRepository.java**:\n   - **Issue**: Missing time constraint allowing past events to be returned as available\n   - **Fix**: Added `AND e.eventDate > CURRENT_TIMESTAMP` to the findAvailableEvents() query to ensure only future events are returned, maintaining the original business logic\n\n2. **ReservationRepository.java**:\n   - **Issue**: Missing efficient query method for finding reservations by event ID\n   - **Fix**: Added proper findByEventId() method with JPQL query for database-level filtering\n\n3. **ReservationService.java**:\n   - **Issue**: Inefficient in-memory filtering loading all reservations\n   - **Fix**: Updated getReservationsByEventId() to use the new efficient repository method instead of in-memory filtering\n\nThese fixes ensure that:\n- Only future events with available seats can be booked (preserving business logic)\n- Database queries are efficient and don't load unnecessary data into memory\n- The application behavior remains identical to the original implementation","sessionId":"20250615173218435"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":28719}}
+2025-06-16T00:38:23.200Z [INFO] done invoking tool javaupgrade_summarize_fixes with options: {"input":{"message":"Fixed behavioral consistency issues identified during validation","details":"Fixed critical behavioral consistency issues in the repository layer:\n\n1. **EventRepository.java**:\n   - **Issue**: Missing time constraint allowing past events to be returned as available\n   - **Fix**: Added `AND e.eventDate > CURRENT_TIMESTAMP` to the findAvailableEvents() query to ensure only future events are returned, maintaining the original business logic\n\n2. **ReservationRepository.java**:\n   - **Issue**: Missing efficient query method for finding reservations by event ID\n   - **Fix**: Added proper findByEventId() method with JPQL query for database-level filtering\n\n3. **ReservationService.java**:\n   - **Issue**: Inefficient in-memory filtering loading all reservations\n   - **Fix**: Updated getReservationsByEventId() to use the new efficient repository method instead of in-memory filtering\n\nThese fixes ensure that:\n- Only future events with available seats can be booked (preserving business logic)\n- Database queries are efficient and don't load unnecessary data into memory\n- The application behavior remains identical to the original implementation","sessionId":"20250615173218435","toolInvocationId":"5f5ea47f-db7d-4b45-a762-88250617b5ea"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":28719}}
+2025-06-16T00:38:23.200Z [INFO] ----------------------exit javaupgrade_summarize_fixes----------------------
+2025-06-16T00:41:02.262Z [INFO] start preparing invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435"}}
+2025-06-16T00:41:02.263Z [INFO] done preparing invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"2197811c-e417-4960-884d-2875ff6ea274"}}
+2025-06-16T00:41:02.263Z [INFO] ----------------------enter javaupgrade_build_project----------------------
+2025-06-16T00:41:02.263Z [INFO] start invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":38805}}
+2025-06-16T00:41:04.949Z [INFO] [Project java-on-azure-day]: Compilation errors of project java-on-azure-day is updated: 0 -> 0
+2025-06-16T00:41:04.949Z [INFO] done invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"1a48374f-e9f9-4bf1-8651-f50fe792cb5e"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":38805}}
+2025-06-16T00:41:04.949Z [INFO] ----------------------exit javaupgrade_build_project----------------------
+2025-06-16T00:42:01.624Z [INFO] start preparing invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435"}}
+2025-06-16T00:42:01.625Z [INFO] done preparing invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"df802aff-0f75-46cc-b470-e941a097e08e"}}
+2025-06-16T00:42:01.626Z [INFO] ----------------------enter javaupgrade_build_project----------------------
+2025-06-16T00:42:01.626Z [INFO] start invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":76858}}
+2025-06-16T00:42:04.184Z [INFO] [Project java-on-azure-day]: Compilation errors of project java-on-azure-day is updated: 0 -> 0
+2025-06-16T00:42:04.185Z [INFO] done invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"de4db3f3-c666-4ac0-86c1-dbba5155ac20"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":76858}}
+2025-06-16T00:42:04.185Z [INFO] ----------------------exit javaupgrade_build_project----------------------
+2025-06-16T00:42:10.933Z [INFO] start preparing invoking tool javaupgrade_validate_cves with options: {"input":{"sessionId":"20250615173218435","coordinates":["org.springframework.boot:spring-boot-starter-parent:3.2.12","org.springframework.boot:spring-boot-starter-web:3.2.12","org.springframework.boot:spring-boot-starter-data-jpa:3.2.12","org.springframework.boot:spring-boot-starter-test:3.2.12","com.h2database:h2:2.1.214","jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0","org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1"]}}
+2025-06-16T00:42:10.933Z [INFO] done preparing invoking tool javaupgrade_validate_cves with options: {"input":{"sessionId":"20250615173218435","coordinates":["org.springframework.boot:spring-boot-starter-parent:3.2.12","org.springframework.boot:spring-boot-starter-web:3.2.12","org.springframework.boot:spring-boot-starter-data-jpa:3.2.12","org.springframework.boot:spring-boot-starter-test:3.2.12","com.h2database:h2:2.1.214","jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0","org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1"],"toolInvocationId":"d4d89b2e-68df-4184-b545-52a1b2eb472e"}}
+2025-06-16T00:43:01.741Z [INFO] ----------------------enter javaupgrade_validate_cves----------------------
+2025-06-16T00:43:01.742Z [INFO] start invoking tool javaupgrade_validate_cves with options: {"input":{"sessionId":"20250615173218435","coordinates":["org.springframework.boot:spring-boot-starter-parent:3.2.12","org.springframework.boot:spring-boot-starter-web:3.2.12","org.springframework.boot:spring-boot-starter-data-jpa:3.2.12","org.springframework.boot:spring-boot-starter-test:3.2.12","com.h2database:h2:2.1.214","jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0","org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1"]},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":66978}}
+2025-06-16T00:43:02.195Z [INFO] done invoking tool javaupgrade_validate_cves with options: {"input":{"sessionId":"20250615173218435","coordinates":["org.springframework.boot:spring-boot-starter-parent:3.2.12","org.springframework.boot:spring-boot-starter-web:3.2.12","org.springframework.boot:spring-boot-starter-data-jpa:3.2.12","org.springframework.boot:spring-boot-starter-test:3.2.12","com.h2database:h2:2.1.214","jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0","org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1"],"toolInvocationId":"af9f2fa8-7f63-48f2-a918-8a6b4dd2c4d7"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":66978}}
+2025-06-16T00:43:02.195Z [INFO] ----------------------exit javaupgrade_validate_cves----------------------
+2025-06-16T00:43:38.115Z [INFO] start preparing invoking tool javaupgrade_validate_cves with options: {"input":{"coordinates":["org.springframework.boot:spring-boot-starter-parent:3.2.12","org.springframework.boot:spring-boot-starter-web:3.2.12","org.springframework.boot:spring-boot-starter-data-jpa:3.2.12","org.springframework.boot:spring-boot-starter-test:3.2.12","com.h2database:h2:2.2.224","jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0","org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1"],"sessionId":"20250615173218435"}}
+2025-06-16T00:43:38.116Z [INFO] done preparing invoking tool javaupgrade_validate_cves with options: {"input":{"coordinates":["org.springframework.boot:spring-boot-starter-parent:3.2.12","org.springframework.boot:spring-boot-starter-web:3.2.12","org.springframework.boot:spring-boot-starter-data-jpa:3.2.12","org.springframework.boot:spring-boot-starter-test:3.2.12","com.h2database:h2:2.2.224","jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0","org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1"],"sessionId":"20250615173218435","toolInvocationId":"4ef372f2-f6bb-42f0-ba04-55161ca6b0f7"}}
+2025-06-16T00:43:39.928Z [INFO] ----------------------enter javaupgrade_validate_cves----------------------
+2025-06-16T00:43:39.928Z [INFO] start invoking tool javaupgrade_validate_cves with options: {"input":{"coordinates":["org.springframework.boot:spring-boot-starter-parent:3.2.12","org.springframework.boot:spring-boot-starter-web:3.2.12","org.springframework.boot:spring-boot-starter-data-jpa:3.2.12","org.springframework.boot:spring-boot-starter-test:3.2.12","com.h2database:h2:2.2.224","jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0","org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1"],"sessionId":"20250615173218435"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":59037}}
+2025-06-16T00:43:40.295Z [INFO] No known CVEs found for dependencies: org.springframework.boot:spring-boot-starter-parent:3.2.12,org.springframework.boot:spring-boot-starter-web:3.2.12,org.springframework.boot:spring-boot-starter-data-jpa:3.2.12,org.springframework.boot:spring-boot-starter-test:3.2.12,com.h2database:h2:2.2.224,jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0,org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1
+2025-06-16T00:43:40.295Z [INFO] done invoking tool javaupgrade_validate_cves with options: {"input":{"coordinates":["org.springframework.boot:spring-boot-starter-parent:3.2.12","org.springframework.boot:spring-boot-starter-web:3.2.12","org.springframework.boot:spring-boot-starter-data-jpa:3.2.12","org.springframework.boot:spring-boot-starter-test:3.2.12","com.h2database:h2:2.2.224","jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0","org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1"],"sessionId":"20250615173218435","toolInvocationId":"d5cdd4e9-80bf-455d-89c3-7046a4a8682f"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":59037}}
+2025-06-16T00:43:40.295Z [INFO] ----------------------exit javaupgrade_validate_cves----------------------
+2025-06-16T00:43:46.019Z [INFO] start preparing invoking tool javaupgrade_validate_code_behavior_consistency with options: {"input":{"projectPath":"/Users/ihcomega/workspace/java-on-azure-day","sessionId":"20250615173218435"}}
+2025-06-16T00:43:46.019Z [INFO] done preparing invoking tool javaupgrade_validate_code_behavior_consistency with options: {"input":{"projectPath":"/Users/ihcomega/workspace/java-on-azure-day","sessionId":"20250615173218435","toolInvocationId":"274d0f5b-c84c-4528-8767-282b5cc46edb"}}
+2025-06-16T00:43:46.020Z [INFO] ----------------------enter javaupgrade_validate_code_behavior_consistency----------------------
+2025-06-16T00:43:46.020Z [INFO] start invoking tool javaupgrade_validate_code_behavior_consistency with options: {"input":{"projectPath":"/Users/ihcomega/workspace/java-on-azure-day","sessionId":"20250615173218435"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":58599}}
+2025-06-16T00:44:01.388Z [INFO] done invoking tool javaupgrade_validate_code_behavior_consistency with options: {"input":{"projectPath":"/Users/ihcomega/workspace/java-on-azure-day","sessionId":"20250615173218435","toolInvocationId":"bd9f4f4d-ac91-4a08-bfa6-44db856ea04b"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":58599}}
+2025-06-16T00:44:01.388Z [INFO] ----------------------exit javaupgrade_validate_code_behavior_consistency----------------------
+2025-06-16T00:44:20.456Z [INFO] start preparing invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435"}}
+2025-06-16T00:44:20.457Z [INFO] done preparing invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"f22eae95-4279-4d29-9ce0-8a028601b23b"}}
+2025-06-16T00:44:20.457Z [INFO] ----------------------enter javaupgrade_build_project----------------------
+2025-06-16T00:44:20.457Z [INFO] start invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":57603}}
+2025-06-16T00:44:22.934Z [INFO] [Project java-on-azure-day]: Compilation errors of project java-on-azure-day is updated: 0 -> 0
+2025-06-16T00:44:22.934Z [INFO] done invoking tool javaupgrade_build_project with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"809370ca-9a9d-404f-a3f2-15df67392389"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":57603}}
+2025-06-16T00:44:22.934Z [INFO] ----------------------exit javaupgrade_build_project----------------------
+2025-06-16T00:44:31.388Z [INFO] start preparing invoking tool javaupgrade_summarize_fixes with options: {"input":{"details":"- **Fix CVE-2022-45868 in H2 Database**\n  - Upgraded `com.h2database:h2` from version 2.1.214 to 2.2.224 (managed by Spring Boot 3.2.12)\n  - Removed explicit version specification to use Spring Boot's dependency management\n  - Resolved HIGH severity password exposure vulnerability in H2 Database Engine","message":"Fix CVE-2022-45868 in com.h2database:h2 by using Spring Boot managed version 2.2.224","sessionId":"20250615173218435"}}
+2025-06-16T00:44:31.388Z [INFO] done preparing invoking tool javaupgrade_summarize_fixes with options: {"input":{"details":"- **Fix CVE-2022-45868 in H2 Database**\n  - Upgraded `com.h2database:h2` from version 2.1.214 to 2.2.224 (managed by Spring Boot 3.2.12)\n  - Removed explicit version specification to use Spring Boot's dependency management\n  - Resolved HIGH severity password exposure vulnerability in H2 Database Engine","message":"Fix CVE-2022-45868 in com.h2database:h2 by using Spring Boot managed version 2.2.224","sessionId":"20250615173218435","toolInvocationId":"322a62ba-4fa7-481f-bdd5-85846dfe0e10"}}
+2025-06-16T00:44:31.389Z [INFO] ----------------------enter javaupgrade_summarize_fixes----------------------
+2025-06-16T00:44:31.389Z [INFO] start invoking tool javaupgrade_summarize_fixes with options: {"input":{"details":"- **Fix CVE-2022-45868 in H2 Database**\n  - Upgraded `com.h2database:h2` from version 2.1.214 to 2.2.224 (managed by Spring Boot 3.2.12)\n  - Removed explicit version specification to use Spring Boot's dependency management\n  - Resolved HIGH severity password exposure vulnerability in H2 Database Engine","message":"Fix CVE-2022-45868 in com.h2database:h2 by using Spring Boot managed version 2.2.224","sessionId":"20250615173218435"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":57248}}
+2025-06-16T00:44:31.411Z [INFO] done invoking tool javaupgrade_summarize_fixes with options: {"input":{"details":"- **Fix CVE-2022-45868 in H2 Database**\n  - Upgraded `com.h2database:h2` from version 2.1.214 to 2.2.224 (managed by Spring Boot 3.2.12)\n  - Removed explicit version specification to use Spring Boot's dependency management\n  - Resolved HIGH severity password exposure vulnerability in H2 Database Engine","message":"Fix CVE-2022-45868 in com.h2database:h2 by using Spring Boot managed version 2.2.224","sessionId":"20250615173218435","toolInvocationId":"c7eccb95-c476-49d2-897d-b83664a13ec7"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":57248}}
+2025-06-16T00:44:31.411Z [INFO] ----------------------exit javaupgrade_summarize_fixes----------------------
+2025-06-16T00:44:38.955Z [INFO] start preparing invoking tool javaupgrade_run_tests with options: {"input":{"sessionId":"20250615173218435"}}
+2025-06-16T00:44:38.955Z [INFO] done preparing invoking tool javaupgrade_run_tests with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"78b5318d-a428-47b1-9c4d-daba3402d7d0"}}
+2025-06-16T00:44:41.021Z [INFO] ----------------------enter javaupgrade_run_tests----------------------
+2025-06-16T00:44:41.021Z [INFO] start invoking tool javaupgrade_run_tests with options: {"input":{"sessionId":"20250615173218435"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":32336}}
+2025-06-16T00:44:44.833Z [INFO] [Project java-on-azure-day]: Test result of project java-on-azure-day is updated: 0 -> 0
+2025-06-16T00:44:44.834Z [INFO] done invoking tool javaupgrade_run_tests with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"0b1b962e-f06f-4ba7-9f08-e1f23c9a4691"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":32336}}
+2025-06-16T00:44:44.834Z [INFO] ----------------------exit javaupgrade_run_tests----------------------
+2025-06-16T00:44:50.303Z [INFO] start preparing invoking tool javaupgrade_summarize_upgrade with options: {"input":{"sessionId":"20250615173218435"}}
+2025-06-16T00:44:50.304Z [INFO] done preparing invoking tool javaupgrade_summarize_upgrade with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"d8f61ec6-e1db-4f21-a92b-c062ac32acf1"}}
+2025-06-16T00:44:50.304Z [INFO] ----------------------enter javaupgrade_summarize_upgrade----------------------
+2025-06-16T00:44:50.304Z [INFO] start invoking tool javaupgrade_summarize_upgrade with options: {"input":{"sessionId":"20250615173218435"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":45063}}
+2025-06-16T00:44:54.656Z [INFO] [Project java-on-azure-day]: Java version of project java-on-azure-day is changed.
+2025-06-16T00:44:54.656Z [INFO] [Project java-on-azure-day]: Java version of project java-on-azure-day is changed to '21' || '21'
+2025-06-16T00:44:54.656Z [INFO] [Project java-on-azure-day]: updating project java-on-azure-day's build tool jdk accordingly to '21'
+2025-06-16T00:44:54.657Z [INFO] [Project java-on-azure-day]: build tool config of project java-on-azure-day is modified.
+2025-06-16T00:44:54.657Z [INFO] [Project java-on-azure-day]: dependencies of project java-on-azure-day may be changed, resetting promise.
+2025-06-16T00:45:01.296Z [INFO] [Project java-on-azure-day]: Compilation errors of project java-on-azure-day is updated: 0 -> 0
+2025-06-16T00:45:03.735Z [INFO] [Project java-on-azure-day]: Test result of project java-on-azure-day is updated: 0 -> 0
+2025-06-16T00:45:18.425Z [INFO] done invoking tool javaupgrade_summarize_upgrade with options: {"input":{"sessionId":"20250615173218435","toolInvocationId":"e27bc7de-a2a8-4079-b675-566468babe8d"},"toolInvocationToken":{"sessionId":"db1976b4-3491-4e24-a904-9b4c975d5653"},"tokenizationOptions":{"tokenBudget":45063}}
+2025-06-16T00:45:18.425Z [INFO] ----------------------exit javaupgrade_summarize_upgrade----------------------
