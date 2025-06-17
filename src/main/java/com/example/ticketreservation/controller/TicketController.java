@@ -2,6 +2,10 @@ package com.example.ticketreservation.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,33 +41,46 @@ public class TicketController {
         return "redirect:/events";
     }
     
-    // イベント一覧ページ
+    // イベント一覧ページ（Virtual Threads活用）
     @GetMapping("/events")
     public String listEvents(
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String date,
             Model model) {
         
-        List<Event> events;
-        
-        if (category != null && !category.isEmpty() && date != null && !date.isEmpty()) {
-            // カテゴリと日付の両方が指定されている場合
-            LocalDate fromDate = LocalDate.parse(date);
-            events = eventService.getEventsByCategoryFromDate(category, fromDate);
-        } else if (category != null && !category.isEmpty()) {
-            // カテゴリのみ指定されている場合
-            events = eventService.getEventsByCategory(category);
-        } else if (date != null && !date.isEmpty()) {
-            // 日付のみ指定されている場合
-            LocalDate fromDate = LocalDate.parse(date);
-            events = eventService.getEventsFromDate(fromDate);
-        } else {
-            // どちらも指定されていない場合
-            events = eventService.getAvailableEvents();
+        try {
+            List<Event> events;
+            
+            // 検索条件に応じてAsync処理を使用
+            if ((category != null && !category.isEmpty()) || (date != null && !date.isEmpty())) {
+                LocalDate fromDate = (date != null && !date.isEmpty()) ? LocalDate.parse(date) : null;
+                
+                // 非同期検索を実行（Virtual Threadsによる高速処理）
+                CompletableFuture<List<Event>> eventsFuture = eventService.searchEventsAsync(category, fromDate);
+                
+                // 結果を待機（タイムアウト付きで安全性確保）
+                events = eventsFuture.get(5, TimeUnit.SECONDS);
+            } else {
+                // 条件指定なしの場合は同期処理（キャッシュ効率を考慮）
+                events = eventService.getAvailableEvents();
+            }
+            
+            model.addAttribute("events", events);
+            return "ticket/eventList";
+            
+        } catch (TimeoutException e) {
+            // タイムアウト時はフォールバック処理
+            List<Event> events = eventService.getAvailableEvents();
+            model.addAttribute("events", events);
+            model.addAttribute("warning", "検索処理に時間がかかったため、基本的なイベント一覧を表示しています。");
+            return "ticket/eventList";
+        } catch (InterruptedException | ExecutionException e) {
+            // エラー時のフォールバック処理
+            List<Event> events = eventService.getAvailableEvents();
+            model.addAttribute("events", events);
+            model.addAttribute("error", "検索処理中にエラーが発生しました。基本的なイベント一覧を表示しています。");
+            return "ticket/eventList";
         }
-        
-        model.addAttribute("events", events);
-        return "ticket/eventList";
     }
     
     // イベント詳細ページ
@@ -92,7 +109,7 @@ public class TicketController {
         return "ticket/reservationForm";
     }
     
-    // 予約処理
+    // 予約処理（Virtual Threads活用）
     @PostMapping("/reserve")
     public String reserveTicket(
             @RequestParam("eventId") Long eventId,
@@ -101,15 +118,44 @@ public class TicketController {
             RedirectAttributes redirectAttributes) {
         
         try {
-            Reservation reservation = reservationService.reserveTicket(eventId, email, quantity);
-            redirectAttributes.addFlashAttribute("message", "予約が完了しました。確認コード: " + reservation.getConfirmationCode());
+            // 非同期予約処理を実行（Virtual Threadsによる高速処理）
+            CompletableFuture<Reservation> reservationFuture = 
+                reservationService.reserveTicketAsync(eventId, email, quantity);
+            
+            // 予約結果を待機
+            Reservation reservation = reservationFuture.get(10, TimeUnit.SECONDS);
+            
+            // メール送信は非同期で実行（レスポンスを待たない）
+            reservationService.sendConfirmationEmailAsync(email, reservation.getConfirmationCode());
+            
+            redirectAttributes.addFlashAttribute("message", 
+                "予約が完了しました。確認コード: " + reservation.getConfirmationCode());
             return "redirect:/confirmation/" + reservation.getConfirmationCode();
-        } catch (SoldOutException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/events/" + eventId;
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "予約処理中にエラーが発生しました: " + e.getMessage());
-            return "redirect:/events/" + eventId;
+            
+        } catch (TimeoutException e) {
+            // タイムアウト時のフォールバック（同期処理で再試行）
+            try {
+                Reservation reservation = reservationService.reserveTicket(eventId, email, quantity);
+                redirectAttributes.addFlashAttribute("message", 
+                    "予約が完了しました。確認コード: " + reservation.getConfirmationCode());
+                return "redirect:/confirmation/" + reservation.getConfirmationCode();
+            } catch (SoldOutException se) {
+                redirectAttributes.addFlashAttribute("error", se.getMessage());
+                return "redirect:/events/" + eventId;
+            } catch (Exception ex) {
+                redirectAttributes.addFlashAttribute("error", "予約処理中にエラーが発生しました: " + ex.getMessage());
+                return "redirect:/events/" + eventId;
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            // 非同期処理エラー時の処理
+            Throwable cause = e.getCause();
+            if (cause instanceof SoldOutException) {
+                redirectAttributes.addFlashAttribute("error", cause.getMessage());
+                return "redirect:/events/" + eventId;
+            } else {
+                redirectAttributes.addFlashAttribute("error", "予約処理中にエラーが発生しました: " + cause.getMessage());
+                return "redirect:/events/" + eventId;
+            }
         }
     }
     

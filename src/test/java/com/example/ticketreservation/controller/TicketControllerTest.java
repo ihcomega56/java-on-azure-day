@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,7 +99,8 @@ public class TicketControllerTest {
     public void testListEvents_カテゴリフィルタ() throws Exception {
         // Given - カテゴリでフィルタされたイベントリストを準備
         List<Event> events = Arrays.asList(testEvent);
-        when(eventService.getEventsByCategory("CONCERT")).thenReturn(events);
+        CompletableFuture<List<Event>> futureEvents = CompletableFuture.completedFuture(events);
+        when(eventService.searchEventsAsync("CONCERT", null)).thenReturn(futureEvents);
         
         // When & Then - カテゴリでフィルタされたイベント一覧を取得
         mockMvc.perform(get("/events").param("category", "CONCERT"))
@@ -106,7 +108,7 @@ public class TicketControllerTest {
                 .andExpect(view().name("ticket/eventList"))
                 .andExpect(model().attribute("events", events));
         
-        verify(eventService).getEventsByCategory("CONCERT");
+        verify(eventService).searchEventsAsync("CONCERT", null);
     }
     
     @Test
@@ -115,7 +117,8 @@ public class TicketControllerTest {
         List<Event> events = Arrays.asList(testEvent);
         String dateString = "2024-01-15";
         LocalDate date = LocalDate.parse(dateString);
-        when(eventService.getEventsFromDate(date)).thenReturn(events);
+        CompletableFuture<List<Event>> futureEvents = CompletableFuture.completedFuture(events);
+        when(eventService.searchEventsAsync(null, date)).thenReturn(futureEvents);
         
         // When & Then - 日付でフィルタされたイベント一覧を取得
         mockMvc.perform(get("/events").param("date", dateString))
@@ -123,7 +126,7 @@ public class TicketControllerTest {
                 .andExpect(view().name("ticket/eventList"))
                 .andExpect(model().attribute("events", events));
         
-        verify(eventService).getEventsFromDate(date);
+        verify(eventService).searchEventsAsync(null, date);
     }
     
     @Test
@@ -132,7 +135,8 @@ public class TicketControllerTest {
         List<Event> events = Arrays.asList(testEvent);
         String dateString = "2024-01-15";
         LocalDate date = LocalDate.parse(dateString);
-        when(eventService.getEventsByCategoryFromDate("CONCERT", date)).thenReturn(events);
+        CompletableFuture<List<Event>> futureEvents = CompletableFuture.completedFuture(events);
+        when(eventService.searchEventsAsync("CONCERT", date)).thenReturn(futureEvents);
         
         // When & Then - カテゴリと日付でフィルタされたイベント一覧を取得
         mockMvc.perform(get("/events")
@@ -142,7 +146,7 @@ public class TicketControllerTest {
                 .andExpect(view().name("ticket/eventList"))
                 .andExpect(model().attribute("events", events));
         
-        verify(eventService).getEventsByCategoryFromDate("CONCERT", date);
+        verify(eventService).searchEventsAsync("CONCERT", date);
     }
     
     @Test
@@ -203,8 +207,9 @@ public class TicketControllerTest {
     @Test
     public void testReserveTicket_正常予約() throws Exception {
         // Given - 正常な予約処理
-        when(reservationService.reserveTicket(1L, "test@example.com", 2))
-                .thenReturn(testReservation);
+        CompletableFuture<Reservation> futureReservation = CompletableFuture.completedFuture(testReservation);
+        when(reservationService.reserveTicketAsync(1L, "test@example.com", 2))
+                .thenReturn(futureReservation);
         
         // When & Then - 予約が正常に完了すること
         mockMvc.perform(post("/reserve")
@@ -215,14 +220,16 @@ public class TicketControllerTest {
                 .andExpect(redirectedUrl("/confirmation/ABC12345"))
                 .andExpect(flash().attribute("message", containsString("予約が完了しました")));
         
-        verify(reservationService).reserveTicket(1L, "test@example.com", 2);
+        verify(reservationService).reserveTicketAsync(1L, "test@example.com", 2);
     }
     
     @Test
     public void testReserveTicket_売り切れ例外() throws Exception {
         // Given - 売り切れ例外が発生する場合
-        when(reservationService.reserveTicket(1L, "test@example.com", 2))
-                .thenThrow(new SoldOutException("チケットが売り切れです"));
+        CompletableFuture<Reservation> failedFuture = CompletableFuture.failedFuture(
+            new SoldOutException("チケットが売り切れです"));
+        when(reservationService.reserveTicketAsync(1L, "test@example.com", 2))
+                .thenReturn(failedFuture);
         
         // When & Then - エラーメッセージと共にイベント詳細にリダイレクトされること
         mockMvc.perform(post("/reserve")
@@ -233,7 +240,7 @@ public class TicketControllerTest {
                 .andExpect(redirectedUrl("/events/1"))
                 .andExpect(flash().attribute("error", "チケットが売り切れです"));
         
-        verify(reservationService).reserveTicket(1L, "test@example.com", 2);
+        verify(reservationService).reserveTicketAsync(1L, "test@example.com", 2);
     }
     
     @Test
