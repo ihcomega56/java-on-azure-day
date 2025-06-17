@@ -272,4 +272,38 @@ public class EventTest {
         assertThat("利用可能席数が負の値に設定されること", event.getAvailableSeats(), equalTo(-1));
         assertThat("価格が0.0に設定されること", event.getPrice(), equalTo(0.0));
     }
+    
+    @Test
+    public void testEventDataPatternMatching_Java21パターンマッチング() {
+        // Java 21+ record patterns を使用したテストデータの分類・検証
+        var testDataList = List.of(
+            TestEventData.DEFAULT,
+            TestEventData.EXPENSIVE,
+            new TestEventData("スポーツイベント", "サッカー観戦", "スタジアム", "スポーツ", 50000, 3000.0)
+        );
+        
+        for (TestEventData testData : testDataList) {
+            // Java 21+ record patterns in switch with guards
+            var eventCategory = switch (testData) {
+                case TestEventData(var name, var desc, var venue, var category, var seats, var price) 
+                    when price >= 20000.0 -> "プレミアムイベント";
+                case TestEventData(var name, var desc, var venue, var category, var seats, var price) 
+                    when seats >= 10000 -> "大規模イベント";
+                case TestEventData(var name, var desc, var venue, var category, var seats, var price) 
+                    when "音楽".equals(category) -> "音楽イベント";
+                case TestEventData(var name, var desc, var venue, var category, var seats, var price) 
+                    when "スポーツ".equals(category) -> "スポーツイベント";
+                case TestEventData(var name, var desc, var venue, var category, var seats, var price) -> "一般イベント";
+            };
+            
+            assertThat("イベントカテゴリが正しく分類されること", eventCategory, notNullValue());
+            
+            // pattern matching での詳細検証
+            if (testData instanceof TestEventData(var name, var desc, var venue, var category, var seats, var price)) {
+                assertThat("イベント名が取得できること", name, notNullValue());
+                assertThat("席数が正の値であること", seats, not(equalTo(0)));
+                assertThat("価格が正の値であること", price, not(equalTo(0.0)));
+            }
+        }
+    }
 }

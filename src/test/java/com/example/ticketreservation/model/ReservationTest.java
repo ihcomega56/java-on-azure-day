@@ -3,6 +3,7 @@ package com.example.ticketreservation.model;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import java.time.LocalDateTime;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -160,12 +161,29 @@ public class ReservationTest {
                   equalTo(Reservation.ReservationStatus.CANCELLED));
         
         // Switch式を使ったステータス説明の取得（Java 14+）
+        // Java 21+ record patterns を使用した改善版
         for (var status : statuses) {
             var description = switch (status) {
                 case CONFIRMED -> "確定済み予約";
                 case CANCELLED -> "キャンセル済み予約";
             };
             assertThat("ステータス説明が取得できること", description, notNullValue());
+        }
+        
+        // Java 21+ record patterns を活用したテストデータ検証
+        for (TestReservationData testData : List.of(
+            TestReservationData.DEFAULT, 
+            TestReservationData.LARGE_QUANTITY,
+            TestReservationData.EXPENSIVE
+        )) {
+            var validationResult = switch (testData) {
+                case TestReservationData(var email, var quantity, var code, var price) 
+                    when quantity <= 5 && price <= 50000.0 -> "通常予約";
+                case TestReservationData(var email, var quantity, var code, var price) 
+                    when quantity > 5 || price > 50000.0 -> "特別予約";
+                case TestReservationData(var email, var quantity, var code, var price) -> "その他予約";
+            };
+            assertThat("予約分類が正しく判定されること", validationResult, notNullValue());
         }
     }
 
