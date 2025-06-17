@@ -1,7 +1,7 @@
 package com.example.ticketreservation.model;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "reservations")

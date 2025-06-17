@@ -1,90 +1,132 @@
 package com.example.ticketreservation.service;
 
-import com.example.ticketreservation.dao.ReservationDAO;
-import com.example.ticketreservation.exception.SoldOutException;
-import com.example.ticketreservation.model.Event;
-import com.example.ticketreservation.model.Reservation;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.example.ticketreservation.dao.ReservationRepository;
+import com.example.ticketreservation.exception.SoldOutException;
+import com.example.ticketreservation.model.Event;
+import com.example.ticketreservation.model.Reservation;
 
-import java.util.List;
-import java.util.UUID;
-
+/**
+ * 予約管理サービス
+ * Spring Boot 3.2 + JPA対応版
+ */
 @Service
 @Transactional
 public class ReservationService {
 
     @Autowired
-    private ReservationDAO reservationDAO;
+    private ReservationRepository reservationRepository;
     
     @Autowired
     private EventService eventService;
     
+    /**
+     * 全ての予約を取得
+     */
     @Transactional(readOnly = true)
     public List<Reservation> getAllReservations() {
-        return reservationDAO.getAllReservations();
+        return reservationRepository.findAll();
     }
     
+    /**
+     * IDで予約を取得
+     */
     @Transactional(readOnly = true)
     public Reservation getReservationById(Long id) {
-        return reservationDAO.getReservationById(id);
+        Optional<Reservation> reservation = reservationRepository.findById(id);
+        return reservation.orElse(null);
     }
     
+    /**
+     * 確認コードで予約を取得
+     */
     @Transactional(readOnly = true)
     public Reservation getReservationByConfirmationCode(String confirmationCode) {
-        return reservationDAO.getReservationByConfirmationCode(confirmationCode);
+        return reservationRepository.findByConfirmationCode(confirmationCode);
     }
     
+    /**
+     * メールアドレスで予約を取得
+     */
     @Transactional(readOnly = true)
     public List<Reservation> getReservationsByEmail(String email) {
-        return reservationDAO.getReservationsByEmail(email);
+        return reservationRepository.findByEmailOrderByReservationTimeDesc(email);
     }
     
-    @Transactional(readOnly = true)
-    public List<Reservation> getReservationsByEventId(Long eventId) {
-        return reservationDAO.getReservationsByEventId(eventId);
-    }
-    
+    /**
+     * チケットを予約する
+     * 
+     * @param eventId イベントID
+     * @param email メールアドレス
+     * @param quantity 予約数
+     * @return 予約情報
+     * @throws SoldOutException 売り切れの場合
+     */
     public Reservation reserveTicket(Long eventId, String email, Integer quantity) throws SoldOutException {
+        // イベントの存在確認と空席確認
         Event event = eventService.getEventById(eventId);
-        
         if (event == null) {
-            throw new SoldOutException("指定されたイベントが見つかりません");
+            throw new IllegalArgumentException("指定されたイベントが存在しません");
         }
         
         if (event.getAvailableSeats() < quantity) {
-            throw new SoldOutException("チケットが売り切れています。利用可能席数: " + event.getAvailableSeats());
+            throw new SoldOutException("申し訳ございません。ご希望の席数が確保できません。");
         }
-        
-        // 確認コード生成
-        String confirmationCode = generateConfirmationCode();
         
         // 予約作成
-        Reservation reservation = new Reservation(event, email, quantity, confirmationCode);
+        Reservation reservation = new Reservation();
+        reservation.setEvent(event);
+        reservation.setEmail(email);
+        reservation.setQuantity(quantity);
+        reservation.setTotalPrice(event.getPrice() * quantity);
+        reservation.setReservationTime(LocalDateTime.now());
+        reservation.setConfirmationCode(generateConfirmationCode());
+        reservation.setStatus(Reservation.ReservationStatus.CONFIRMED);
         
         // 予約保存
-        Long reservationId = reservationDAO.saveReservation(reservation);
+        Reservation savedReservation = reservationRepository.save(reservation);
         
-        // 利用可能席数を減少
+        // 利用可能座席数を減らす
         eventService.reduceAvailableSeats(eventId, quantity);
         
-        return reservationDAO.getReservationById(reservationId);
+        return savedReservation;
     }
     
-    public void cancelReservation(Long reservationId) {
-        Reservation reservation = reservationDAO.getReservationById(reservationId);
-        
-        if (reservation != null) {
-            // 利用可能席数を増加
-            eventService.increaseAvailableSeats(reservation.getEvent().getId(), reservation.getQuantity());
-            
-            // 予約ステータスをキャンセルに変更
-            reservation.setStatus(Reservation.ReservationStatus.CANCELLED);
-            reservationDAO.updateReservation(reservation);
+    /**
+     * 予約をキャンセルする
+     * 
+     * @param confirmationCode 確認コード
+     * @return キャンセルされた予約情報
+     */
+    public Reservation cancelReservation(String confirmationCode) {
+        Reservation reservation = reservationRepository.findByConfirmationCode(confirmationCode);
+        if (reservation == null) {
+            throw new IllegalArgumentException("指定された確認コードの予約が見つかりません");
         }
+        
+        if (reservation.getStatus() == Reservation.ReservationStatus.CANCELLED) {
+            throw new IllegalStateException("この予約は既にキャンセルされています");
+        }
+        
+        // ステータスをキャンセルに変更
+        reservation.setStatus(Reservation.ReservationStatus.CANCELLED);
+        Reservation cancelledReservation = reservationRepository.save(reservation);
+        
+        // 利用可能座席数を戻す
+        eventService.increaseAvailableSeats(reservation.getEvent().getId(), reservation.getQuantity());
+        
+        return cancelledReservation;
     }
     
+    /**
+     * 確認コードを生成する（8桁のランダム文字列）
+     */
     private String generateConfirmationCode() {
         return UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }

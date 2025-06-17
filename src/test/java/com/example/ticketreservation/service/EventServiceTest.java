@@ -2,41 +2,42 @@ package com.example.ticketreservation.service;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.example.ticketreservation.dao.EventDAO;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import com.example.ticketreservation.dao.EventRepository;
 import com.example.ticketreservation.model.Event;
 
 /**
  * EventServiceのテストクラス
  * イベント管理に関するビジネスロジックのテストを実施
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:test-applicationContext.xml"})
+@ExtendWith(MockitoExtension.class)
+@SpringBootTest
 public class EventServiceTest {
 
     @Mock
-    private EventDAO eventDAO;
+    private EventRepository eventRepository;
 
     @InjectMocks
     private EventService eventService;
 
     private Event testEvent;
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
         
         // テストデータの準備
         testEvent = new Event(
@@ -56,7 +57,7 @@ public class EventServiceTest {
         // Given - テストデータの準備
         Long eventId = 1L;
         
-        when(eventDAO.getEventById(eventId)).thenReturn(testEvent);
+        when(eventRepository.findById(eventId)).thenReturn(Optional.of(testEvent));
 
         // When - テスト対象メソッドの実行
         Event result = eventService.getEventById(eventId);
@@ -65,7 +66,7 @@ public class EventServiceTest {
         assertThat("イベントが正常に取得されること", result, notNullValue());
         assertThat("取得したイベントのIDが正しいこと", result.getId(), equalTo(eventId));
         assertThat("取得したイベント名が正しいこと", result.getEventName(), equalTo("テストコンサート"));
-        verify(eventDAO).getEventById(eventId);
+        verify(eventRepository).findById(eventId);
     }
 
     @Test
@@ -73,14 +74,14 @@ public class EventServiceTest {
         // Given - テストデータの準備（存在しないID）
         Long eventId = 999L;
         
-        when(eventDAO.getEventById(eventId)).thenReturn(null);
+        when(eventRepository.findById(eventId)).thenReturn(Optional.empty());
 
         // When - テスト対象メソッドの実行
         Event result = eventService.getEventById(eventId);
 
         // Then - 結果の検証
         assertThat("存在しないIDの場合はnullが返されること", result, nullValue());
-        verify(eventDAO).getEventById(eventId);
+        verify(eventRepository).findById(eventId);
     }
 
     @Test
@@ -88,7 +89,7 @@ public class EventServiceTest {
         // Given - テストデータの準備
         List<Event> expectedEvents = Arrays.asList(testEvent);
         
-        when(eventDAO.getAllEvents()).thenReturn(expectedEvents);
+        when(eventRepository.findAll()).thenReturn(expectedEvents);
 
         // When - テスト対象メソッドの実行
         List<Event> result = eventService.getAllEvents();
@@ -96,15 +97,16 @@ public class EventServiceTest {
         // Then - 結果の検証
         assertThat("全イベントリストが正常に取得されること", result, notNullValue());
         assertThat("イベントリストのサイズが正しいこと", result.size(), equalTo(1));
-        verify(eventDAO).getAllEvents();
+        verify(eventRepository).findAll();
     }
 
     @Test
     public void testGetAvailableEvents_正常取得() {
         // Given - テストデータの準備
         List<Event> expectedEvents = Arrays.asList(testEvent);
+        LocalDateTime now = LocalDateTime.now();
         
-        when(eventDAO.getAvailableEvents()).thenReturn(expectedEvents);
+        when(eventRepository.findAvailableEvents(any(LocalDateTime.class))).thenReturn(expectedEvents);
 
         // When - テスト対象メソッドの実行
         List<Event> result = eventService.getAvailableEvents();
@@ -112,7 +114,7 @@ public class EventServiceTest {
         // Then - 結果の検証
         assertThat("利用可能イベントリストが正常に取得されること", result, notNullValue());
         assertThat("イベントリストのサイズが正しいこと", result.size(), equalTo(1));
-        verify(eventDAO).getAvailableEvents();
+        verify(eventRepository).findAvailableEvents(any(LocalDateTime.class));
     }
 
     @Test
@@ -121,7 +123,7 @@ public class EventServiceTest {
         String category = "音楽";
         List<Event> expectedEvents = Arrays.asList(testEvent);
         
-        when(eventDAO.getEventsByCategory(category)).thenReturn(expectedEvents);
+        when(eventRepository.findEventsByCategory(eq(category), any(LocalDateTime.class))).thenReturn(expectedEvents);
 
         // When - テスト対象メソッドの実行
         List<Event> result = eventService.getEventsByCategory(category);
@@ -130,7 +132,7 @@ public class EventServiceTest {
         assertThat("カテゴリ別イベントリストが正常に取得されること", result, notNullValue());
         assertThat("イベントリストのサイズが正しいこと", result.size(), equalTo(1));
         assertThat("取得したイベントのカテゴリが正しいこと", result.get(0).getCategory(), equalTo(category));
-        verify(eventDAO).getEventsByCategory(category);
+        verify(eventRepository).findEventsByCategory(eq(category), any(LocalDateTime.class));
     }
 
     @Test
@@ -140,7 +142,7 @@ public class EventServiceTest {
         LocalDateTime expectedFromDateTime = fromDate.atStartOfDay();
         List<Event> expectedEvents = Arrays.asList(testEvent);
         
-        when(eventDAO.getEventsFromDate(expectedFromDateTime)).thenReturn(expectedEvents);
+        when(eventRepository.findAvailableEvents(any(LocalDateTime.class))).thenReturn(expectedEvents);
 
         // When - テスト対象メソッドの実行
         List<Event> result = eventService.getEventsFromDate(fromDate);
@@ -148,7 +150,7 @@ public class EventServiceTest {
         // Then - 結果の検証
         assertThat("日付指定イベントリストが正常に取得されること", result, notNullValue());
         assertThat("イベントリストのサイズが正しいこと", result.size(), equalTo(1));
-        verify(eventDAO).getEventsFromDate(expectedFromDateTime);
+        verify(eventRepository).findAvailableEvents(any(LocalDateTime.class));
     }
 
     @Test
@@ -159,7 +161,7 @@ public class EventServiceTest {
         LocalDateTime expectedFromDateTime = fromDate.atStartOfDay();
         List<Event> expectedEvents = Arrays.asList(testEvent);
         
-        when(eventDAO.getEventsByCategoryFromDate(category, expectedFromDateTime)).thenReturn(expectedEvents);
+        when(eventRepository.findEventsByCategory(eq(category), any(LocalDateTime.class))).thenReturn(expectedEvents);
 
         // When - テスト対象メソッドの実行
         List<Event> result = eventService.getEventsByCategoryFromDate(category, fromDate);
@@ -167,7 +169,7 @@ public class EventServiceTest {
         // Then - 結果の検証
         assertThat("カテゴリ・日付指定イベントリストが正常に取得されること", result, notNullValue());
         assertThat("イベントリストのサイズが正しいこと", result.size(), equalTo(1));
-        verify(eventDAO).getEventsByCategoryFromDate(category, expectedFromDateTime);
+        verify(eventRepository).findEventsByCategory(eq(category), any(LocalDateTime.class));
     }
 
     @Test
@@ -178,7 +180,7 @@ public class EventServiceTest {
         int initialSeats = 100;
         
         testEvent.setAvailableSeats(initialSeats);
-        when(eventDAO.getEventById(eventId)).thenReturn(testEvent);
+        when(eventRepository.findById(eventId)).thenReturn(Optional.of(testEvent));
 
         // When - テスト対象メソッドの実行
         eventService.reduceAvailableSeats(eventId, quantity);
@@ -186,8 +188,8 @@ public class EventServiceTest {
         // Then - 結果の検証
         assertThat("利用可能席数が正しく減少していること", 
                   testEvent.getAvailableSeats(), equalTo(initialSeats - quantity));
-        verify(eventDAO).getEventById(eventId);
-        verify(eventDAO).updateEvent(testEvent);
+        verify(eventRepository).findById(eventId);
+        verify(eventRepository).save(testEvent);
     }
 
     @Test
@@ -198,14 +200,14 @@ public class EventServiceTest {
         int initialSeats = 100;
         
         testEvent.setAvailableSeats(initialSeats);
-        when(eventDAO.getEventById(eventId)).thenReturn(testEvent);
+        when(eventRepository.findById(eventId)).thenReturn(Optional.of(testEvent));
 
         // When - テスト対象メソッドの実行
         eventService.reduceAvailableSeats(eventId, quantity);
 
         // Then - 結果の検証
         assertThat("全席数減少時に0になること", testEvent.getAvailableSeats(), equalTo(0));
-        verify(eventDAO).updateEvent(testEvent);
+        verify(eventRepository).save(testEvent);
     }
 
     @Test
@@ -214,14 +216,14 @@ public class EventServiceTest {
         Long eventId = 999L;
         int quantity = 10;
         
-        when(eventDAO.getEventById(eventId)).thenReturn(null);
+        when(eventRepository.findById(eventId)).thenReturn(Optional.empty());
 
         // When - テスト対象メソッドの実行
         eventService.reduceAvailableSeats(eventId, quantity);
 
         // Then - 結果の検証（何も処理されないことを確認）
-        verify(eventDAO).getEventById(eventId);
-        verify(eventDAO, never()).updateEvent(org.mockito.Mockito.any(Event.class));
+        verify(eventRepository).findById(eventId);
+        verify(eventRepository, never()).save(any(Event.class));
     }
 
     @Test
@@ -232,7 +234,7 @@ public class EventServiceTest {
         int initialSeats = 50;
         
         testEvent.setAvailableSeats(initialSeats);
-        when(eventDAO.getEventById(eventId)).thenReturn(testEvent);
+        when(eventRepository.findById(eventId)).thenReturn(Optional.of(testEvent));
 
         // When - テスト対象メソッドの実行
         eventService.increaseAvailableSeats(eventId, quantity);
@@ -240,8 +242,8 @@ public class EventServiceTest {
         // Then - 結果の検証
         assertThat("利用可能席数が正しく増加していること", 
                   testEvent.getAvailableSeats(), equalTo(initialSeats + quantity));
-        verify(eventDAO).getEventById(eventId);
-        verify(eventDAO).updateEvent(testEvent);
+        verify(eventRepository).findById(eventId);
+        verify(eventRepository).save(testEvent);
     }
 
     @Test
@@ -250,29 +252,31 @@ public class EventServiceTest {
         Long eventId = 999L;
         int quantity = 10;
         
-        when(eventDAO.getEventById(eventId)).thenReturn(null);
+        when(eventRepository.findById(eventId)).thenReturn(Optional.empty());
 
         // When - テスト対象メソッドの実行
         eventService.increaseAvailableSeats(eventId, quantity);
 
         // Then - 結果の検証（何も処理されないことを確認）
-        verify(eventDAO).getEventById(eventId);
-        verify(eventDAO, never()).updateEvent(org.mockito.Mockito.any(Event.class));
+        verify(eventRepository).findById(eventId);
+        verify(eventRepository, never()).save(any(Event.class));
     }
 
     @Test
     public void testSaveEvent_正常保存() {
         // Given - テストデータの準備
         Long expectedId = 2L;
+        Event savedEvent = new Event();
+        savedEvent.setId(expectedId);
         
-        when(eventDAO.saveEvent(testEvent)).thenReturn(expectedId);
+        when(eventRepository.save(testEvent)).thenReturn(savedEvent);
 
         // When - テスト対象メソッドの実行
         Long result = eventService.saveEvent(testEvent);
 
         // Then - 結果の検証
         assertThat("保存されたイベントのIDが正しく返されること", result, equalTo(expectedId));
-        verify(eventDAO).saveEvent(testEvent);
+        verify(eventRepository).save(testEvent);
     }
 
     @Test
@@ -283,7 +287,7 @@ public class EventServiceTest {
         eventService.updateEvent(testEvent);
 
         // Then - 結果の検証
-        verify(eventDAO).updateEvent(testEvent);
+        verify(eventRepository).save(testEvent);
     }
 
     @Test
@@ -294,6 +298,6 @@ public class EventServiceTest {
         eventService.deleteEvent(testEvent);
 
         // Then - 結果の検証
-        verify(eventDAO).deleteEvent(testEvent);
+        verify(eventRepository).delete(testEvent);
     }
 }

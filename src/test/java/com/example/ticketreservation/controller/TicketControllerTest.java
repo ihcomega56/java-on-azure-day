@@ -1,6 +1,7 @@
 package com.example.ticketreservation.controller;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -9,16 +10,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.example.ticketreservation.exception.SoldOutException;
 import com.example.ticketreservation.model.Event;
 import com.example.ticketreservation.model.Reservation;
@@ -29,29 +26,23 @@ import com.example.ticketreservation.service.ReservationService;
  * TicketController のテストクラス
  * コントローラーレイヤーの動作を検証
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:test-applicationContext.xml"})
+@WebMvcTest(TicketController.class)
 public class TicketControllerTest {
 
-    @Mock
+    @Autowired
+    private MockMvc mockMvc;
+    
+    @MockBean
     private EventService eventService;
     
-    @Mock
+    @MockBean
     private ReservationService reservationService;
-    
-    @InjectMocks
-    private TicketController ticketController;
-    
-    private MockMvc mockMvc;
     
     private Event testEvent;
     private Reservation testReservation;
     
-    @Before
+    @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(ticketController).build();
-        
         // テストデータの準備
         testEvent = new Event();
         testEvent.setId(1L);
@@ -318,7 +309,7 @@ public class TicketControllerTest {
                 .andExpect(flash().attribute("message", "予約をキャンセルしました"));
         
         verify(reservationService).getReservationById(1L);
-        verify(reservationService).cancelReservation(1L);
+        verify(reservationService).cancelReservation("ABC12345");
     }
     
     @Test
@@ -335,6 +326,6 @@ public class TicketControllerTest {
                 .andExpect(flash().attribute("error", "予約者のメールアドレスが一致しません"));
         
         verify(reservationService).getReservationById(1L);
-        verify(reservationService, never()).cancelReservation(1L);
+        verify(reservationService, never()).cancelReservation(anyString());
     }
 }
