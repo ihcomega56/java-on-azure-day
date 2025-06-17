@@ -72,12 +72,12 @@ public class EventServiceTest {
     @Test
     public void testGetEventById_存在しないID() {
         // Given - テストデータの準備（存在しないID）
-        Long eventId = 999L;
+        var eventId = 999L;
         
         when(eventRepository.findById(eventId)).thenReturn(Optional.empty());
 
         // When - テスト対象メソッドの実行
-        Event result = eventService.getEventById(eventId);
+        var result = eventService.getEventById(eventId);
 
         // Then - 結果の検証
         assertThat("存在しないIDの場合はnullが返されること", result, nullValue());
@@ -87,12 +87,12 @@ public class EventServiceTest {
     @Test
     public void testGetAllEvents_正常取得() {
         // Given - テストデータの準備
-        List<Event> expectedEvents = Arrays.asList(testEvent);
+        var expectedEvents = Arrays.asList(testEvent);
         
         when(eventRepository.findAll()).thenReturn(expectedEvents);
 
         // When - テスト対象メソッドの実行
-        List<Event> result = eventService.getAllEvents();
+        var result = eventService.getAllEvents();
 
         // Then - 結果の検証
         assertThat("全イベントリストが正常に取得されること", result, notNullValue());
@@ -103,13 +103,13 @@ public class EventServiceTest {
     @Test
     public void testGetAvailableEvents_正常取得() {
         // Given - テストデータの準備
-        List<Event> expectedEvents = Arrays.asList(testEvent);
-        LocalDateTime now = LocalDateTime.now();
+        var expectedEvents = Arrays.asList(testEvent);
+        var now = LocalDateTime.now();
         
         when(eventRepository.findAvailableEvents(any(LocalDateTime.class))).thenReturn(expectedEvents);
 
         // When - テスト対象メソッドの実行
-        List<Event> result = eventService.getAvailableEvents();
+        var result = eventService.getAvailableEvents();
 
         // Then - 結果の検証
         assertThat("利用可能イベントリストが正常に取得されること", result, notNullValue());

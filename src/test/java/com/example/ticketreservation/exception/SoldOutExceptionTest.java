@@ -73,11 +73,18 @@ public class SoldOutExceptionTest {
         // When - 例外インスタンスの作成
         SoldOutException exception = new SoldOutException();
 
-        // Then - 継承関係の確認
+        // Then - 継承関係の確認（Java 16+ パターンマッチング使用）
         assertThat("SoldOutExceptionはExceptionのサブクラスであること", 
                   exception instanceof Exception, is(true));
         assertThat("SoldOutExceptionはThrowableのサブクラスであること", 
                   exception instanceof Throwable, is(true));
+        
+        // パターンマッチングを使用した型チェック（より一般的な型での確認）
+        Object obj = exception;
+        if (obj instanceof SoldOutException soldOutEx) {
+            assertThat("SoldOutException型として扱えること", 
+                      soldOutEx.getMessage(), equalTo("チケットが売り切れています"));
+        }
     }
 
     @Test

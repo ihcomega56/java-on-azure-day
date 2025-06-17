@@ -16,6 +16,36 @@ import org.junit.jupiter.api.Test;
  */
 public class EventTest {
 
+    /**
+     * テスト用イベントデータを格納するレコード（Java 14+）
+     */
+    record TestEventData(
+        String eventName,
+        String description,
+        String venue,
+        String category,
+        Integer totalSeats,
+        Double price
+    ) {
+        static final TestEventData DEFAULT = new TestEventData(
+            "テストコンサート",
+            "テスト用イベントです",
+            "東京ドーム",
+            "音楽",
+            100,
+            5000.0
+        );
+        
+        static final TestEventData EXPENSIVE = new TestEventData(
+            "高額イベント",
+            "高額テストイベント",
+            "高級会場",
+            "プレミアム",
+            50,
+            25000.0
+        );
+    }
+
     private Event event;
     private LocalDateTime testEventDate;
 
@@ -27,14 +57,14 @@ public class EventTest {
     @Test
     public void testDefaultConstructor_デフォルトコンストラクタ() {
         // When - デフォルトコンストラクタでの作成
-        Event event = new Event();
+        var event = new Event();
 
         // Then - 結果の検証
         assertThat("作成日時が自動設定されること", event.getCreatedAt(), notNullValue());
         assertThat("更新日時が自動設定されること", event.getUpdatedAt(), notNullValue());
         
         // 設定された時間が現在時刻に近いことを確認（1分以内）
-        LocalDateTime now = LocalDateTime.now();
+        var now = LocalDateTime.now();
         assertThat("作成日時が現在時刻に近いこと", 
                   event.getCreatedAt().isBefore(now.plusMinutes(1)), is(true));
         assertThat("更新日時が現在時刻に近いこと", 
@@ -43,26 +73,29 @@ public class EventTest {
 
     @Test
     public void testParameterizedConstructor_パラメータ付きコンストラクタ() {
-        // Given - テストデータの準備
-        String eventName = "テストコンサート";
-        String description = "テスト用イベントです";
-        String venue = "東京ドーム";
-        String category = "音楽";
-        Integer totalSeats = 100;
-        Double price = 5000.0;
+        // Given - テストデータの準備（record使用）
+        var testData = TestEventData.DEFAULT;
 
         // When - パラメータ付きコンストラクタでの作成
-        Event event = new Event(eventName, description, testEventDate, venue, category, totalSeats, price);
+        var event = new Event(
+            testData.eventName(), 
+            testData.description(), 
+            testEventDate, 
+            testData.venue(), 
+            testData.category(), 
+            testData.totalSeats(), 
+            testData.price()
+        );
 
         // Then - 結果の検証
-        assertThat("イベント名が正しく設定されること", event.getEventName(), equalTo(eventName));
-        assertThat("説明が正しく設定されること", event.getDescription(), equalTo(description));
+        assertThat("イベント名が正しく設定されること", event.getEventName(), equalTo(testData.eventName()));
+        assertThat("説明が正しく設定されること", event.getDescription(), equalTo(testData.description()));
         assertThat("イベント日時が正しく設定されること", event.getEventDate(), equalTo(testEventDate));
-        assertThat("会場が正しく設定されること", event.getVenue(), equalTo(venue));
-        assertThat("カテゴリが正しく設定されること", event.getCategory(), equalTo(category));
-        assertThat("総席数が正しく設定されること", event.getTotalSeats(), equalTo(totalSeats));
-        assertThat("利用可能席数が総席数と同じに設定されること", event.getAvailableSeats(), equalTo(totalSeats));
-        assertThat("価格が正しく設定されること", event.getPrice(), equalTo(price));
+        assertThat("会場が正しく設定されること", event.getVenue(), equalTo(testData.venue()));
+        assertThat("カテゴリが正しく設定されること", event.getCategory(), equalTo(testData.category()));
+        assertThat("総席数が正しく設定されること", event.getTotalSeats(), equalTo(testData.totalSeats()));
+        assertThat("利用可能席数が総席数と同じに設定されること", event.getAvailableSeats(), equalTo(testData.totalSeats()));
+        assertThat("価格が正しく設定されること", event.getPrice(), equalTo(testData.price()));
         assertThat("作成日時が自動設定されること", event.getCreatedAt(), notNullValue());
         assertThat("更新日時が自動設定されること", event.getUpdatedAt(), notNullValue());
     }

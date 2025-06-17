@@ -12,6 +12,26 @@ import org.junit.jupiter.api.Test;
  */
 public class ReservationTest {
 
+    /**
+     * テスト用予約データレコード（Java 14+）
+     */
+    record TestReservationData(
+        String email,
+        Integer quantity,
+        String confirmationCode,
+        Double expectedTotalPrice
+    ) {
+        static final TestReservationData DEFAULT = new TestReservationData(
+            "test@example.com", 2, "ABCD1234", 10000.0
+        );
+        static final TestReservationData LARGE_QUANTITY = new TestReservationData(
+            "test@example.com", 3, "EFGH5678", 15000.0
+        );
+        static final TestReservationData EXPENSIVE = new TestReservationData(
+            "test@example.com", 3, "IJKL9012", 75000.0
+        );
+    }
+
     private Event testEvent;
     private Reservation reservation;
 
@@ -33,7 +53,7 @@ public class ReservationTest {
     @Test
     public void testDefaultConstructor_デフォルトコンストラクタ() {
         // When - デフォルトコンストラクタでの作成
-        Reservation reservation = new Reservation();
+        var reservation = new Reservation();
 
         // Then - 結果の検証
         assertThat("予約時間が自動設定されること", reservation.getReservationTime(), notNullValue());
@@ -41,7 +61,7 @@ public class ReservationTest {
         assertThat("更新日時が自動設定されること", reservation.getUpdatedAt(), notNullValue());
         
         // 設定された時間が現在時刻に近いことを確認（1分以内）
-        LocalDateTime now = LocalDateTime.now();
+        var now = LocalDateTime.now();
         assertThat("予約時間が現在時刻に近いこと", 
                   reservation.getReservationTime().isBefore(now.plusMinutes(1)), is(true));
         assertThat("作成日時が現在時刻に近いこと", 
@@ -50,20 +70,18 @@ public class ReservationTest {
 
     @Test
     public void testParameterizedConstructor_パラメータ付きコンストラクタ() {
-        // Given - テストデータの準備
-        String email = "test@example.com";
-        Integer quantity = 2;
-        String confirmationCode = "ABCD1234";
+        // Given - テストデータの準備（record使用）
+        var testData = TestReservationData.DEFAULT;
 
         // When - パラメータ付きコンストラクタでの作成
-        Reservation reservation = new Reservation(testEvent, email, quantity, confirmationCode);
+        var reservation = new Reservation(testEvent, testData.email(), testData.quantity(), testData.confirmationCode());
 
         // Then - 結果の検証
         assertThat("イベントが正しく設定されること", reservation.getEvent(), equalTo(testEvent));
-        assertThat("メールアドレスが正しく設定されること", reservation.getEmail(), equalTo(email));
-        assertThat("数量が正しく設定されること", reservation.getQuantity(), equalTo(quantity));
-        assertThat("確認コードが正しく設定されること", reservation.getConfirmationCode(), equalTo(confirmationCode));
-        assertThat("総価格が自動計算されること", reservation.getTotalPrice(), equalTo(10000.0)); // 5000 * 2
+        assertThat("メールアドレスが正しく設定されること", reservation.getEmail(), equalTo(testData.email()));
+        assertThat("数量が正しく設定されること", reservation.getQuantity(), equalTo(testData.quantity()));
+        assertThat("確認コードが正しく設定されること", reservation.getConfirmationCode(), equalTo(testData.confirmationCode()));
+        assertThat("総価格が自動計算されること", reservation.getTotalPrice(), equalTo(testData.expectedTotalPrice()));
         assertThat("ステータスがCONFIRMEDに設定されること", 
                   reservation.getStatus(), equalTo(Reservation.ReservationStatus.CONFIRMED));
     }
