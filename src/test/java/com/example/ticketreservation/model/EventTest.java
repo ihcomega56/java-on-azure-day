@@ -200,8 +200,8 @@ public class EventTest {
     @Test
     public void testAvailableSeatsInitialization_利用可能席数初期化() {
         // Given & When - パラメータ付きコンストラクタでイベント作成
-        Integer totalSeats = 250;
-        Event event = new Event("イベント", "説明", testEventDate, "会場", "カテゴリ", totalSeats, 8000.0);
+        var totalSeats = 250;
+        var event = new Event("イベント", "説明", testEventDate, "会場", "カテゴリ", totalSeats, 8000.0);
 
         // Then - 利用可能席数が総席数と同じに初期化されることを確認
         assertThat("利用可能席数が総席数と同じに初期化されること", 

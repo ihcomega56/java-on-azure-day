@@ -107,9 +107,9 @@ public class ReservationServiceTest {
     @Test
     public void testReserveTicket_存在しないイベント時例外発生() {
         // Given - テストデータの準備（存在しないイベント）
-        Long eventId = 999L;
-        String email = "test@example.com";
-        Integer quantity = 2;
+        var eventId = 999L;
+        var email = "test@example.com";
+        var quantity = 2;
         
         when(eventService.getEventById(eventId)).thenReturn(null);
 
@@ -122,15 +122,15 @@ public class ReservationServiceTest {
     @Test
     public void testReserveTicket_境界値_利用可能席数ちょうど() throws SoldOutException {
         // Given - テストデータの準備（利用可能席数ちょうどの予約）
-        Long eventId = 1L;
-        String email = "test@example.com";
-        Integer quantity = 100; // 利用可能席数と同じ
+        var eventId = 1L;
+        var email = "test@example.com";
+        var quantity = 100; // 利用可能席数と同じ
         
         when(eventService.getEventById(eventId)).thenReturn(testEvent);
         when(reservationRepository.save(any(Reservation.class))).thenReturn(testReservation);
 
         // When - テスト対象メソッドの実行
-        Reservation result = reservationService.reserveTicket(eventId, email, quantity);
+        var result = reservationService.reserveTicket(eventId, email, quantity);
 
         // Then - 結果の検証
         assertThat("境界値での予約が正常に作成されること", result, notNullValue());
@@ -140,12 +140,12 @@ public class ReservationServiceTest {
     @Test
     public void testCancelReservation_正常キャンセル() {
         // Given - テストデータの準備
-        String confirmationCode = "ABCD1234";
+        var confirmationCode = "ABCD1234";
         
         when(reservationRepository.findByConfirmationCode(confirmationCode)).thenReturn(testReservation);
 
         // When - テスト対象メソッドの実行
-        Reservation result = reservationService.cancelReservation(confirmationCode);
+        var result = reservationService.cancelReservation(confirmationCode);
 
         // Then - 結果の検証
         verify(reservationRepository).findByConfirmationCode(confirmationCode);

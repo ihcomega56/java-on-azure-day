@@ -143,7 +143,7 @@ public class ReservationTest {
     @Test
     public void testReservationStatus_ステータス列挙型() {
         // When & Then - 列挙型の値確認
-        Reservation.ReservationStatus[] statuses = Reservation.ReservationStatus.values();
+        var statuses = Reservation.ReservationStatus.values();
         
         assertThat("ステータスの種類数が正しいこと", statuses.length, equalTo(2));
         assertThat("CONFIRMEDステータスが存在すること", 
@@ -158,6 +158,15 @@ public class ReservationTest {
         assertThat("文字列からCANCELLEDステータスが取得できること", 
                   Reservation.ReservationStatus.valueOf("CANCELLED"), 
                   equalTo(Reservation.ReservationStatus.CANCELLED));
+        
+        // Switch式を使ったステータス説明の取得（Java 14+）
+        for (var status : statuses) {
+            var description = switch (status) {
+                case CONFIRMED -> "確定済み予約";
+                case CANCELLED -> "キャンセル済み予約";
+            };
+            assertThat("ステータス説明が取得できること", description, notNullValue());
+        }
     }
 
     @Test
