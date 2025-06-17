@@ -16,27 +16,32 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     /**
      * 確認コードで予約を検索
+     * EventエンティティをFETCH JOINして、LazyInitializationExceptionを回避
      * 
      * @param confirmationCode 確認コード
      * @return 予約情報
      */
-    Reservation findByConfirmationCode(String confirmationCode);
+    @Query("SELECT r FROM Reservation r JOIN FETCH r.event WHERE r.confirmationCode = :confirmationCode")
+    Reservation findByConfirmationCode(@Param("confirmationCode") String confirmationCode);
 
     /**
      * メールアドレスで予約を検索
+     * EventエンティティをFETCH JOINして、LazyInitializationExceptionを回避
      * 
      * @param email メールアドレス
      * @return 該当メールアドレスの予約リスト
      */
-    List<Reservation> findByEmailOrderByReservationTimeDesc(String email);
+    @Query("SELECT r FROM Reservation r JOIN FETCH r.event WHERE r.email = :email ORDER BY r.reservationTime DESC")
+    List<Reservation> findByEmailOrderByReservationTimeDesc(@Param("email") String email);
 
     /**
      * イベントIDで予約を検索
+     * EventエンティティをFETCH JOINして、LazyInitializationExceptionを回避
      * 
      * @param eventId イベントID
      * @return 該当イベントの予約リスト
      */
-    @Query("FROM Reservation WHERE event.id = :eventId ORDER BY reservationTime")
+    @Query("SELECT r FROM Reservation r JOIN FETCH r.event WHERE r.event.id = :eventId ORDER BY r.reservationTime")
     List<Reservation> findByEventId(@Param("eventId") Long eventId);
 
     /**
