@@ -53,7 +53,7 @@ public class ReservationTest {
     @Test
     public void testDefaultConstructor_デフォルトコンストラクタ() {
         // When - デフォルトコンストラクタでの作成
-        var reservation = new Reservation();
+        Reservation reservation = new Reservation();
 
         // Then - 結果の検証
         assertThat("予約時間が自動設定されること", reservation.getReservationTime(), notNullValue());
@@ -61,7 +61,7 @@ public class ReservationTest {
         assertThat("更新日時が自動設定されること", reservation.getUpdatedAt(), notNullValue());
         
         // 設定された時間が現在時刻に近いことを確認（1分以内）
-        var now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
         assertThat("予約時間が現在時刻に近いこと", 
                   reservation.getReservationTime().isBefore(now.plusMinutes(1)), is(true));
         assertThat("作成日時が現在時刻に近いこと", 
@@ -71,10 +71,10 @@ public class ReservationTest {
     @Test
     public void testParameterizedConstructor_パラメータ付きコンストラクタ() {
         // Given - テストデータの準備（record使用）
-        var testData = TestReservationData.DEFAULT;
+        TestReservationData testData = TestReservationData.DEFAULT;
 
         // When - パラメータ付きコンストラクタでの作成
-        var reservation = new Reservation(testEvent, testData.email(), testData.quantity(), testData.confirmationCode());
+        Reservation reservation = new Reservation(testEvent, testData.email(), testData.quantity(), testData.confirmationCode());
 
         // Then - 結果の検証
         assertThat("イベントが正しく設定されること", reservation.getEvent(), equalTo(testEvent));

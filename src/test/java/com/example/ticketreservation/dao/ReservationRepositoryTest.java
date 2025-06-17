@@ -99,7 +99,7 @@ public class ReservationRepositoryTest {
         Long nonExistentId = 999L;
 
         // When - テスト対象メソッドの実行
-        var result = reservationRepository.findById(nonExistentId);
+        Optional<Reservation> result = reservationRepository.findById(nonExistentId);
 
         // Then - 結果の検証（Java 11+ Optional improved assertion）
         assertThat("存在しないIDの場合空のOptionalが返されること", result.isEmpty(), is(true));
@@ -111,7 +111,7 @@ public class ReservationRepositoryTest {
         entityManager.persistAndFlush(testReservation1);
 
         // When - テスト対象メソッドの実行
-        var result = reservationRepository.findByConfirmationCode("ABCD1234");
+        Reservation result = reservationRepository.findByConfirmationCode("ABCD1234");
 
         // Then - 結果の検証
         assertThat("確認コードで予約が取得できること", result, notNullValue());
@@ -123,10 +123,10 @@ public class ReservationRepositoryTest {
     @Test
     public void testFindByConfirmationCode_存在しない確認コード() {
         // Given - 存在しない確認コード
-        var nonExistentCode = "INVALID";
+        String nonExistentCode = "INVALID";
 
         // When - テスト対象メソッドの実行
-        var result = reservationRepository.findByConfirmationCode(nonExistentCode);
+        Reservation result = reservationRepository.findByConfirmationCode(nonExistentCode);
 
         // Then - 結果の検証
         assertThat("存在しない確認コードの場合nullが返されること", result, nullValue());
@@ -138,11 +138,11 @@ public class ReservationRepositoryTest {
         entityManager.persistAndFlush(testReservation1);
 
         // When - テスト対象メソッドの実行
-        var result = reservationRepository.findByEmailOrderByReservationTimeDesc("test1@example.com");
+        List<Reservation> result = reservationRepository.findByEmailOrderByReservationTimeDesc("test1@example.com");
 
         // Then - 結果の検証
         assertThat("メールアドレスで予約が取得できること", result.size(), equalTo(1));
-        var found = result.get(0);
+        Reservation found = result.get(0);
         assertThat("メールアドレスが正しいこと", found.getEmail(), equalTo("test1@example.com"));
         assertThat("数量が正しいこと", found.getQuantity(), equalTo(2));
         assertThat("確認コードが正しいこと", found.getConfirmationCode(), equalTo("ABCD1234"));

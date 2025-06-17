@@ -57,14 +57,14 @@ public class EventTest {
     @Test
     public void testDefaultConstructor_デフォルトコンストラクタ() {
         // When - デフォルトコンストラクタでの作成
-        var event = new Event();
+        Event event = new Event();
 
         // Then - 結果の検証
         assertThat("作成日時が自動設定されること", event.getCreatedAt(), notNullValue());
         assertThat("更新日時が自動設定されること", event.getUpdatedAt(), notNullValue());
         
         // 設定された時間が現在時刻に近いことを確認（1分以内）
-        var now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
         assertThat("作成日時が現在時刻に近いこと", 
                   event.getCreatedAt().isBefore(now.plusMinutes(1)), is(true));
         assertThat("更新日時が現在時刻に近いこと", 
@@ -74,10 +74,10 @@ public class EventTest {
     @Test
     public void testParameterizedConstructor_パラメータ付きコンストラクタ() {
         // Given - テストデータの準備（record使用）
-        var testData = TestEventData.DEFAULT;
+        TestEventData testData = TestEventData.DEFAULT;
 
         // When - パラメータ付きコンストラクタでの作成
-        var event = new Event(
+        Event event = new Event(
             testData.eventName(), 
             testData.description(), 
             testEventDate, 
@@ -200,8 +200,8 @@ public class EventTest {
     @Test
     public void testAvailableSeatsInitialization_利用可能席数初期化() {
         // Given & When - パラメータ付きコンストラクタでイベント作成
-        var totalSeats = 250;
-        var event = new Event("イベント", "説明", testEventDate, "会場", "カテゴリ", totalSeats, 8000.0);
+        Integer totalSeats = 250;
+        Event event = new Event("イベント", "説明", testEventDate, "会場", "カテゴリ", totalSeats, 8000.0);
 
         // Then - 利用可能席数が総席数と同じに初期化されることを確認
         assertThat("利用可能席数が総席数と同じに初期化されること", 
