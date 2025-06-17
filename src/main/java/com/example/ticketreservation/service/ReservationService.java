@@ -84,6 +84,7 @@ public class ReservationService {
         reservation.setEvent(event);
         reservation.setEmail(email);
         reservation.setQuantity(quantity);
+        reservation.setTotalPrice(event.getPrice() * quantity);
         reservation.setReservationTime(LocalDateTime.now());
         reservation.setConfirmationCode(generateConfirmationCode());
         reservation.setStatus(Reservation.ReservationStatus.CONFIRMED);
