@@ -1,3 +1,24 @@
+# このリポジトリについて
+[Java On Azure Day](https://msevents.microsoft.com/event?id=172327856571) 「日々の Java 開発に、学びと改善を取り込む：
+GitHub Copilot 実践活用」セッション用のサンプルリポジトリです。
+システムの概要については本セクションより後に記載のとおりです。
+
+## ソースコードの見方
+
+- `main`ブランチ: Java 8 + Spring 4 時代のコード
+- `java-21-upgraded-ver`ブランチ: Java 21 + Spring Boot 3.2 への移行最中のコード
+
+## GitHub Copilot による作業の見方
+
+Issue および Pull Request に Copoilot をアサインして作業させた様子をご確認いただけます。Issue はいずれも Copilot が提案・自動生成したもので、移行の際のポイントや理由などを記載しています。
+
+- [Issues](https://github.com/ihcomega56/java-on-azure-day/issues)
+- [Pull Requests](https://github.com/ihcomega56/java-on-azure-day/pulls)
+
+セッションでご紹介した Visual Studio Code の [app modernization - upgrade for Java](https://docs.github.com/ja/copilot/using-github-copilot/guides-on-using-github-copilot/upgrading-java-projects-with-github-copilot) extension による作業も [PR](https://github.com/ihcomega56/java-on-azure-day/pull/12) としてご確認いただけます。1度で完璧な移行が実現したわけではなく、人間がサポートしながら進めている例です。
+
+------
+
 # チケット予約システム
 
 Java Spring Framework を使用したWebベースのチケット予約システムです。コンサート、演劇、スポーツ観戦などの各種イベントのチケット予約・管理機能を提供します。
