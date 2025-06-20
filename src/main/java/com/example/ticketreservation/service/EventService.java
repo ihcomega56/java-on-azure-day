@@ -4,7 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.ticketreservation.dao.EventRepository;
@@ -116,5 +119,69 @@ public class EventService {
             event.setAvailableSeats(event.getAvailableSeats() + quantity);
             eventRepository.save(event);
         }
+    }
+
+    /**
+     * イベント検索の非同期処理（Virtual Threads活用）
+     * 複雑な検索条件でもVirtual Threadsにより高速に並列処理
+     * 
+     * @param category カテゴリ（null可）
+     * @param fromDate 開始日（null可）
+     * @return イベントリストのCompletableFuture
+     */
+    @Async("taskExecutor")
+    public CompletableFuture<List<Event>> searchEventsAsync(String category, LocalDate fromDate) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                if (category != null && !category.isEmpty() && fromDate != null) {
+                    // カテゴリと日付の両方が指定された場合
+                    LocalDateTime fromDateTime = fromDate.atStartOfDay();
+                    return eventRepository.findEventsByCategory(category, fromDateTime);
+                } else if (category != null && !category.isEmpty()) {
+                    // カテゴリのみ指定された場合
+                    return eventRepository.findEventsByCategory(category, LocalDateTime.now());
+                } else if (fromDate != null) {
+                    // 日付のみ指定された場合
+                    LocalDateTime fromDateTime = fromDate.atStartOfDay();
+                    return eventRepository.findAvailableEvents(fromDateTime);
+                } else {
+                    // 両方とも指定されていない場合
+                    return eventRepository.findAvailableEvents(LocalDateTime.now());
+                }
+            } catch (Exception e) {
+                throw new RuntimeException("イベント検索中にエラーが発生しました: " + e.getMessage(), e);
+            }
+        }, Executors.newVirtualThreadPerTaskExecutor());
+    }
+
+    /**
+     * 複数条件でのイベント並列検索（Virtual Threads活用）
+     * 複数の検索条件を並列実行して結果をマージ
+     * 
+     * @param categories 検索対象カテゴリリスト
+     * @param fromDate 開始日
+     * @return 検索結果をマージしたイベントリストのCompletableFuture
+     */
+    @Async("taskExecutor")
+    public CompletableFuture<List<Event>> searchEventsByMultipleCategoriesAsync(List<String> categories, LocalDate fromDate) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                // 各カテゴリでの検索を並列実行
+                List<CompletableFuture<List<Event>>> futures = categories.stream()
+                    .map(category -> searchEventsAsync(category, fromDate))
+                    .toList();
+                
+                // 全ての検索結果を待機してマージ
+                List<Event> allEvents = futures.stream()
+                    .map(CompletableFuture::join)
+                    .flatMap(List::stream)
+                    .distinct()  // 重複除去
+                    .toList();
+                
+                return allEvents;
+            } catch (Exception e) {
+                throw new RuntimeException("複数条件イベント検索中にエラーが発生しました: " + e.getMessage(), e);
+            }
+        }, Executors.newVirtualThreadPerTaskExecutor());
     }
 }
