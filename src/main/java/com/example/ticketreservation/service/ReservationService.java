@@ -38,17 +38,16 @@ public class ReservationService {
      * IDで予約を取得
      */
     @Transactional(readOnly = true)
-    public Reservation getReservationById(Long id) {
-        Optional<Reservation> reservation = reservationRepository.findById(id);
-        return reservation.orElse(null);
+    public Optional<Reservation> getReservationById(Long id) {
+        return reservationRepository.findById(id);
     }
     
     /**
      * 確認コードで予約を取得
      */
     @Transactional(readOnly = true)
-    public Reservation getReservationByConfirmationCode(String confirmationCode) {
-        return reservationRepository.findByConfirmationCode(confirmationCode);
+    public Optional<Reservation> getReservationByConfirmationCode(String confirmationCode) {
+        return Optional.ofNullable(reservationRepository.findByConfirmationCode(confirmationCode));
     }
     
     /**
@@ -70,10 +69,8 @@ public class ReservationService {
      */
     public Reservation reserveTicket(Long eventId, String email, Integer quantity) throws SoldOutException {
         // イベントの存在確認と空席確認
-        Event event = eventService.getEventById(eventId);
-        if (event == null) {
-            throw new IllegalArgumentException("指定されたイベントが存在しません");
-        }
+        Event event = eventService.getEventById(eventId)
+            .orElseThrow(() -> new IllegalArgumentException("指定されたイベントが存在しません"));
         
         if (event.getAvailableSeats() < quantity) {
             throw new SoldOutException("申し訳ございません。ご希望の席数が確保できません。");
@@ -105,10 +102,8 @@ public class ReservationService {
      * @return キャンセルされた予約情報
      */
     public Reservation cancelReservation(String confirmationCode) {
-        Reservation reservation = reservationRepository.findByConfirmationCode(confirmationCode);
-        if (reservation == null) {
-            throw new IllegalArgumentException("指定された確認コードの予約が見つかりません");
-        }
+        Reservation reservation = getReservationByConfirmationCode(confirmationCode)
+            .orElseThrow(() -> new IllegalArgumentException("指定された確認コードの予約が見つかりません"));
         
         if (reservation.getStatus() == Reservation.ReservationStatus.CANCELLED) {
             throw new IllegalStateException("この予約は既にキャンセルされています");

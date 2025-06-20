@@ -60,12 +60,12 @@ public class EventServiceTest {
         when(eventRepository.findById(eventId)).thenReturn(Optional.of(testEvent));
 
         // When - テスト対象メソッドの実行
-        Event result = eventService.getEventById(eventId);
+        Optional<Event> result = eventService.getEventById(eventId);
 
         // Then - 結果の検証
-        assertThat("イベントが正常に取得されること", result, notNullValue());
-        assertThat("取得したイベントのIDが正しいこと", result.getId(), equalTo(eventId));
-        assertThat("取得したイベント名が正しいこと", result.getEventName(), equalTo("テストコンサート"));
+        assertThat("イベントが正常に取得されること", result.isPresent(), equalTo(true));
+        assertThat("取得したイベントのIDが正しいこと", result.get().getId(), equalTo(eventId));
+        assertThat("取得したイベント名が正しいこと", result.get().getEventName(), equalTo("テストコンサート"));
         verify(eventRepository).findById(eventId);
     }
 
@@ -77,10 +77,10 @@ public class EventServiceTest {
         when(eventRepository.findById(eventId)).thenReturn(Optional.empty());
 
         // When - テスト対象メソッドの実行
-        Event result = eventService.getEventById(eventId);
+        Optional<Event> result = eventService.getEventById(eventId);
 
         // Then - 結果の検証
-        assertThat("存在しないIDの場合はnullが返されること", result, nullValue());
+        assertThat("存在しないIDの場合はEmptyが返されること", result.isEmpty(), equalTo(true));
         verify(eventRepository).findById(eventId);
     }
 

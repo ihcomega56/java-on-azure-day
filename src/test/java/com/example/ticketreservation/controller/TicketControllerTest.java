@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -148,7 +149,7 @@ public class TicketControllerTest {
     @Test
     public void testEventDetails_正常表示() throws Exception {
         // Given - イベントが存在する場合
-        when(eventService.getEventById(1L)).thenReturn(testEvent);
+        when(eventService.getEventById(1L)).thenReturn(Optional.of(testEvent));
         
         // When & Then - イベント詳細が正常に表示されること
         mockMvc.perform(get("/events/1"))
@@ -162,7 +163,7 @@ public class TicketControllerTest {
     @Test
     public void testEventDetails_存在しないイベント() throws Exception {
         // Given - イベントが存在しない場合
-        when(eventService.getEventById(999L)).thenReturn(null);
+        when(eventService.getEventById(999L)).thenReturn(Optional.empty());
         
         // When & Then - イベント一覧にリダイレクトされること
         mockMvc.perform(get("/events/999"))
@@ -175,7 +176,7 @@ public class TicketControllerTest {
     @Test
     public void testShowReservationForm_正常表示() throws Exception {
         // Given - 予約可能なイベントが存在する場合
-        when(eventService.getEventById(1L)).thenReturn(testEvent);
+        when(eventService.getEventById(1L)).thenReturn(Optional.of(testEvent));
         
         // When & Then - 予約フォームが正常に表示されること
         mockMvc.perform(get("/events/1/reserve"))
@@ -190,7 +191,7 @@ public class TicketControllerTest {
     public void testShowReservationForm_売り切れイベント() throws Exception {
         // Given - 売り切れのイベント
         testEvent.setAvailableSeats(0);
-        when(eventService.getEventById(1L)).thenReturn(testEvent);
+        when(eventService.getEventById(1L)).thenReturn(Optional.of(testEvent));
         
         // When & Then - イベント一覧にリダイレクトされること
         mockMvc.perform(get("/events/1/reserve"))
@@ -240,7 +241,7 @@ public class TicketControllerTest {
     public void testConfirmationPage_正常表示() throws Exception {
         // Given - 確認コードで予約が検索できる場合
         when(reservationService.getReservationByConfirmationCode("ABC12345"))
-                .thenReturn(testReservation);
+                .thenReturn(Optional.of(testReservation));
         
         // When & Then - 確認ページが正常に表示されること
         mockMvc.perform(get("/confirmation/ABC12345"))
@@ -255,7 +256,7 @@ public class TicketControllerTest {
     public void testConfirmationPage_無効な確認コード() throws Exception {
         // Given - 無効な確認コードの場合
         when(reservationService.getReservationByConfirmationCode("INVALID"))
-                .thenReturn(null);
+                .thenReturn(Optional.empty());
         
         // When & Then - イベント一覧にリダイレクトされること
         mockMvc.perform(get("/confirmation/INVALID"))
@@ -284,7 +285,7 @@ public class TicketControllerTest {
     @Test
     public void testShowCancelForm_正常表示() throws Exception {
         // Given - 予約が存在する場合
-        when(reservationService.getReservationById(1L)).thenReturn(testReservation);
+        when(reservationService.getReservationById(1L)).thenReturn(Optional.of(testReservation));
         
         // When & Then - キャンセルフォームが正常に表示されること
         mockMvc.perform(get("/cancel/1"))
@@ -298,7 +299,7 @@ public class TicketControllerTest {
     @Test
     public void testCancelReservation_正常キャンセル() throws Exception {
         // Given - 正常なキャンセル処理
-        when(reservationService.getReservationById(1L)).thenReturn(testReservation);
+        when(reservationService.getReservationById(1L)).thenReturn(Optional.of(testReservation));
         
         // When & Then - 予約が正常にキャンセルされること
         mockMvc.perform(post("/cancel")
@@ -315,7 +316,7 @@ public class TicketControllerTest {
     @Test
     public void testCancelReservation_メールアドレス不一致() throws Exception {
         // Given - メールアドレスが一致しない場合
-        when(reservationService.getReservationById(1L)).thenReturn(testReservation);
+        when(reservationService.getReservationById(1L)).thenReturn(Optional.of(testReservation));
         
         // When & Then - エラーメッセージと共にキャンセルフォームにリダイレクトされること
         mockMvc.perform(post("/cancel")
