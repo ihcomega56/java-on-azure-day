@@ -2,6 +2,7 @@ package com.example.ticketreservation.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -69,27 +70,24 @@ public class TicketController {
     // イベント詳細ページ
     @GetMapping("/events/{eventId}")
     public String eventDetails(@PathVariable Long eventId, Model model) {
-        Event event = eventService.getEventById(eventId);
-        
-        if (event == null) {
-            return "redirect:/events";
-        }
-        
-        model.addAttribute("event", event);
-        return "ticket/eventDetails";
+        return eventService.getEventById(eventId)
+            .map(event -> {
+                model.addAttribute("event", event);
+                return "ticket/eventDetails";
+            })
+            .orElse("redirect:/events");
     }
     
     // 予約フォームページ
     @GetMapping("/events/{eventId}/reserve")
     public String showReservationForm(@PathVariable Long eventId, Model model) {
-        Event event = eventService.getEventById(eventId);
-        
-        if (event == null || event.getAvailableSeats() <= 0) {
-            return "redirect:/events";
-        }
-        
-        model.addAttribute("event", event);
-        return "ticket/reservationForm";
+        return eventService.getEventById(eventId)
+            .filter(event -> event.getAvailableSeats() > 0)
+            .map(event -> {
+                model.addAttribute("event", event);
+                return "ticket/reservationForm";
+            })
+            .orElse("redirect:/events");
     }
     
     // 予約処理
@@ -116,14 +114,12 @@ public class TicketController {
     // 予約確認ページ
     @GetMapping("/confirmation/{confirmationCode}")
     public String confirmationPage(@PathVariable String confirmationCode, Model model) {
-        Reservation reservation = reservationService.getReservationByConfirmationCode(confirmationCode);
-        
-        if (reservation == null) {
-            return "redirect:/events";
-        }
-        
-        model.addAttribute("reservation", reservation);
-        return "ticket/confirmation";
+        return reservationService.getReservationByConfirmationCode(confirmationCode)
+            .map(reservation -> {
+                model.addAttribute("reservation", reservation);
+                return "ticket/confirmation";
+            })
+            .orElse("redirect:/events");
     }
     
     // 自分の予約一覧ページ
@@ -137,14 +133,12 @@ public class TicketController {
     // 予約キャンセルフォーム
     @GetMapping("/cancel/{reservationId}")
     public String showCancelForm(@PathVariable Long reservationId, Model model) {
-        Reservation reservation = reservationService.getReservationById(reservationId);
-        
-        if (reservation == null) {
-            return "redirect:/events";
-        }
-        
-        model.addAttribute("reservation", reservation);
-        return "ticket/cancelForm";
+        return reservationService.getReservationById(reservationId)
+            .map(reservation -> {
+                model.addAttribute("reservation", reservation);
+                return "ticket/cancelForm";
+            })
+            .orElse("redirect:/events");
     }
     
     // 予約キャンセル処理
@@ -154,13 +148,14 @@ public class TicketController {
             @RequestParam("email") String email,
             RedirectAttributes redirectAttributes) {
         
-        Reservation reservation = reservationService.getReservationById(reservationId);
+        Optional<Reservation> reservationOpt = reservationService.getReservationById(reservationId);
         
-        if (reservation == null) {
+        if (reservationOpt.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "予約が見つかりません");
             return "redirect:/events";
         }
         
+        Reservation reservation = reservationOpt.get();
         if (!reservation.getEmail().equals(email)) {
             redirectAttributes.addFlashAttribute("error", "予約者のメールアドレスが一致しません");
             return "redirect:/cancel/" + reservationId;

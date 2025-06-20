@@ -67,9 +67,8 @@ public class EventService {
      * IDでイベントを取得
      */
     @Transactional(readOnly = true)
-    public Event getEventById(Long id) {
-        Optional<Event> event = eventRepository.findById(id);
-        return event.orElse(null);
+    public Optional<Event> getEventById(Long id) {
+        return eventRepository.findById(id);
     }
     
     /**

@@ -69,7 +69,7 @@ public class ReservationServiceTest {
         String email = "test@example.com";
         Integer quantity = 2;
         
-        when(eventService.getEventById(eventId)).thenReturn(testEvent);
+        when(eventService.getEventById(eventId)).thenReturn(Optional.of(testEvent));
         when(reservationRepository.save(any(Reservation.class))).thenReturn(testReservation);
 
         // When - テスト対象メソッドの実行
@@ -96,7 +96,7 @@ public class ReservationServiceTest {
         Integer quantity = 10; // 利用可能席数（100）より大きい値
         
         testEvent.setAvailableSeats(5); // 席数不足の状態
-        when(eventService.getEventById(eventId)).thenReturn(testEvent);
+        when(eventService.getEventById(eventId)).thenReturn(Optional.of(testEvent));
 
         // When & Then - SoldOutExceptionが発生することを期待
         assertThrows(SoldOutException.class, () -> {
@@ -111,7 +111,7 @@ public class ReservationServiceTest {
         String email = "test@example.com";
         Integer quantity = 2;
         
-        when(eventService.getEventById(eventId)).thenReturn(null);
+        when(eventService.getEventById(eventId)).thenReturn(Optional.empty());
 
         // When & Then - IllegalArgumentExceptionが発生することを期待
         assertThrows(IllegalArgumentException.class, () -> {
@@ -126,7 +126,7 @@ public class ReservationServiceTest {
         String email = "test@example.com";
         Integer quantity = 100; // 利用可能席数と同じ
         
-        when(eventService.getEventById(eventId)).thenReturn(testEvent);
+        when(eventService.getEventById(eventId)).thenReturn(Optional.of(testEvent));
         when(reservationRepository.save(any(Reservation.class))).thenReturn(testReservation);
 
         // When - テスト対象メソッドの実行
@@ -182,11 +182,11 @@ public class ReservationServiceTest {
         when(reservationRepository.findById(reservationId)).thenReturn(Optional.of(testReservation));
 
         // When - テスト対象メソッドの実行
-        Reservation result = reservationService.getReservationById(reservationId);
+        Optional<Reservation> result = reservationService.getReservationById(reservationId);
 
         // Then - 結果の検証
-        assertThat("予約が正常に取得されること", result, notNullValue());
-        assertThat("取得した予約のIDが正しいこと", result.getId(), equalTo(reservationId));
+        assertThat("予約が正常に取得されること", result.isPresent(), equalTo(true));
+        assertThat("取得した予約のIDが正しいこと", result.get().getId(), equalTo(reservationId));
         verify(reservationRepository).findById(reservationId);
     }
 
@@ -198,11 +198,11 @@ public class ReservationServiceTest {
         when(reservationRepository.findByConfirmationCode(confirmationCode)).thenReturn(testReservation);
 
         // When - テスト対象メソッドの実行
-        Reservation result = reservationService.getReservationByConfirmationCode(confirmationCode);
+        Optional<Reservation> result = reservationService.getReservationByConfirmationCode(confirmationCode);
 
         // Then - 結果の検証
-        assertThat("予約が正常に取得されること", result, notNullValue());
-        assertThat("取得した予約の確認コードが正しいこと", result.getConfirmationCode(), equalTo(confirmationCode));
+        assertThat("予約が正常に取得されること", result.isPresent(), equalTo(true));
+        assertThat("取得した予約の確認コードが正しいこと", result.get().getConfirmationCode(), equalTo(confirmationCode));
         verify(reservationRepository).findByConfirmationCode(confirmationCode);
     }
 
