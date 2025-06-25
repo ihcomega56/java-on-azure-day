@@ -85,8 +85,8 @@ public class ReservationRepositoryTest {
         // When - テスト対象メソッドの実行
         Optional<Reservation> result = reservationRepository.findById(saved.getId());
 
-        // Then - 結果の検証
-        assertThat("予約が取得できること", result.isPresent(), is(true));
+        // Then - 結果の検証（Java 11+ Optional.isEmpty()使用）
+        assertThat("予約が取得できること", result.isEmpty(), is(false));
         Reservation found = result.get();
         assertThat("メールアドレスが正しいこと", found.getEmail(), equalTo("test1@example.com"));
         assertThat("数量が正しいこと", found.getQuantity(), equalTo(2));
@@ -101,8 +101,8 @@ public class ReservationRepositoryTest {
         // When - テスト対象メソッドの実行
         Optional<Reservation> result = reservationRepository.findById(nonExistentId);
 
-        // Then - 結果の検証
-        assertThat("存在しないIDの場合空のOptionalが返されること", result.isPresent(), is(false));
+        // Then - 結果の検証（Java 11+ Optional improved assertion）
+        assertThat("存在しないIDの場合空のOptionalが返されること", result.isEmpty(), is(true));
     }
 
     @Test
@@ -142,7 +142,8 @@ public class ReservationRepositoryTest {
 
         // Then - 結果の検証
         assertThat("メールアドレスで予約が取得できること", result.size(), equalTo(1));
-        Reservation found = result.get(0);
+        // Java 21+ Sequenced Collections - getFirst() を使用
+        Reservation found = result.getFirst();
         assertThat("メールアドレスが正しいこと", found.getEmail(), equalTo("test1@example.com"));
         assertThat("数量が正しいこと", found.getQuantity(), equalTo(2));
         assertThat("確認コードが正しいこと", found.getConfirmationCode(), equalTo("ABCD1234"));

@@ -16,6 +16,36 @@ import org.junit.jupiter.api.Test;
  */
 public class EventTest {
 
+    /**
+     * テスト用イベントデータを格納するレコード（Java 14+）
+     */
+    record TestEventData(
+        String eventName,
+        String description,
+        String venue,
+        String category,
+        Integer totalSeats,
+        Double price
+    ) {
+        static final TestEventData DEFAULT = new TestEventData(
+            "テストコンサート",
+            "テスト用イベントです",
+            "東京ドーム",
+            "音楽",
+            100,
+            5000.0
+        );
+        
+        static final TestEventData EXPENSIVE = new TestEventData(
+            "高額イベント",
+            "高額テストイベント",
+            "高級会場",
+            "プレミアム",
+            50,
+            25000.0
+        );
+    }
+
     private Event event;
     private LocalDateTime testEventDate;
 
@@ -43,26 +73,29 @@ public class EventTest {
 
     @Test
     public void testParameterizedConstructor_パラメータ付きコンストラクタ() {
-        // Given - テストデータの準備
-        String eventName = "テストコンサート";
-        String description = "テスト用イベントです";
-        String venue = "東京ドーム";
-        String category = "音楽";
-        Integer totalSeats = 100;
-        Double price = 5000.0;
+        // Given - テストデータの準備（record使用）
+        TestEventData testData = TestEventData.DEFAULT;
 
         // When - パラメータ付きコンストラクタでの作成
-        Event event = new Event(eventName, description, testEventDate, venue, category, totalSeats, price);
+        Event event = new Event(
+            testData.eventName(), 
+            testData.description(), 
+            testEventDate, 
+            testData.venue(), 
+            testData.category(), 
+            testData.totalSeats(), 
+            testData.price()
+        );
 
         // Then - 結果の検証
-        assertThat("イベント名が正しく設定されること", event.getEventName(), equalTo(eventName));
-        assertThat("説明が正しく設定されること", event.getDescription(), equalTo(description));
+        assertThat("イベント名が正しく設定されること", event.getEventName(), equalTo(testData.eventName()));
+        assertThat("説明が正しく設定されること", event.getDescription(), equalTo(testData.description()));
         assertThat("イベント日時が正しく設定されること", event.getEventDate(), equalTo(testEventDate));
-        assertThat("会場が正しく設定されること", event.getVenue(), equalTo(venue));
-        assertThat("カテゴリが正しく設定されること", event.getCategory(), equalTo(category));
-        assertThat("総席数が正しく設定されること", event.getTotalSeats(), equalTo(totalSeats));
-        assertThat("利用可能席数が総席数と同じに設定されること", event.getAvailableSeats(), equalTo(totalSeats));
-        assertThat("価格が正しく設定されること", event.getPrice(), equalTo(price));
+        assertThat("会場が正しく設定されること", event.getVenue(), equalTo(testData.venue()));
+        assertThat("カテゴリが正しく設定されること", event.getCategory(), equalTo(testData.category()));
+        assertThat("総席数が正しく設定されること", event.getTotalSeats(), equalTo(testData.totalSeats()));
+        assertThat("利用可能席数が総席数と同じに設定されること", event.getAvailableSeats(), equalTo(testData.totalSeats()));
+        assertThat("価格が正しく設定されること", event.getPrice(), equalTo(testData.price()));
         assertThat("作成日時が自動設定されること", event.getCreatedAt(), notNullValue());
         assertThat("更新日時が自動設定されること", event.getUpdatedAt(), notNullValue());
     }
@@ -238,5 +271,39 @@ public class EventTest {
         assertThat("総席数が0に設定されること", event.getTotalSeats(), equalTo(0));
         assertThat("利用可能席数が負の値に設定されること", event.getAvailableSeats(), equalTo(-1));
         assertThat("価格が0.0に設定されること", event.getPrice(), equalTo(0.0));
+    }
+    
+    @Test
+    public void testEventDataPatternMatching_Java21パターンマッチング() {
+        // Java 21+ record patterns を使用したテストデータの分類・検証
+        var testDataList = List.of(
+            TestEventData.DEFAULT,
+            TestEventData.EXPENSIVE,
+            new TestEventData("スポーツイベント", "サッカー観戦", "スタジアム", "スポーツ", 50000, 3000.0)
+        );
+        
+        for (TestEventData testData : testDataList) {
+            // Java 21+ record patterns in switch with guards
+            var eventCategory = switch (testData) {
+                case TestEventData(var name, var desc, var venue, var category, var seats, var price) 
+                    when price >= 20000.0 -> "プレミアムイベント";
+                case TestEventData(var name, var desc, var venue, var category, var seats, var price) 
+                    when seats >= 10000 -> "大規模イベント";
+                case TestEventData(var name, var desc, var venue, var category, var seats, var price) 
+                    when "音楽".equals(category) -> "音楽イベント";
+                case TestEventData(var name, var desc, var venue, var category, var seats, var price) 
+                    when "スポーツ".equals(category) -> "スポーツイベント";
+                case TestEventData(var name, var desc, var venue, var category, var seats, var price) -> "一般イベント";
+            };
+            
+            assertThat("イベントカテゴリが正しく分類されること", eventCategory, notNullValue());
+            
+            // pattern matching での詳細検証
+            if (testData instanceof TestEventData(var name, var desc, var venue, var category, var seats, var price)) {
+                assertThat("イベント名が取得できること", name, notNullValue());
+                assertThat("席数が正の値であること", seats, not(equalTo(0)));
+                assertThat("価格が正の値であること", price, not(equalTo(0.0)));
+            }
+        }
     }
 }

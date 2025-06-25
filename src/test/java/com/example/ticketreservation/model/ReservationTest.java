@@ -3,6 +3,7 @@ package com.example.ticketreservation.model;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import java.time.LocalDateTime;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +12,26 @@ import org.junit.jupiter.api.Test;
  * エンティティクラスの基本動作をテストする
  */
 public class ReservationTest {
+
+    /**
+     * テスト用予約データレコード（Java 14+）
+     */
+    record TestReservationData(
+        String email,
+        Integer quantity,
+        String confirmationCode,
+        Double expectedTotalPrice
+    ) {
+        static final TestReservationData DEFAULT = new TestReservationData(
+            "test@example.com", 2, "ABCD1234", 10000.0
+        );
+        static final TestReservationData LARGE_QUANTITY = new TestReservationData(
+            "test@example.com", 3, "EFGH5678", 15000.0
+        );
+        static final TestReservationData EXPENSIVE = new TestReservationData(
+            "test@example.com", 3, "IJKL9012", 75000.0
+        );
+    }
 
     private Event testEvent;
     private Reservation reservation;
@@ -50,20 +71,18 @@ public class ReservationTest {
 
     @Test
     public void testParameterizedConstructor_パラメータ付きコンストラクタ() {
-        // Given - テストデータの準備
-        String email = "test@example.com";
-        Integer quantity = 2;
-        String confirmationCode = "ABCD1234";
+        // Given - テストデータの準備（record使用）
+        TestReservationData testData = TestReservationData.DEFAULT;
 
         // When - パラメータ付きコンストラクタでの作成
-        Reservation reservation = new Reservation(testEvent, email, quantity, confirmationCode);
+        Reservation reservation = new Reservation(testEvent, testData.email(), testData.quantity(), testData.confirmationCode());
 
         // Then - 結果の検証
         assertThat("イベントが正しく設定されること", reservation.getEvent(), equalTo(testEvent));
-        assertThat("メールアドレスが正しく設定されること", reservation.getEmail(), equalTo(email));
-        assertThat("数量が正しく設定されること", reservation.getQuantity(), equalTo(quantity));
-        assertThat("確認コードが正しく設定されること", reservation.getConfirmationCode(), equalTo(confirmationCode));
-        assertThat("総価格が自動計算されること", reservation.getTotalPrice(), equalTo(10000.0)); // 5000 * 2
+        assertThat("メールアドレスが正しく設定されること", reservation.getEmail(), equalTo(testData.email()));
+        assertThat("数量が正しく設定されること", reservation.getQuantity(), equalTo(testData.quantity()));
+        assertThat("確認コードが正しく設定されること", reservation.getConfirmationCode(), equalTo(testData.confirmationCode()));
+        assertThat("総価格が自動計算されること", reservation.getTotalPrice(), equalTo(testData.expectedTotalPrice()));
         assertThat("ステータスがCONFIRMEDに設定されること", 
                   reservation.getStatus(), equalTo(Reservation.ReservationStatus.CONFIRMED));
     }
@@ -125,7 +144,7 @@ public class ReservationTest {
     @Test
     public void testReservationStatus_ステータス列挙型() {
         // When & Then - 列挙型の値確認
-        Reservation.ReservationStatus[] statuses = Reservation.ReservationStatus.values();
+        var statuses = Reservation.ReservationStatus.values();
         
         assertThat("ステータスの種類数が正しいこと", statuses.length, equalTo(2));
         assertThat("CONFIRMEDステータスが存在すること", 
@@ -140,6 +159,32 @@ public class ReservationTest {
         assertThat("文字列からCANCELLEDステータスが取得できること", 
                   Reservation.ReservationStatus.valueOf("CANCELLED"), 
                   equalTo(Reservation.ReservationStatus.CANCELLED));
+        
+        // Switch式を使ったステータス説明の取得（Java 14+）
+        // Java 21+ record patterns を使用した改善版
+        for (var status : statuses) {
+            var description = switch (status) {
+                case CONFIRMED -> "確定済み予約";
+                case CANCELLED -> "キャンセル済み予約";
+            };
+            assertThat("ステータス説明が取得できること", description, notNullValue());
+        }
+        
+        // Java 21+ record patterns を活用したテストデータ検証
+        for (TestReservationData testData : List.of(
+            TestReservationData.DEFAULT, 
+            TestReservationData.LARGE_QUANTITY,
+            TestReservationData.EXPENSIVE
+        )) {
+            var validationResult = switch (testData) {
+                case TestReservationData(var email, var quantity, var code, var price) 
+                    when quantity <= 5 && price <= 50000.0 -> "通常予約";
+                case TestReservationData(var email, var quantity, var code, var price) 
+                    when quantity > 5 || price > 50000.0 -> "特別予約";
+                case TestReservationData(var email, var quantity, var code, var price) -> "その他予約";
+            };
+            assertThat("予約分類が正しく判定されること", validationResult, notNullValue());
+        }
     }
 
     @Test

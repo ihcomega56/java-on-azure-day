@@ -29,6 +29,22 @@ import com.example.ticketreservation.service.ReservationService;
 @WebMvcTest(TicketController.class)
 public class TicketControllerTest {
 
+    /**
+     * テスト用URLパターンレコード（Java 14+）
+     */
+    record TestUrls(String events, String eventDetails, String reservationForm, String reserve, String confirmation) {
+        static final TestUrls INSTANCE = new TestUrls(
+            "/events", "/events/{id}", "/events/{id}/reserve", "/reserve", "/confirmation/{code}"
+        );
+    }
+
+    /**
+     * テスト用予約パラメータレコード
+     */
+    record ReservationParams(String eventId, String email, String quantity) {
+        static final ReservationParams DEFAULT = new ReservationParams("1", "test@example.com", "2");
+    }
+
     @Autowired
     private MockMvc mockMvc;
     
@@ -202,20 +218,21 @@ public class TicketControllerTest {
     
     @Test
     public void testReserveTicket_正常予約() throws Exception {
-        // Given - 正常な予約処理
-        when(reservationService.reserveTicket(1L, "test@example.com", 2))
+        // Given - 正常な予約処理（record使用）
+        var params = ReservationParams.DEFAULT;
+        when(reservationService.reserveTicket(1L, params.email(), 2))
                 .thenReturn(testReservation);
         
         // When & Then - 予約が正常に完了すること
         mockMvc.perform(post("/reserve")
-                .param("eventId", "1")
-                .param("email", "test@example.com")
-                .param("quantity", "2"))
+                .param("eventId", params.eventId())
+                .param("email", params.email())
+                .param("quantity", params.quantity()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/confirmation/ABC12345"))
                 .andExpect(flash().attribute("message", containsString("予約が完了しました")));
         
-        verify(reservationService).reserveTicket(1L, "test@example.com", 2);
+        verify(reservationService).reserveTicket(1L, params.email(), 2);
     }
     
     @Test

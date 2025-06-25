@@ -21,6 +21,24 @@ import com.example.ticketreservation.model.Event;
 @ActiveProfiles("test")
 public class EventRepositoryTest {
 
+    /**
+     * テスト用イベントデータレコード
+     */
+    record TestEventInfo(String name, String description, String venue, String category, Integer seats, Double price) {
+        static final TestEventInfo CONCERT = new TestEventInfo(
+            "テストコンサート1", "テスト用音楽イベント", "東京ドーム", "音楽", 100, 5000.0
+        );
+        static final TestEventInfo BASEBALL = new TestEventInfo(
+            "テスト野球試合", "テスト用スポーツイベント", "東京ドーム", "スポーツ", 200, 3000.0
+        );
+        static final TestEventInfo PAST_EVENT = new TestEventInfo(
+            "過去のイベント", "過去のテストイベント", "過去会場", "過去", 50, 2000.0
+        );
+        static final TestEventInfo SOLD_OUT = new TestEventInfo(
+            "売り切れイベント", "売り切れテストイベント", "満席会場", "満席", 0, 8000.0
+        );
+    }
+
     @Autowired
     private TestEntityManager entityManager;
 
